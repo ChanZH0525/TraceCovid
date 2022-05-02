@@ -10,6 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TraceCovid">
         <activity
+            android:name=".FAQ"
+            android:exported="false" />
+        <activity
+            android:name=".checkinhistory"
+            android:exported="false" />
+        <activity
+            android:name=".selfreport"
+            android:exported="false" />
+        <activity
+            android:name=".riskAssessment"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
