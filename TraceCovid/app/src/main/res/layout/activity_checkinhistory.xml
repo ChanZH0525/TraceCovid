@@ -8,10 +8,20 @@
     tools:context=".checkinhistory">
 
     <ImageView
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="624dp"
+        android:src="@drawable/img"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
         android:id="@+id/backbtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="361dp"
         android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,18 +30,19 @@
         app:tint="@color/white" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="66dp"
-        android:layout_marginTop="322dp"
         android:layout_marginEnd="67dp"
-        android:layout_marginBottom="356dp"
+        android:layout_marginBottom="660dp"
         android:text="check in history"
         android:textSize="40dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
