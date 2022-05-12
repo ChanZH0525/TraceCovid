@@ -14,9 +14,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu"
-        app:itemIconTint="#45C3C1"
-        app:itemTextColor="#45C3C1"
-        app:itemRippleColor="#007870"
+        app:itemIconTint="@color/main_green"
+        app:itemTextColor="@color/main_green"
+        app:itemRippleColor="@color/dark_green"
         android:background="@color/white"/>
     <FrameLayout
         android:layout_width="match_parent"
