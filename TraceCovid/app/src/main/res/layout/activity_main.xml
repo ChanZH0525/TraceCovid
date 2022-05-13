@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu"
+        app:menu="@menu/bottom_nav_menu"
         app:itemIconTint="@color/main_green"
         app:itemTextColor="@color/main_green"
         app:itemRippleColor="@color/dark_green"

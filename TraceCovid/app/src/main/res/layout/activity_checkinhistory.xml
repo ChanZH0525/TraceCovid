@@ -29,20 +29,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/white" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btmNav"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginBottom="660dp"
-        android:text="check in history"
-        android:textSize="40dp"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:itemIconTint="@drawable/tab_color"
+        app:itemTextColor="@drawable/tab_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
