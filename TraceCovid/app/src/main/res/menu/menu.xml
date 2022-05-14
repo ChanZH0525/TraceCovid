@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homepage"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Home"
+    />
+    <item
+        android:id="@+id/checkin"
+        android:icon="@drawable/ic_baseline_qr_code_scanner_24"
+        android:title="Check in"
+        />
+    <item
+        android:id="@+id/Hotspot"
+        android:icon="@drawable/ic_baseline_location_on_24"
+        android:title="Hotspot"
+        />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Profile"
+        />
+
+</menu>
