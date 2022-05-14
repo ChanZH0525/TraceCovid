@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
     val navlistener =BottomNavigationView.OnNavigationItemReselectedListener {
         when(it.itemId)
         {
-            R.id.homepage->fragment=homepageFragment()
-            R.id.checkin->fragment=checkinFragment()
-            R.id.Hotspot->fragment=hotspotFragment()
+            R.id.home->fragment=homepageFragment()
+            R.id.checkIn->fragment=checkinFragment()
+            R.id.hotspot->fragment=hotspotFragment()
             R.id.profile->fragment=profileFragment()
 
         }
