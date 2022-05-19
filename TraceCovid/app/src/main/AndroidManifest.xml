@@ -11,6 +11,9 @@
         android:theme="@style/Theme.TraceCovid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".login"
+            android:exported="false" />
+        <activity
             android:name=".infoPageTwo"
             android:exported="false" />
         <activity

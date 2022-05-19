@@ -11,4 +11,5 @@
         <item>Kip Mall</item>
         <item>ERL Salak Tinggi</item>
     </string-array>
+    <string name="underlineFgtPwd"><u>Forgot Password?</u></string>
 </resources>
