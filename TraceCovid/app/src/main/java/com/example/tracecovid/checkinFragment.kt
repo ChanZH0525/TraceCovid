@@ -21,7 +21,7 @@ class checkinFragment : Fragment() {
         val checkinhist_btn:Button= view.findViewById(R.id.checkinhist_btn)
         checkinhist_btn.setOnClickListener{
             requireActivity().run {
-                startActivity(Intent(view.context, checkinhistory::class.java))
+                startActivity(Intent(view.context, checkinhistory_activity::class.java))
                 finish() // If activity no more needed in back stack
             }
         }

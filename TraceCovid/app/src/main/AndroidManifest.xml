@@ -26,7 +26,7 @@
             android:name=".FAQ"
             android:exported="false" />
         <activity
-            android:name=".checkinhistory"
+            android:name=".checkinhistory_activity"
             android:exported="false" />
         <activity
             android:name=".selfreport"

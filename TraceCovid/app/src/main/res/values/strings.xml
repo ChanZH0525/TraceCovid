@@ -5,4 +5,10 @@
     <string name="info1">The Malaysian government has planned to produce COVID-19 vaccine through multiple agencies and companies in order to vaccinate at least 80% of population.</string>
     <string name="info2">The vaccine will be provided for free to all citizens and non-citizens Malaysia.</string>
     <string name="info3">Click to know more about LINDUNG DIRI, LINDUNG SEMUA Programme and COVID-19 vaccination.</string>
+    <string-array name="checkinlocations">
+        <item>XMUM Malaysia campus</item>
+        <item>McDonald</item>
+        <item>Kip Mall</item>
+        <item>ERL Salak Tinggi</item>
+    </string-array>
 </resources>
