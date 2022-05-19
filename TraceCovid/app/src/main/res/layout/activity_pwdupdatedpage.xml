@@ -15,7 +15,7 @@
         android:layout_marginBottom="2dp"
         android:layout_marginHorizontal="15dp"
         android:gravity="center"
-        android:background="@drawable/Updated" />
+        android:background="@drawable/updated" />
 
     <TextView
         android:id="@+id/textView1"

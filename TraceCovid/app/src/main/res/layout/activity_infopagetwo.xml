@@ -108,7 +108,7 @@
                     android:layout_marginHorizontal="1dp"
                     android:contentDescription="ThingsToKnow1"
                     android:gravity="center"
-                    app:srcCompat="@drawable/InfoImg1" />
+                    app:srcCompat="@drawable/infoimg1" />
 
             </LinearLayout>
 
@@ -129,7 +129,7 @@
                     android:layout_marginHorizontal="1dp"
                     android:gravity="center"
                     android:contentDescription="ThingsToKnow2"
-                    app:srcCompat="@drawable/infoImg2" />
+                    app:srcCompat="@drawable/infoimg2" />
 
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                     android:layout_marginHorizontal="1dp"
                     android:gravity="center"
                     android:contentDescription="ThingsToKnow3"
-                    app:srcCompat="@drawable/InfoImg3" />
+                    app:srcCompat="@drawable/infoimg3" />
 
             </LinearLayout>
 

@@ -97,7 +97,7 @@
             android:layout_marginHorizontal="1dp"
             android:gravity="center"
             android:contentDescription="VaccineProgramme"
-            app:srcCompat="@drawable/VaccineProgramme" />
+            app:srcCompat="@drawable/vaccineprogramme" />
 
         <TextView
             android:id="@+id/textView1"
