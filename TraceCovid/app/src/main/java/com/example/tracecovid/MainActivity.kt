@@ -7,6 +7,8 @@ import android.os.Handler
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -19,24 +21,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,homepageFragment()).commit()
+        val navController=this.findNavController(R.id.nav_host_fragment_activity_main)
+        val navView:BottomNavigationView=findViewById(R.id.bottom_nav_view)
 
-        var bottom_navigation:BottomNavigationView =findViewById(R.id.bottom_navigation)
-        bottom_navigation.setOnNavigationItemReselectedListener(navlistener)
+        navView.setupWithNavController(navController)
 
-
-    }
-    val navlistener =BottomNavigationView.OnNavigationItemReselectedListener {
-        when(it.itemId)
-        {
-            R.id.home->fragment=homepageFragment()
-            R.id.checkIn->fragment=checkinFragment()
-            R.id.hotspot->fragment=hotspotFragment()
-            R.id.profile->fragment=profileFragment()
-
-        }
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,fragment).commit()
-        true
     }
 
 }
