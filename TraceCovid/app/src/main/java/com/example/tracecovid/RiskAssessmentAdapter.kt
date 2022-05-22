@@ -13,8 +13,8 @@ class RiskAssessmentAdapter (var questionnaire:ArrayList<RiskAssessmentClass>):
 {
     class RiskAssessmentViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
         val questionname = itemView.findViewById<TextView>(R.id.riskassementQuestion)
-        val radioyes=itemView.findViewById<RadioButton>(R.id.radio_yes)
-        val radiono=itemView.findViewById<RadioButton>(R.id.radio_no)
+     //   val radioyes=itemView.findViewById<RadioButton>(R.id.radio_yes)
+       // val radiono=itemView.findViewById<RadioButton>(R.id.radio_no)
 
         fun bind(ques: RiskAssessmentClass)
         {

@@ -18,12 +18,10 @@ class riskAssessment : AppCompatActivity() {
             finish()
         }
         var questionnaire: ArrayList<RiskAssessmentClass> = arrayListOf(
-            RiskAssessmentClass("Testing 1,2,3"),
-            RiskAssessmentClass("Testing2 1,2,3"),
-            RiskAssessmentClass("Testing 1,2,3"),
-            RiskAssessmentClass("Testing 1,2,3"),
-            RiskAssessmentClass("Testing 1,2,3"),
-            RiskAssessmentClass("Testing 1,2,3"),
+            RiskAssessmentClass("Do you have the following symptoms?\n - Fever \n - Cough \n - Sore Throat \n Diarrhea \n Fatigue \n Body Ache"),
+            RiskAssessmentClass("Have you attended any event/area associated with a known Covid-19 cluster?"),
+            RiskAssessmentClass("Have you travelled abroad in the last 14 days?"),
+            RiskAssessmentClass("Have you had close contact with any suspected/confirmed cases of Covid-19 in the last 14 days?"),
 
         )
         val recyclerview : RecyclerView= findViewById<RecyclerView>(R.id.riskassess_recyclerview)
