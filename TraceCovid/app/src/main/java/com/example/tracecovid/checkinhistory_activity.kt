@@ -15,6 +15,11 @@ class checkinhistory_activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkinhistory)
         val backbtn: ImageView = findViewById(R.id.backbtn)
+
+        backbtn.setOnClickListener{
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
         var locations: ArrayList<CheckInHistory> = arrayListOf(
             CheckInHistory(
                 "XMUM Malaysia campus",
