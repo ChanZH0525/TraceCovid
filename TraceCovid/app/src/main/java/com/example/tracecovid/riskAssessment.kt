@@ -19,7 +19,12 @@ class riskAssessment : AppCompatActivity() {
         }
         var questionnaire: ArrayList<RiskAssessmentClass> = arrayListOf(
             RiskAssessmentClass("Testing 1,2,3"),
-            RiskAssessmentClass("Testing2 1,2,3")
+            RiskAssessmentClass("Testing2 1,2,3"),
+            RiskAssessmentClass("Testing 1,2,3"),
+            RiskAssessmentClass("Testing 1,2,3"),
+            RiskAssessmentClass("Testing 1,2,3"),
+            RiskAssessmentClass("Testing 1,2,3"),
+
         )
         val recyclerview : RecyclerView= findViewById<RecyclerView>(R.id.riskassess_recyclerview)
         recyclerview.layoutManager = LinearLayoutManager(
