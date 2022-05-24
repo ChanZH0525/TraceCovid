@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".starterPage">
+    tools:context=".StarterPage">
 
     <ImageView
         android:id="@+id/logo"
@@ -19,7 +19,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.255"
-        app:srcCompat="@drawable/roundicon" />
+        app:srcCompat="@drawable/round_icon" />
 
     <Button
         android:id="@+id/startBtn"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginStart="30dp"
-            android:fontFamily="@font/robotobold"
+            android:fontFamily="@font/roboto_bold"
             android:text="Already have an account?"
             android:textColor="@color/black"
             android:textSize="14dp"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/robotobold"
+            android:fontFamily="@font/roboto_bold"
             android:text="Log In"
             android:textAlignment="viewStart"
             android:textAllCaps="false"

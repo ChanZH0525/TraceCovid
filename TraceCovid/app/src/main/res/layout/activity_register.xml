@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".register">
+    tools:context=".Register">
 
     <FrameLayout
         android:id="@+id/headerFrame"
@@ -34,7 +34,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/RoundIcon" />
+        android:background="@drawable/round_icon" />
 
     <TextView
         android:id="@+id/textView1"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/robotoBold"
+        android:fontFamily="@font/roboto_bold"
         android:text="Registration"
         android:textColor="@color/black"
         android:textSize="24dp"

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 
 
-class homepageFragment : Fragment() {
+class HomePageFragment : Fragment() {
 
 
 
@@ -23,13 +23,13 @@ class homepageFragment : Fragment() {
 
         riskass_btn.setOnClickListener {
             requireActivity().run {
-                startActivity(Intent(view.context, riskAssessment::class.java))
+                startActivity(Intent(view.context, RiskAssessment::class.java))
                 finish()
             }
         }
         selfreport_btn.setOnClickListener {
             requireActivity().run {
-                startActivity(Intent(view.context, selfreport::class.java))
+                startActivity(Intent(view.context, SelfReport::class.java))
                 finish()
             }
         }

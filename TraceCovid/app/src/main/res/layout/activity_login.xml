@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".login">
+    tools:context=".Login">
 
     <ImageView
         android:id="@+id/icon"
@@ -16,7 +16,7 @@
         android:layout_marginTop="90dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/roundicon" />
+        android:background="@drawable/round_icon" />
 
     <TextView
         android:id="@+id/textView1"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/robotobold"
+        android:fontFamily="@font/roboto_bold"
         android:text="Sign in to your account"
         android:textColor="@color/black"
         android:textSize="14dp"
@@ -102,7 +102,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/robotobold"
+                android:fontFamily="@font/roboto_bold"
                 android:text="@string/underlineFgtPwd"
                 android:textAllCaps="false"
                 android:textColor="@color/main_green"

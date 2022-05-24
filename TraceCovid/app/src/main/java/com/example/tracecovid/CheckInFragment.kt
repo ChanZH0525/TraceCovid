@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 
 
-class checkinFragment : Fragment() {
+class CheckInFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,7 +21,7 @@ class checkinFragment : Fragment() {
         val checkinhist_btn:Button= view.findViewById(R.id.checkinhist_btn)
         checkinhist_btn.setOnClickListener{
             requireActivity().run {
-                startActivity(Intent(view.context, checkinhistory_activity::class.java))
+                startActivity(Intent(view.context, CheckInHistoryActivity::class.java))
                 finish() // If activity no more needed in back stack
             }
         }

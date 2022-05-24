@@ -8,7 +8,7 @@ import android.widget.RadioButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class riskAssessment : AppCompatActivity() {
+class RiskAssessment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_risk_assessment)

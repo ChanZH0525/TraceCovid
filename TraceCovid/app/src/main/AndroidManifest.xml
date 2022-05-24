@@ -11,13 +11,13 @@
         android:theme="@style/Theme.TraceCovid"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".forgotPwd"
+            android:name=".ForgotPwd"
             android:exported="false" />
         <activity
-            android:name=".register"
+            android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".login"
+            android:name=".Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,28 +26,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".infoPageTwo"
+            android:name=".InfoPageTwo"
             android:exported="false" />
         <activity
-            android:name=".infoPageOne"
+            android:name=".InfoPageOne"
             android:exported="false" />
         <activity
-            android:name=".pwdUpdatedPage"
+            android:name=".PwdUpdatedPage"
             android:exported="false" />
         <activity
-            android:name=".starterPage"
+            android:name=".StarterPage"
             android:exported="false" />
         <activity
             android:name=".FAQ"
             android:exported="false" />
         <activity
-            android:name=".checkinhistory_activity"
+            android:name=".CheckInHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".selfreport"
+            android:name=".SelfReport"
             android:exported="false" />
         <activity
-            android:name=".riskAssessment"
+            android:name=".RiskAssessment"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

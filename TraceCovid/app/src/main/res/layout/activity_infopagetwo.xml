@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/light_turqoise"
-    tools:context=".infoPageTwo">
+    tools:context=".InfoPageTwo">
 
     <FrameLayout
         android:id="@+id/headerFrame"
@@ -31,7 +31,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
-            android:fontFamily="@font/robotobold"
+            android:fontFamily="@font/roboto_bold"
             android:text="Covid-19 Info"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -108,7 +108,7 @@
                     android:layout_marginHorizontal="1dp"
                     android:contentDescription="ThingsToKnow1"
                     android:gravity="center"
-                    app:srcCompat="@drawable/infoimg1" />
+                    app:srcCompat="@drawable/info_img1" />
 
             </LinearLayout>
 
@@ -129,7 +129,7 @@
                     android:layout_marginHorizontal="1dp"
                     android:gravity="center"
                     android:contentDescription="ThingsToKnow2"
-                    app:srcCompat="@drawable/infoimg2" />
+                    app:srcCompat="@drawable/info_img2" />
 
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                     android:layout_marginHorizontal="1dp"
                     android:gravity="center"
                     android:contentDescription="ThingsToKnow3"
-                    app:srcCompat="@drawable/infoimg3" />
+                    app:srcCompat="@drawable/info_img3" />
 
             </LinearLayout>
 
