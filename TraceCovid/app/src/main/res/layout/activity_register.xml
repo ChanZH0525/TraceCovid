@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".register">
+
+    <FrameLayout
+        android:id="@+id/headerFrame"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="38dp"
+            android:layout_marginHorizontal="10dp"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
+            app:tint="@color/main_green" />
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/RoundIcon" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/robotoBold"
+        android:text="Registration"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headerFrame"
+        android:layout_marginTop="1dp"
+        android:scrollbarStyle="insideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginHorizontal="50dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Enter Phone Number"
+                android:textColorHint="@color/main_green"
+                app:boxBackgroundColor="@color/light_turqoise"
+                app:boxStrokeColor="@color/main_green"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/main_green"
+                app:helperText="Must Use Malaysia Phone Number"
+                app:helperTextEnabled="true"
+                app:prefixText="601"
+                app:startIconDrawable="@drawable/ic_baseline_phone_24"
+                app:startIconTint="@color/main_green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="text|phone"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Enter Username"
+                android:textColorHint="@color/main_green"
+                app:boxBackgroundColor="@color/light_turqoise"
+                app:boxStrokeColor="@color/main_green"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/main_green"
+                app:helperText=" "
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_person_24"
+                app:startIconTint="@color/main_green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nationality"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:textColorHint="@color/main_green"
+                app:boxBackgroundColor="@color/light_turqoise"
+                app:boxStrokeColor="@color/main_green"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+                app:endIconTint="@color/main_green"
+                app:helperText="Your Nationality"
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_public_24"
+                app:startIconTint="@color/main_green">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:hint="Select Country"
+                    android:inputType="none"
+                    android:textColor="@color/black" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Enter IC/Passport Number"
+                android:textColorHint="@color/main_green"
+                app:boxBackgroundColor="@color/light_turqoise"
+                app:boxStrokeColor="@color/main_green"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/main_green"
+                app:helperText="e.g. xxxxxxxxxxxx. Pls do not include '-'"
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_numbers_24"
+                app:startIconTint="@color/main_green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/state"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:textColorHint="@color/main_green"
+                app:boxBackgroundColor="@color/light_turqoise"
+                app:boxStrokeColor="@color/main_green"
+                app:boxStrokeWidthFocused="2dp"
+                app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+                app:endIconTint="@color/main_green"
+                app:helperText="Your Current Residential State"
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_add_location_24"
+                app:startIconTint="@color/main_green">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto"
+                    android:hint="Select State"
+                    android:inputType="none"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Enter Password"
+                android:textColorHint="@color/main_green"
+                app:boxBackgroundColor="@color/light_turqoise"
+                app:boxStrokeColor="@color/main_green"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterEnabled="true"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/main_green"
+                app:helperText="Minimum 8 digits"
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_lock_24"
+                app:startIconTint="@color/main_green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirmpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:hint="Confirm Your Password"
+                android:textColorHint="@color/main_green"
+                app:boxBackgroundColor="@color/light_turqoise"
+                app:boxStrokeColor="@color/main_green"
+                app:boxStrokeWidthFocused="2dp"
+                app:counterEnabled="true"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/main_green"
+                app:helperText=" "
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_password_24"
+                app:startIconTint="@color/main_green">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:inputType="textPassword"
+                    android:textColor="@color/black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/signupBtn"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/bg_button"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="Sign Up"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
