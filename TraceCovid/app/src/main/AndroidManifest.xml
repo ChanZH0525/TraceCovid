@@ -11,6 +11,9 @@
         android:theme="@style/Theme.TraceCovid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".forgotPwd"
+            android:exported="false" />
+        <activity
             android:name=".register"
             android:exported="false" />
         <activity
