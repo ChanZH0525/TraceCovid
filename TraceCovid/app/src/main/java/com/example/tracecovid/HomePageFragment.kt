@@ -6,28 +6,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.LinearLayout
 
 
 class HomePageFragment : Fragment() {
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_homepage, container, false)
-        val riskass_btn: Button= view.findViewById(R.id.riskass_btn)
-        val selfreport_btn: Button= view.findViewById(R.id.selfreport_btn)
 
-        riskass_btn.setOnClickListener {
+//      Home Fab handle
+        val btnRiskAssessment: LinearLayout = view.findViewById(R.id.btn_risk_asess)
+        val btnFAQ: LinearLayout = view.findViewById(R.id.btn_faq)
+        val btnInfo: LinearLayout = view.findViewById(R.id.btn_info)
+        val btnSelfReport: LinearLayout = view.findViewById(R.id.btn_self_report)
+
+        btnRiskAssessment.setOnClickListener {
             requireActivity().run {
                 startActivity(Intent(view.context, RiskAssessment::class.java))
                 finish()
             }
         }
-        selfreport_btn.setOnClickListener {
+
+        btnFAQ.setOnClickListener{
+            requireActivity().run{
+                startActivity(Intent(view.context, FAQ::class.java))
+            }
+        }
+
+        btnInfo.setOnClickListener{
+            requireActivity().run{
+                startActivity(Intent(view.context, InfoPageOne::class.java))
+            }
+        }
+
+        btnSelfReport.setOnClickListener {
             requireActivity().run {
                 startActivity(Intent(view.context, SelfReport::class.java))
                 finish()
