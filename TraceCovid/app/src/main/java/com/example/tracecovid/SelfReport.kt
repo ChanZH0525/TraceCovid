@@ -12,7 +12,7 @@ class SelfReport : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selfreport)
 
-        val back_btn: ImageView = findViewById(R.id.backbtn)
+        val back_btn: ImageView = findViewById(R.id.btn_back_check_in)
         back_btn.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
             finish()

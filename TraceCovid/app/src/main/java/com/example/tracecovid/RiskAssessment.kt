@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.RadioButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -12,7 +11,7 @@ class RiskAssessment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_risk_assessment)
-        val back_btn: ImageView = findViewById(R.id.backbtn)
+        val back_btn: ImageView = findViewById(R.id.btn_back_check_in)
         back_btn.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
             finish()

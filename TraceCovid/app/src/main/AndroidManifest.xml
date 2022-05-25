@@ -41,9 +41,6 @@
             android:name=".FAQ"
             android:exported="false" />
         <activity
-            android:name=".CheckInHistoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".SelfReport"
             android:exported="false" />
         <activity

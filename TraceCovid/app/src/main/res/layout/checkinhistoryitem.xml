@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
+    app:cardElevation="4dp"
     app:cardMaxElevation="5dp"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true">
-    <RelativeLayout
+    android:layout_marginHorizontal="3dp"
+    android:layout_marginVertical="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/tv_location_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:fontFamily="@font/roboto_bold"
             android:text="XMUM Malaysia Campus"
-            android:textSize="18sp" />
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/checkin_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_location_name"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:text="12:00:00 PM"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintStart_toEndOf="@+id/checkin_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_location_name" />
 
         <TextView
             android:id="@+id/checkin_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_location_name"
-            android:layout_marginTop="10dp"
-            android:text="09/05/2022" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/checkin_time"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="50dp"
-            android:layout_below="@id/tv_location_name"
-            android:layout_toRightOf="@id/checkin_date"
-            android:text="12:00:00"/>
-    </RelativeLayout>
+            android:layout_marginTop="4dp"
+            android:text="09/05/2022"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintStart_toStartOf="@+id/tv_location_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_location_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.cardview.widget.CardView>

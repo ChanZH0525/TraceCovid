@@ -33,12 +33,14 @@ class HomePageFragment : Fragment() {
         btnFAQ.setOnClickListener{
             requireActivity().run{
                 startActivity(Intent(view.context, FAQ::class.java))
+                finish()
             }
         }
 
         btnInfo.setOnClickListener{
             requireActivity().run{
                 startActivity(Intent(view.context, InfoPageOne::class.java))
+                finish()
             }
         }
 

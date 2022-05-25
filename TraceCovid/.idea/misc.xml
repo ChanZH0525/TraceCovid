@@ -8,13 +8,19 @@
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/drawable/fab_home_background.xml" value="0.201" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/drawable/ic_baseline_add_location_24.xml" value="0.201" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.136" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/drawable/ic_coronavirus.xml" value="0.162" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/drawable/ic_covid_19_self_report.xml" value="0.136" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/drawable/ic_ic.xml" value="0.136" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/drawable/profile_divider.xml" value="0.201" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/drawable/status_background.xml" value="0.162" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/activity_checkinhistory.xml" value="0.33" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/activity_forgotpwd.xml" value="0.1" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/activity_register.xml" value="0.1" />
-        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_checkin.xml" value="0.25416666666666665" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/activity_selfreport.xml" value="0.25" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/checkinhistoryitem.xml" value="0.5" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_all_check_in_history.xml" value="0.25" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_checkin.xml" value="0.25" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_homepage.xml" value="0.5" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
