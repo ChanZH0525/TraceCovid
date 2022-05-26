@@ -36,4 +36,5 @@
         <item>Labuan</item>
         <item>Putrajaya</item>
     </string-array>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
