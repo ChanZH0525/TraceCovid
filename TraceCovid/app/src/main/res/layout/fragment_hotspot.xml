@@ -7,16 +7,61 @@
     android:orientation="vertical"
     tools:context=".HotspotFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/hotspottxt"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_upper"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/bottom_round_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/home_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="Hotspot Tracker"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="hotspot"
-        android:textSize="40sp"
+        android:layout_marginTop="56dp"
+        android:hint="Enter your location here"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.279"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_upper" />
+
+    <ImageView
+        android:layout_width="29dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="59dp"
+        android:id="@+id/search_loc"
+        android:src="@drawable/ic_baseline_gps"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/home_upper" />
+
+    <TextView
+        android:id="@+id/reportedcases_txt"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="116dp"
+        android:background="@color/apple_green"
+        android:textColor="@color/white"
+        android:text="There are n number of Covid-19 postive cases within this area "
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
