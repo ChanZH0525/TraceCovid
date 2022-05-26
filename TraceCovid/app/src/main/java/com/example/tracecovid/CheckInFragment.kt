@@ -20,7 +20,7 @@ class CheckInFragment : Fragment() {
 
     ): View? {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_checkin, container, false)
+        val view = inflater.inflate(R.layout.fragment_checkin, container, false)
 //        handle for profile information
         val btnCheckInHistory: ImageView = view.findViewById(R.id.btn_check_in_history)
         val profilePicture: CircleImageView = view.findViewById(R.id.iv_profile_image_checkin)

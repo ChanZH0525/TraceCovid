@@ -132,7 +132,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:text="+6012-3456789"
                     android:textColor="@color/dark_green"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -170,7 +170,7 @@
                         android:fontFamily="@font/roboto_bold"
                         android:text="012345-67-8910"
                         android:textColor="@color/dark_green"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
         </LinearLayout>
                 <LinearLayout
@@ -208,7 +208,7 @@
                             android:fontFamily="@font/roboto_bold"
                             android:text="Selangor"
                             android:textColor="@color/dark_green"
-                            android:textSize="20sp" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
         </LinearLayout>

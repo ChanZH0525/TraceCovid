@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/edit_profile"
+        android:icon="@drawable/ic_noun_edit_profile_3194834"
+        android:iconTint="@color/dark_green"
+        android:title="Edit Profile" />
+    <item android:id="@+id/update_phone_number"
+        android:icon="@drawable/ic_phone"
+        android:iconTint="@color/dark_green"
+        android:title="Update Phone Number" />
+    <item android:id="@+id/change_password"
+        android:icon="@drawable/ic_change_password_5"
+        android:iconTint="@color/dark_green"
+        android:title="Change Password" />
+    <item android:id="@+id/company_info"
+        android:icon="@drawable/ic_company"
+        android:iconTint="@color/dark_green"
+        android:title="Our Company Info" />
+    <item android:id="@+id/logout"
+        android:icon="@drawable/ic_baseline_logout_24"
+        android:iconTint="@color/dark_green"
+        android:title="Logout" />
+</menu>

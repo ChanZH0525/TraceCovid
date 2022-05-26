@@ -151,5 +151,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/extended_fab_check_in"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_percent="0.9"
+        android:backgroundTint="@color/extended_fab_background"
+        app:iconTint="@color/extended_fab_icon"
+        android:textColor="@color/extended_fab_text"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Check-In"
+        android:text="Check-In"
+        app:icon="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
