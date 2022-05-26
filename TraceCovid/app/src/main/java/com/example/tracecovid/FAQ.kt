@@ -16,6 +16,7 @@ class FAQ : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+
         var faq: ArrayList<FAQClass> = arrayListOf(
             FAQClass(
                 "What is TraceCovid App?",

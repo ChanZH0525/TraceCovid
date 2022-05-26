@@ -11,7 +11,7 @@ class RiskAssessment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_risk_assessment)
-        val back_btn: ImageView = findViewById(R.id.btn_back_check_in)
+        val back_btn: ImageView = findViewById(R.id.btn_back_risk_assessment)
         back_btn.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
             finish()
