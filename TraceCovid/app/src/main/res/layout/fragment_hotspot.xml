@@ -30,38 +30,53 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:hint="Enter your location here"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.279"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_upper" />
 
-    <ImageView
-        android:layout_width="29dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="59dp"
-        android:id="@+id/search_loc"
-        android:src="@drawable/ic_baseline_gps"
+    <!--search view to search our location-->
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="43dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/home_upper" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idSearchView"
+        tools:context=".MapsActivity" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/idSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:background="#BFBFBF"
+        android:elevation="5dp"
+        app:iconifiedByDefault="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/home_upper"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toEndOf="@+id/home_upper"
+        app:layout_constraintTop_toBottomOf="@+id/home_upper"
+        app:layout_constraintVertical_bias="0.062"
+        app:queryHint="Search Here" />
 
     <TextView
         android:id="@+id/reportedcases_txt"
         android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
-        android:background="@color/apple_green"
-        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:background="@color/red"
         android:text="There are n number of Covid-19 postive cases within this area "
+        android:textColor="@color/white"
         android:textSize="24sp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

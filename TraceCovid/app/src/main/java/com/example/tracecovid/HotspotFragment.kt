@@ -18,15 +18,7 @@ class HotspotFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_hotspot, container, false)
-        val searchbtn: ImageView = view.findViewById(R.id.search_loc)
 
-        searchbtn.setOnClickListener {
-            requireActivity().run {
-                startActivity(Intent(view.context, MapsActivity::class.java))
-                finish()
-            }
-
-        }
         return view
 
     }
