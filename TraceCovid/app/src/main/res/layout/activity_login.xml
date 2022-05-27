@@ -27,13 +27,13 @@
         android:fontFamily="@font/roboto_bold"
         android:text="Sign in to your account"
         android:textColor="@color/black"
-        android:textSize="14dp"
+        android:textSize="16dp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="60dp"
+        android:layout_marginHorizontal="50dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout

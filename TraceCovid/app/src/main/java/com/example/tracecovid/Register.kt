@@ -22,7 +22,7 @@ class Register : AppCompatActivity() {
         val dropdown_state = findViewById<AutoCompleteTextView>(R.id.dropdown_state)
         val states = resources.getStringArray(R.array.states)
         val arrayAdapter_state = ArrayAdapter(this, R.layout.dropdown_list, states)
-        dropdown_country.setAdapter(arrayAdapter_state)
+        dropdown_state.setAdapter(arrayAdapter_state)
     }
 
 }
