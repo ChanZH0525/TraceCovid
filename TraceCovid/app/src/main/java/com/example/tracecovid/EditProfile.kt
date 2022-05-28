@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 
 
-class EditProfile : Fragment() {
+class EditProfile : BaseFragment() {
+    override var bottomNavigationViewVisibility = View.GONE
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

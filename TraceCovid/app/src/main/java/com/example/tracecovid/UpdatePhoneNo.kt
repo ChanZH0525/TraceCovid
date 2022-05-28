@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 
 
-class UpdatePhoneNo : Fragment() {
+class UpdatePhoneNo : BaseFragment() {
+    override var bottomNavigationViewVisibility = View.GONE
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

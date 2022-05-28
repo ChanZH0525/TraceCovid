@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 
 
-class ChangePwd : Fragment() {
+class ChangePwd : BaseFragment() {
+    override var bottomNavigationViewVisibility = View.GONE
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

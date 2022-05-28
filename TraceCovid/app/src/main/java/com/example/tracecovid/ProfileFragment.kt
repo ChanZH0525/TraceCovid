@@ -21,7 +21,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.lang.reflect.Field
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment() {
+    override var bottomNavigationViewVisibility = View.VISIBLE
+
     private lateinit var btnSetting: ImageView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
