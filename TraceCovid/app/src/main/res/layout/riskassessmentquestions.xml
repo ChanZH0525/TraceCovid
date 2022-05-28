@@ -27,16 +27,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/riskassementQuestion">
+
             <RadioButton
                 android:id="@+id/radio_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="yes"/>
+                android:text="Yes" />
+
             <RadioButton
                 android:id="@+id/radio_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="no"/>
+                android:text="No" />
 
     </RadioGroup>
     </RelativeLayout>

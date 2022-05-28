@@ -1,7 +1,9 @@
 package com.example.tracecovid
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.InsetDrawable
 import android.os.Build
 import android.os.Bundle
@@ -41,23 +43,19 @@ class ProfileFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.edit_profile -> {
-
+                    navigateFragment(EditProfile())
                     true
                 }
                 R.id.update_phone_number -> {
-
+                    navigateFragment(UpdatePhoneNo())
                     true
                 }
                 R.id.change_password -> {
-
+                    navigateFragment(ChangePwd())
                     true
                 }
                 R.id.company_info -> {
-                    parentFragmentManager.beginTransaction()
-                        .replace(R.id.nav_host_fragment_activity_main, CompanyInfo())
-                        .addToBackStack(null)
-                        .commit()
-
+                    navigateFragment(CompanyInfo())
                     true
                 }
                 R.id.logout -> {
@@ -85,5 +83,13 @@ class ProfileFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun navigateFragment(nextFragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment_activity_main, nextFragment)
+            .addToBackStack(null)
+            .setReorderingAllowed(true)
+            .commit()
     }
 }
