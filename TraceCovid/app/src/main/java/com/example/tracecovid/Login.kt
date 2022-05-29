@@ -16,5 +16,17 @@ class Login : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+
+        val forgotPwd: Button = findViewById(R.id.forgotPwd)
+        forgotPwd.setOnClickListener {
+            startActivity(Intent(this, ForgotPwd::class.java))
+            finish()
+        }
+
+        val signUpBtn: Button = findViewById(R.id.signupBtn)
+        signUpBtn.setOnClickListener {
+            startActivity(Intent(this, Register::class.java))
+            finish()
+        }
     }
 }
