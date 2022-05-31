@@ -15,7 +15,7 @@ class Register : AppCompatActivity() {
 
         val backBtn: ImageView = findViewById(R.id.btn_back_register)
         backBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, Login::class.java))
             finish()
         }
 

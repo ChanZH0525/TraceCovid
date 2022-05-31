@@ -13,7 +13,7 @@ class ForgotPwd : AppCompatActivity() {
 
         val backBtn: ImageView = findViewById(R.id.btn_back_forgot_pwd)
         backBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, Login::class.java))
             finish()
         }
 
