@@ -47,6 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Last Week"
+        android:textColor="@color/btn_text_change"
+        android:backgroundTint="@color/btncolorchange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +61,8 @@
         android:layout_marginTop="20dp"
 
         android:text="All History"
-
+        android:backgroundTint="@color/btncolorchange"
+        android:textColor="@color/btn_text_change"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.797"
         app:layout_constraintStart_toStartOf="parent"

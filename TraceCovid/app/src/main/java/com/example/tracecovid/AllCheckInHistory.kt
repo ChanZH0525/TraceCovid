@@ -44,7 +44,8 @@ class AllCheckInHistory : Fragment() {
         }
 
         weekhistbtn.setOnClickListener {
-
+            weekhistbtn.isSelected=true
+            allhistbtn.isSelected=false
             var locations: ArrayList<CheckInHistory> = arrayListOf(
                 CheckInHistory(
                     "XMUM Malaysia campus",
@@ -68,8 +69,8 @@ class AllCheckInHistory : Fragment() {
 
 
         allhistbtn.setOnClickListener {
-
-
+            allhistbtn.isSelected=true
+            weekhistbtn.isSelected=false
             var locations2: ArrayList<CheckInHistory> = arrayListOf(
                 CheckInHistory(
                     "XMUM Malaysia campus",
