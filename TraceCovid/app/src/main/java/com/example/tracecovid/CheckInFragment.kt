@@ -1,5 +1,6 @@
 package com.example.tracecovid
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -27,6 +29,7 @@ class CheckInFragment : Fragment() {
         val username: TextView = view.findViewById(R.id.tv_username_checkin)
         val ic: TextView = view.findViewById(R.id.tv_ic_checkin)
         val riskStatus: TextView = view.findViewById(R.id.tv_risk_status)
+        val btnCheckIn: ExtendedFloatingActionButton = view.findViewById(R.id.extended_fab_check_in)
 
         var locations: ArrayList<CheckInHistory> = arrayListOf(
             CheckInHistory(
@@ -54,6 +57,11 @@ class CheckInFragment : Fragment() {
                 .replace(R.id.nav_host_fragment_activity_main, AllCheckInHistory())
                 .addToBackStack(null)
                 .commit()
+        }
+
+        btnCheckIn.setOnClickListener{
+            activity?.startActivity(Intent(context, CheckInActivity::class.java))
+            activity?.finish()
         }
         return view
     }
