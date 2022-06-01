@@ -59,8 +59,7 @@ class CheckInActivity : AppCompatActivity() {
                 startCamera()
             } else {
                 Toast.makeText(this, "Camera Permission Denied", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                requestCamera()
             }
         }
     }
