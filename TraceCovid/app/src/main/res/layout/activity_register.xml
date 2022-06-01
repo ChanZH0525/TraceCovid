@@ -14,7 +14,7 @@
 
 
         <ImageView
-            android:id="@+id/backBtn"
+            android:id="@+id/btn_back_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -157,7 +157,7 @@
                 app:boxStrokeWidthFocused="2dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/main_green"
-                app:helperText="e.g. xxxxxxxxxxxx. Pls do not include '-'"
+                app:helperText="e.g. xxxxxxxxxxxx. Do not include '-'"
                 app:helperTextEnabled="true"
                 app:startIconDrawable="@drawable/ic_baseline_numbers_24"
                 app:startIconTint="@color/main_green">

@@ -14,7 +14,7 @@
 
 
         <ImageView
-            android:id="@+id/backBtn"
+            android:id="@+id/btn_back_forgot_pwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -79,14 +79,13 @@
             app:boxStrokeColor="@color/main_green"
             app:boxStrokeWidthFocused="2dp"
             app:endIconMode="clear_text"
-            app:endIconTint="@color/main_green"
-            app:prefixText="601">
+            app:endIconTint="@color/main_green">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:inputType="text|phone"
+                android:inputType="text|number"
                 android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -142,8 +141,8 @@
             android:layout_width="220dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/bg_button"
             android:fontFamily="@font/roboto"
             android:gravity="center"

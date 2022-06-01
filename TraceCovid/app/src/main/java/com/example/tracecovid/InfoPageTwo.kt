@@ -3,6 +3,7 @@ package com.example.tracecovid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 
 class InfoPageTwo : AppCompatActivity() {
@@ -13,6 +14,12 @@ class InfoPageTwo : AppCompatActivity() {
         val backBtn: ImageView = findViewById(R.id.btn_back_info_page_2)
         backBtn.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
+        val toDoBtn: Button = findViewById(R.id.toDoBtn)
+        toDoBtn.setOnClickListener {
+            startActivity(Intent(this, InfoPageOne::class.java))
             finish()
         }
     }
