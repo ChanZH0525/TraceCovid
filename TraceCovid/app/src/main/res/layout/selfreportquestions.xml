@@ -12,22 +12,36 @@
     app:cardUseCompatPadding="true">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
         <TextView
+            android:id="@+id/self_report_question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="16dp"
             android:text="self-report"
-            android:id="@+id/self_report_question"/>
-        <EditText
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/self_report_ans"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="answer"
-            android:id="@+id/self_report_ans"
-            android:layout_below="@id/self_report_question"/>
+            android:layout_below="@id/self_report_question"
+            android:hint="Answer"
+            android:textColorHint="@color/main_green"
+            app:boxBackgroundColor="@color/light_turqoise"
+            app:boxStrokeColor="@color/main_green"
+            app:boxStrokeWidthFocused="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

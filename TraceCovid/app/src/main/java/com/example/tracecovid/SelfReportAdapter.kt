@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputLayout
 
 class SelfReportAdapter (var questionnaire2:ArrayList<SelfReportClass>):
     RecyclerView.Adapter<SelfReportAdapter.SelfReportViewHolder>(){
     class SelfReportViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
-        val question=itemView.findViewById<TextView>(R.id.self_report_question)
-        val answer=itemView.findViewById<EditText>(R.id.self_report_ans)
+        val question = itemView.findViewById<TextView>(R.id.self_report_question)
+        val answer = itemView.findViewById<TextInputLayout>(R.id.self_report_ans)
 
         fun bind(ques2: SelfReportClass)
         {

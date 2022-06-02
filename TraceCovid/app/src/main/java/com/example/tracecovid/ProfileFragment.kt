@@ -61,7 +61,8 @@ class ProfileFragment : BaseFragment() {
                     true
                 }
                 R.id.logout -> {
-
+                    activity?.startActivity(Intent(context, Login::class.java))
+                    activity?.finish()
                     true
                 }
                 else -> true
