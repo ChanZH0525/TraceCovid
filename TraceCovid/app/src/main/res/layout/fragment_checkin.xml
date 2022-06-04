@@ -164,6 +164,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="Check-In"
         android:text="Check-In"
+        android:textSize="18dp"
         app:icon="@drawable/ic_baseline_location_on_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
