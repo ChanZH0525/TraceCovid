@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto_bold"
-            android:text="Risk Assessment"
+            android:text="Covid-19 Information"
             android:textColor="@color/white"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_back_info_page_1"
