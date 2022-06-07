@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "586741674714",
+    "project_id": "tracecovid-e507a",
+    "storage_bucket": "tracecovid-e507a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586741674714:android:95745143bd10c6bbb0abe3",
+        "android_client_info": {
+          "package_name": "com.example.tracecovid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586741674714-be6oeimmnaq87ku33o6d9jnd7il9e5j2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQQAyNT4bZUO0l71qSgFURU5YqXs8KDkA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586741674714-be6oeimmnaq87ku33o6d9jnd7il9e5j2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
