@@ -25,7 +25,7 @@ class Login : AppCompatActivity() {
 
         val signUpBtn: Button = findViewById(R.id.signupBtn)
         signUpBtn.setOnClickListener {
-            startActivity(Intent(this, Register::class.java))
+            startActivity(Intent(this, PhoneNumberActivity::class.java))
             finish()
         }
     }

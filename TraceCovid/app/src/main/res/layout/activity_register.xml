@@ -63,33 +63,6 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/phoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Enter Phone Number"
-                android:textColorHint="@color/main_green"
-                app:boxBackgroundColor="@color/light_turqoise"
-                app:boxStrokeColor="@color/main_green"
-                app:boxStrokeWidthFocused="2dp"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/main_green"
-                app:helperText="Must Use Malaysia Phone Number"
-                app:helperTextEnabled="true"
-                app:prefixText="601"
-                app:startIconDrawable="@drawable/ic_baseline_phone_24"
-                app:startIconTint="@color/main_green">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
-                    android:inputType="text|phone"
-                    android:textColor="@color/black" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

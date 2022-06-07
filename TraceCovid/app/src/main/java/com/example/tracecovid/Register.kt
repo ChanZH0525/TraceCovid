@@ -3,10 +3,9 @@ package com.example.tracecovid
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.ImageView
+import android.widget.*
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class Register : AppCompatActivity() {
 
@@ -83,12 +82,20 @@ class Register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        val username:TextInputLayout=findViewById(R.id.name)
+        val nationality: TextInputLayout=findViewById(R.id.nationality)
+        val ic: TextInputLayout=findViewById(R.id.ic)
+        val state: TextInputLayout=findViewById(R.id.state)
+        val password: TextInputLayout=findViewById(R.id.password)
+        val confirmpass:TextInputLayout=findViewById(R.id.confirmpassword)
+
 
         val backBtn: ImageView = findViewById(R.id.btn_back_register)
         backBtn.setOnClickListener {
             startActivity(Intent(this, Login::class.java))
             finish()
         }
+
 
         val signUpBtn: Button = findViewById(R.id.signupBtn)
         signUpBtn.setOnClickListener {

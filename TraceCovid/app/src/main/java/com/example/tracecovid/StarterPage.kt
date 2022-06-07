@@ -12,7 +12,7 @@ class StarterPage : AppCompatActivity() {
 
         val startBtn: Button = findViewById(R.id.startBtn)
         startBtn.setOnClickListener {
-            startActivity(Intent(this, Register::class.java))
+            startActivity(Intent(this, PhoneNumberActivity::class.java))
             finish()
         }
 
