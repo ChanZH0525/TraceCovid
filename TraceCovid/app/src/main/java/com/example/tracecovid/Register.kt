@@ -1,13 +1,28 @@
 package com.example.tracecovid
 
+import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.*
-import com.google.android.material.textfield.TextInputEditText
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import com.example.tracecovid.databinding.ActivityRegisterBinding
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 
 class Register : AppCompatActivity() {
+
+    private lateinit var binding: ActivityRegisterBinding
+    private lateinit var actionBar: ActionBar
+    private lateinit var progressDialog: ProgressDialog
+    private lateinit var auth:FirebaseAuth
+
+    private var username:String=""
+    private var password:String=""
+    private var repassword:String=""
+
+
 
     private val countries = arrayOf("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
 
@@ -81,7 +96,24 @@ class Register : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding= ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+       // actionBar=supportActionBar!!
+       // actionBar.title="Register"
+       // actionBar.setDisplayHomeAsUpEnabled(true)
+       // actionBar.setDisplayShowHomeEnabled(true)
+
+        progressDialog= ProgressDialog(this)
+        progressDialog.setTitle("Please Wait")
+        progressDialog.setMessage("Signing Up")
+        progressDialog.setCanceledOnTouchOutside(false)
+
+        auth= FirebaseAuth.getInstance()
+        binding.signupBtn.setOnClickListener{
+            validatedata()
+        }
+
         val username:TextInputLayout=findViewById(R.id.name)
         val nationality: TextInputLayout=findViewById(R.id.nationality)
         val ic: TextInputLayout=findViewById(R.id.ic)
@@ -90,20 +122,58 @@ class Register : AppCompatActivity() {
         val confirmpass:TextInputLayout=findViewById(R.id.confirmpassword)
 
 
+
+
         val backBtn: ImageView = findViewById(R.id.btn_back_register)
         backBtn.setOnClickListener {
             startActivity(Intent(this, Login::class.java))
             finish()
         }
 
+     //   val signUpBtn: Button = findViewById(R.id.signupBtn)
+       // signUpBtn.setOnClickListener{
 
-        val signUpBtn: Button = findViewById(R.id.signupBtn)
-        signUpBtn.setOnClickListener {
-            startActivity(Intent(this, Login::class.java))
-            finish()
-        }
+
+      //  }
+
     }
 
+    private fun validatedata() {
+        //still need ic, state, nationality
+        username=binding.name.toString().trim()
+        password=binding.password.toString().trim()
+        repassword=binding.confirmpassword.toString().trim()
+      //  if(password!=repassword)
+        //{
+          //  binding.password.setError("password does not match")
+        //}
+         if (TextUtils.isEmpty(password))
+        {
+            binding.password.setError("no password entered")
+        }
+        else if (password.length<6)
+        {
+            binding.password.setError("minimum 6 characters for password")
+        }
+        else
+        {
+            progressDialog.show()
+            auth.createUserWithEmailAndPassword(username,password)
+                .addOnSuccessListener {
+                    progressDialog.dismiss()
+                    val firebaseUser=auth.currentUser
+                 //   val username=firebaseUser!!.phoneNumber
+                    Toast.makeText(this,"Register Success",Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+
+            }.addOnFailureListener{
+                    progressDialog.dismiss()
+                    Toast.makeText(this,"Register Failed",Toast.LENGTH_SHORT).show()
+                }
+        }
+
+    }
 
     override fun onResume(){
         super.onResume()
@@ -118,5 +188,9 @@ class Register : AppCompatActivity() {
         val arrayAdapter_state = ArrayAdapter(this, R.layout.dropdown_list, states)
         dropdown_state.setAdapter(arrayAdapter_state)
     }
+
+
+
+
 
 }

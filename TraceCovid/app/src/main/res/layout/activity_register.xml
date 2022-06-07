@@ -79,6 +79,7 @@
                 app:startIconDrawable="@drawable/ic_baseline_person_24"
                 app:startIconTint="@color/main_green">
 
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,6 +135,7 @@
                 app:helperTextEnabled="true"
                 app:startIconDrawable="@drawable/ic_baseline_numbers_24"
                 app:startIconTint="@color/main_green">
+
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -218,6 +220,7 @@
                 app:helperTextEnabled="true"
                 app:startIconDrawable="@drawable/ic_baseline_password_24"
                 app:startIconTint="@color/main_green">
+
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
