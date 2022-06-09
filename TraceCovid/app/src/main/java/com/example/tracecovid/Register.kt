@@ -14,16 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 class Register : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var actionBar: ActionBar
-    private lateinit var progressDialog: ProgressDialog
-    private lateinit var auth:FirebaseAuth
-
-    private var username:String=""
-    private var password:String=""
-    private var repassword:String=""
-
-
-
+    private lateinit var firebaseAuth: FirebaseAuth
     private val countries = arrayOf("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
 
         "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria",
@@ -98,20 +89,37 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding= ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        firebaseAuth= FirebaseAuth.getInstance()
 
-       // actionBar=supportActionBar!!
-       // actionBar.title="Register"
-       // actionBar.setDisplayHomeAsUpEnabled(true)
-       // actionBar.setDisplayShowHomeEnabled(true)
-
-        progressDialog= ProgressDialog(this)
-        progressDialog.setTitle("Please Wait")
-        progressDialog.setMessage("Signing Up")
-        progressDialog.setCanceledOnTouchOutside(false)
-
-        auth= FirebaseAuth.getInstance()
         binding.signupBtn.setOnClickListener{
-            validatedata()
+            val email=binding.regemail.text.toString()
+            val pwd=binding.regpwd.text.toString()
+            val pwd2=binding.regpwd2.text.toString()
+
+            if(email.isNotEmpty()&&pwd.isNotEmpty()&&pwd2.isNotEmpty())
+            {
+                if(pwd==pwd2){
+                    firebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener{
+                        if(it.isSuccessful)
+                        {
+                            startActivity(Intent(this, Login::class.java))
+                            finish()
+                        }
+                        else{
+                            Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }else
+                {
+                    Toast.makeText(this,"Password does not match",Toast.LENGTH_SHORT).show()
+                }
+            }
+            else
+            {
+                Toast.makeText(this,"Fill in all details",Toast.LENGTH_SHORT).show()
+            }
+
+
         }
 
         val username:TextInputLayout=findViewById(R.id.name)
@@ -138,42 +146,9 @@ class Register : AppCompatActivity() {
 
     }
 
-    private fun validatedata() {
-        //still need ic, state, nationality
-        username=binding.name.toString().trim()
-        password=binding.password.toString().trim()
-        repassword=binding.confirmpassword.toString().trim()
-      //  if(password!=repassword)
-        //{
-          //  binding.password.setError("password does not match")
-        //}
-         if (TextUtils.isEmpty(password))
-        {
-            binding.password.setError("no password entered")
-        }
-        else if (password.length<6)
-        {
-            binding.password.setError("minimum 6 characters for password")
-        }
-        else
-        {
-            progressDialog.show()
-            auth.createUserWithEmailAndPassword(username,password)
-                .addOnSuccessListener {
-                    progressDialog.dismiss()
-                    val firebaseUser=auth.currentUser
-                 //   val username=firebaseUser!!.phoneNumber
-                    Toast.makeText(this,"Register Success",Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
 
-            }.addOnFailureListener{
-                    progressDialog.dismiss()
-                    Toast.makeText(this,"Register Failed",Toast.LENGTH_SHORT).show()
-                }
-        }
 
-    }
+
 
     override fun onResume(){
         super.onResume()

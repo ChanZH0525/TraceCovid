@@ -15,76 +15,42 @@ import java.util.regex.Pattern
 
 class Login : AppCompatActivity() {
     private lateinit var binding:ActivityLoginBinding
-    private lateinit var actionBar:ActionBar
-    private lateinit var progressDialog:ProgressDialog
-    private lateinit var auth:FirebaseAuth
-    private var phonenumber:String=""
-    private var password:String=""
-
+    private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        firebaseAuth= FirebaseAuth.getInstance()
 
-      //  actionBar=supportActionBar!!
-      //  actionBar.title="Login"
-        progressDialog= ProgressDialog(this)
-        progressDialog.setTitle("Please Wait")
-        progressDialog.setMessage("Logging in")
-        progressDialog.setCanceledOnTouchOutside(false)
-
-        auth= FirebaseAuth.getInstance()
-        binding.signupBtn.setOnClickListener{
-            startActivity(Intent(this, PhoneNumberActivity::class.java))
-            finish()
-        }
-
-        binding.loginBtn.setOnClickListener{
-            validatedata()
-
-        }
         binding.forgotPwd.setOnClickListener{
             startActivity(Intent(this, ForgotPwd::class.java))
             finish()
         }
-        checkuser()
+        binding.loginBtn.setOnClickListener{
+            val email=binding.loginEmail.text.toString()
+            val pwd=binding.loginPwd.text.toString()
+            if(email.isNotEmpty()&&pwd.isNotEmpty())
+            {
+                    firebaseAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener{
+                        if(it.isSuccessful)
+                        {
+                            startActivity(Intent(this, MainActivity::class.java))
+                            finish()
+                        }
+                        else{
+                            Toast.makeText(this,it.exception.toString(),Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }else
+                {
+                    Toast.makeText(this,"Fill in all details",Toast.LENGTH_SHORT).show()
+                }
+
+        }
+
     }
 
-    private fun validatedata() {
-        phonenumber=binding.phoneNumber.toString().trim()
-        password=binding.pwd.toString().trim()
 
-     //   if(!Patterns.EMAIL_ADDRESS.matcher(phonenumber).matches()){
-       //     binding.phoneNumber.setError  ("invalid phone number format")
-        //}
-        if(TextUtils.isEmpty(password)){
-            binding.pwd.setError("Plase enter password")
-        }
-        else
-        {
-            progressDialog.show()
-            auth.signInWithEmailAndPassword(phonenumber,password).
-            addOnSuccessListener {
-                progressDialog.dismiss()
-                val firebaseUser=auth.currentUser
-                val phone=firebaseUser!!.phoneNumber
-                Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
 
-            }.addOnFailureListener{
-               progressDialog.dismiss()
-               Toast.makeText(this,"Login Failed",Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
-    private fun checkuser() {
-        val firebaseUser=auth.currentUser
-        if(firebaseUser!=null)
-        {
-            startActivity(Intent(this,MainActivity::class.java))
-            finish()
-        }
-    }
 }

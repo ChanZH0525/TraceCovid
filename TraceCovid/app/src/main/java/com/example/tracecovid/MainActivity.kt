@@ -26,36 +26,15 @@ class MainActivity : AppCompatActivity() {
    // private lateinit var fragment: Fragment
     lateinit var navView: BottomNavigationView
     lateinit var binding:ActivityMainBinding
-    private lateinit var actionBar: ActionBar
-    private lateinit var auth: FirebaseAuth
+ //   private lateinit var actionBar: ActionBar
+  //  private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        actionBar=supportActionBar!!
-        actionBar.title="Home"
-
-        auth= FirebaseAuth.getInstance()
-        checkUser()
-
-
         val navController = this.findNavController(R.id.nav_host_fragment_activity_main)
         navView = findViewById(R.id.bottom_nav_view)
-
         navView.setupWithNavController(navController)
-    }
-
-    private fun checkUser() {
-        val firebaseAuth=auth.currentUser
-        if( firebaseAuth!=null)
-        {
-            val phonenumber=firebaseAuth.phoneNumber
-        }
-        else
-        {
-            startActivity(Intent(this,Login::class.java))
-            finish()
-        }
     }
 
     fun setBottomNavigationVisibility(visibility: Int){
