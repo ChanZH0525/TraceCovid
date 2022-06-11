@@ -6,25 +6,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import com.example.tracecovid.R
-import com.example.tracecovid.databinding.ActivityCheckInBinding
 import com.example.tracecovid.databinding.ActivityPhoneNumberBinding
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
-import java.util.*
-import java.util.concurrent.Callable
 import java.util.concurrent.TimeUnit
 
 class PhoneNumberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPhoneNumberBinding
     private lateinit var layout: View
+    private val TAG = PhoneNumberActivity::class.java.simpleName
     lateinit var codeBySystem: String
     private lateinit var auth: FirebaseAuth
-    private val constantFictionalNumber = "+15 555215554"
+    private lateinit var userPhone: String
+    private val constantFictionalNumber = "+15555215554"
     lateinit var nextIntent: Intent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,14 +29,14 @@ class PhoneNumberActivity : AppCompatActivity() {
         layout = binding.root
         setContentView(layout)
         auth = FirebaseAuth.getInstance()
-        var phoneNumber: TextInputLayout = findViewById(R.id.phoneNumber)
-        var otpNumber: TextInputLayout = findViewById(R.id.otpnumber)
+        var phoneNumber: EditText = findViewById(R.id.phoneNumber)
+        var otpNumber: EditText = findViewById(R.id.otpnumber)
         var otpRequest: TextView = findViewById(R.id.requestotp)
         var nextBtn:Button=findViewById(R.id.nextbtn)
 
 
         nextBtn.setOnClickListener{
-            val code = otpNumber.editText.toString()
+            val code = otpNumber.text.toString()
             verifyCode(code)
         }
 
@@ -50,18 +47,21 @@ class PhoneNumberActivity : AppCompatActivity() {
             }
 
             override fun onVerificationCompleted(p0: PhoneAuthCredential) {
+                Log.d(TAG, "onVerificationCompleted:$p0")
                 val code = p0.smsCode
-                if(code != null) otpNumber.editText?.setText(code)
+                if(code != null) otpNumber.setText(code)
                 
                 verifyCode(code)
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
-                Toast.makeText(applicationContext, "Verification failed", Toast.LENGTH_SHORT).show()
+                Snackbar.make(layout, "Verification Failed", Snackbar.LENGTH_LONG).show()
             }
 
         }
         otpRequest.setOnClickListener {
+            userPhone = "+" + "601" + phoneNumber.text
+            Log.d(TAG, userPhone)
             val options = PhoneAuthOptions.newBuilder(auth)
                 .setPhoneNumber(constantFictionalNumber)
                 .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
@@ -77,7 +77,6 @@ class PhoneNumberActivity : AppCompatActivity() {
             code.toString()
         )
         verifyWithCredential(credential)
-
     }
 
     private fun verifyWithCredential(credential: PhoneAuthCredential) {
