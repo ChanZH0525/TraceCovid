@@ -63,7 +63,7 @@ class PhoneNumberActivity : AppCompatActivity() {
             userPhone = "+" + "601" + phoneNumber.text
             Log.d(TAG, userPhone)
             val options = PhoneAuthOptions.newBuilder(auth)
-                .setPhoneNumber(constantFictionalNumber)
+                .setPhoneNumber(userPhone)
                 .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
                 .setActivity(this)                 // Activity (for callback binding)
                 .setCallbacks(callBacks)          // OnVerificationStateChangedCallbacks
@@ -86,18 +86,15 @@ class PhoneNumberActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Snackbar.make(layout, "Phone Verification Successful", Snackbar.LENGTH_LONG).show()
                     nextIntent = Intent(this, Register::class.java)
-                    nextIntent.putExtra("PhoneNumber",constantFictionalNumber)
+                    nextIntent.putExtra("PhoneNumber",userPhone)
                     startActivity(nextIntent)
                     finish()
 
                 } else {
-                    // Sign in failed, display a message and update the UI
-
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
                         Snackbar.make(layout, "Phone Verification Failed", Snackbar.LENGTH_LONG).show()
                     }
-                    // Update UI
                 }
             }
 
