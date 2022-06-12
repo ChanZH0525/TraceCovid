@@ -10,11 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tracecovid.databinding.ActivityRegisterBinding
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class Register : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var dbreference:DatabaseReference
+    private  lateinit var firebaseDB: FirebaseDatabase
     private val countries = arrayOf("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
 
         "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria",
@@ -90,7 +94,8 @@ class Register : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
-
+        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbreference=firebaseDB.reference!!.child("userphone").child("email")
         binding.signupBtn.setOnClickListener{
             val email=binding.regemail.text.toString()
             val pwd=binding.regpwd.text.toString()
@@ -102,6 +107,9 @@ class Register : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener{
                         if(it.isSuccessful)
                         {
+                            val currentuser= firebaseAuth.currentUser
+                            val currentUserDB=dbreference.child(currentuser?.uid!!)
+                            currentUserDB.child("email").setValue(email)
                             startActivity(Intent(this, Login::class.java))
                             finish()
                         }
