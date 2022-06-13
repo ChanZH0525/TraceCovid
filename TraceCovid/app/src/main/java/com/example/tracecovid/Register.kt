@@ -95,11 +95,17 @@ class Register : AppCompatActivity() {
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        dbreference=firebaseDB.reference!!.child("userphone").child("email")
+        var phone=intent.getStringExtra("PhoneNumber").toString()
+        dbreference=firebaseDB.reference!!.child(phone)
+
         binding.signupBtn.setOnClickListener{
             val email=binding.regemail.text.toString()
             val pwd=binding.regpwd.text.toString()
             val pwd2=binding.regpwd2.text.toString()
+            val username=binding.regusername.text.toString()
+            val ic=binding.regic.text.toString()
+            val country=binding.dropdownCountry.text.toString()
+            val state=binding.dropdownState.text.toString()
 
             if(email.isNotEmpty()&&pwd.isNotEmpty()&&pwd2.isNotEmpty())
             {
@@ -110,6 +116,11 @@ class Register : AppCompatActivity() {
                             val currentuser= firebaseAuth.currentUser
                             val currentUserDB=dbreference.child(currentuser?.uid!!)
                             currentUserDB.child("email").setValue(email)
+                            currentUserDB.child("password").setValue(pwd)
+                            currentUserDB.child("username").setValue(username)
+                            currentUserDB.child("ic").setValue(ic)
+                            currentUserDB.child("country").setValue(country)
+                            currentUserDB.child("state").setValue(state)
                             startActivity(Intent(this, Login::class.java))
                             finish()
                         }

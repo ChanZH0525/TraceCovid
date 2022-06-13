@@ -27,7 +27,7 @@ class PhoneNumberActivity : AppCompatActivity() {
     private  lateinit var firebaseDB: FirebaseDatabase
     private lateinit var dbreference: DatabaseReference
     private val constantFictionalNumber = "+15555215554"
-    private lateinit var phoneNumber: EditText
+    lateinit var phoneNumber: EditText
     lateinit var nextIntent: Intent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +35,11 @@ class PhoneNumberActivity : AppCompatActivity() {
         layout = binding.root
         setContentView(layout)
         firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        dbreference=firebaseDB.getReference().child("userphone")
-        auth = FirebaseAuth.getInstance()
         phoneNumber = findViewById(R.id.phoneNumber)
+        val hp=phoneNumber.toString()
+        dbreference=firebaseDB.getReference()
+        auth = FirebaseAuth.getInstance()
+
         var otpNumber: EditText = findViewById(R.id.otpnumber)
         var otpRequest: TextView = findViewById(R.id.requestotp)
         var nextBtn:Button=findViewById(R.id.nextbtn)
