@@ -159,16 +159,11 @@ class Register : AppCompatActivity() {
         }
 
      //   val signUpBtn: Button = findViewById(R.id.signupBtn)
-       // signUpBtn.setOnClickListener{
-
+       // signUpBtn.setOnClickListener
 
       //  }
 
     }
-
-
-
-
 
     override fun onResume(){
         super.onResume()
