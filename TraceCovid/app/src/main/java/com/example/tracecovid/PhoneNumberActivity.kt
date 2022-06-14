@@ -36,7 +36,7 @@ class PhoneNumberActivity : AppCompatActivity() {
         setContentView(layout)
         firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         phoneNumber = findViewById(R.id.phoneNumber)
-        val hp=phoneNumber.toString()
+
         dbreference=firebaseDB.getReference()
         auth = FirebaseAuth.getInstance()
 
@@ -101,8 +101,7 @@ class PhoneNumberActivity : AppCompatActivity() {
                     nextIntent.putExtra("PhoneNumber",userPhone)
                     startActivity(nextIntent)
                     finish()
-                    var userphone:String= phoneNumber.getText().toString()
-                    dbreference.setValue(userphone)
+
 
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {

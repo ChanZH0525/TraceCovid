@@ -96,7 +96,7 @@ class Register : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         var phone=intent.getStringExtra("PhoneNumber").toString()
-        dbreference=firebaseDB.reference!!.child(phone)
+        dbreference=firebaseDB.reference!!.child("Users")
 
         binding.signupBtn.setOnClickListener{
             val email=binding.regemail.text.toString()
@@ -115,6 +115,7 @@ class Register : AppCompatActivity() {
                         {
                             val currentuser= firebaseAuth.currentUser
                             val currentUserDB=dbreference.child(currentuser?.uid!!)
+                            currentUserDB.child("phonenumber").setValue(phone)
                             currentUserDB.child("email").setValue(email)
                             currentUserDB.child("password").setValue(pwd)
                             currentUserDB.child("username").setValue(username)
