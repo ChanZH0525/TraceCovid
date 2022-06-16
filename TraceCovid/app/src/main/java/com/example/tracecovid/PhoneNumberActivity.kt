@@ -1,17 +1,20 @@
 package com.example.tracecovid
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.tracecovid.databinding.ActivityPhoneNumberBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.TimeUnit
 
 class PhoneNumberActivity : AppCompatActivity() {
@@ -21,15 +24,22 @@ class PhoneNumberActivity : AppCompatActivity() {
     lateinit var codeBySystem: String
     private lateinit var auth: FirebaseAuth
     private lateinit var userPhone: String
+    private  lateinit var firebaseDB: FirebaseDatabase
+    private lateinit var dbreference: DatabaseReference
     private val constantFictionalNumber = "+15555215554"
+    lateinit var phoneNumber: EditText
     lateinit var nextIntent: Intent
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneNumberBinding.inflate(layoutInflater)
         layout = binding.root
         setContentView(layout)
+        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        phoneNumber = findViewById(R.id.phoneNumber)
+
+        dbreference=firebaseDB.getReference()
         auth = FirebaseAuth.getInstance()
-        var phoneNumber: EditText = findViewById(R.id.phoneNumber)
+
         var otpNumber: EditText = findViewById(R.id.otpnumber)
         var otpRequest: TextView = findViewById(R.id.requestotp)
         var nextBtn:Button=findViewById(R.id.nextbtn)
@@ -38,6 +48,7 @@ class PhoneNumberActivity : AppCompatActivity() {
         nextBtn.setOnClickListener{
             val code = otpNumber.text.toString()
             verifyCode(code)
+
         }
 
         val callBacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -77,6 +88,7 @@ class PhoneNumberActivity : AppCompatActivity() {
             code.toString()
         )
         verifyWithCredential(credential)
+
     }
 
     private fun verifyWithCredential(credential: PhoneAuthCredential) {
@@ -89,6 +101,7 @@ class PhoneNumberActivity : AppCompatActivity() {
                     nextIntent.putExtra("PhoneNumber",userPhone)
                     startActivity(nextIntent)
                     finish()
+
 
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {

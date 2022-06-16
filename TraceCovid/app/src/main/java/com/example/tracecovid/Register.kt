@@ -10,11 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tracecovid.databinding.ActivityRegisterBinding
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class Register : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var dbreference:DatabaseReference
+    private  lateinit var firebaseDB: FirebaseDatabase
     private val countries = arrayOf("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla",
 
         "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria",
@@ -90,11 +94,18 @@ class Register : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
+        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        var phone=intent.getStringExtra("PhoneNumber").toString()
+        dbreference=firebaseDB.reference!!.child("Users")
 
         binding.signupBtn.setOnClickListener{
             val email=binding.regemail.text.toString()
             val pwd=binding.regpwd.text.toString()
             val pwd2=binding.regpwd2.text.toString()
+            val username=binding.regusername.text.toString()
+            val ic=binding.regic.text.toString()
+            val country=binding.dropdownCountry.text.toString()
+            val state=binding.dropdownState.text.toString()
 
             if(email.isNotEmpty()&&pwd.isNotEmpty()&&pwd2.isNotEmpty())
             {
@@ -102,6 +113,15 @@ class Register : AppCompatActivity() {
                     firebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener{
                         if(it.isSuccessful)
                         {
+                            val currentuser= firebaseAuth.currentUser
+                            val currentUserDB=dbreference.child(currentuser?.uid!!)
+                            currentUserDB.child("phonenumber").setValue(phone)
+                            currentUserDB.child("email").setValue(email)
+                            currentUserDB.child("password").setValue(pwd)
+                            currentUserDB.child("username").setValue(username)
+                            currentUserDB.child("ic").setValue(ic)
+                            currentUserDB.child("country").setValue(country)
+                            currentUserDB.child("state").setValue(state)
                             startActivity(Intent(this, Login::class.java))
                             finish()
                         }
@@ -139,16 +159,11 @@ class Register : AppCompatActivity() {
         }
 
      //   val signUpBtn: Button = findViewById(R.id.signupBtn)
-       // signUpBtn.setOnClickListener{
-
+       // signUpBtn.setOnClickListener
 
       //  }
 
     }
-
-
-
-
 
     override fun onResume(){
         super.onResume()
