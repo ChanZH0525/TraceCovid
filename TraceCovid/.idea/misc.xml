@@ -38,8 +38,10 @@
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_company_info.xml" value="0.22" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_edit_profile.xml" value="0.33" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_edit_profile2.xml" value="0.2" />
-        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_homepage.xml" value="0.5" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_homepage.xml" value="0.25" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_hotspot.xml" value="0.12552083333333333" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_internation_data.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_national_data.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_update_phone_no.xml" value="0.5" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/riskassessmentquestions.xml" value="0.5" />

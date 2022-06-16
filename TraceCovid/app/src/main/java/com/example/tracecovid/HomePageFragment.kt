@@ -1,7 +1,7 @@
 package com.example.tracecovid
 
-import android.app.Application
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -19,6 +20,8 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -53,9 +56,23 @@ class HomePageFragment : Fragment() {
         val btnFAQ: LinearLayout = view.findViewById(R.id.btn_faq)
         val btnInfo: LinearLayout = view.findViewById(R.id.btn_info)
         val btnSelfReport: LinearLayout = view.findViewById(R.id.btn_self_report)
+
+//        TabLayout and ViewPager2 handle
+        val tabLayout: TabLayout = view.findViewById(R.id.tab_layout)
+        val viewPager: ViewPager2 = view.findViewById(R.id.view_pager_statistics)
+
         activeCases = view.findViewById(R.id.tv_active_cases)
         timeActiveCases = view.findViewById(R.id.tv_update_time)
         lineChart = view.findViewById(R.id.line_chart_active_cases)
+
+        viewPager.adapter = ViewPagerAdapter(this)
+        TabLayoutMediator(tabLayout, viewPager){ tab,index ->
+            tab.text = when(index){
+                0 -> {"National"}
+                1 -> {"International"}
+                else -> {throw Resources.NotFoundException("Position Not Found")}
+            }
+        }.attach()
 
         //        Statistics
         val gson = GsonBuilder().create()
