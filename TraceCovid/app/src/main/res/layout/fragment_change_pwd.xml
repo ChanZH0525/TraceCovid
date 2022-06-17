@@ -60,6 +60,7 @@
         app:endIconTint="@color/main_green">
 
       <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/curpwd"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:fontFamily="@font/roboto"
@@ -86,6 +87,7 @@
         app:helperTextEnabled="true">
 
       <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/newpwd"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:fontFamily="@font/roboto"
@@ -109,6 +111,7 @@
         app:endIconTint="@color/main_green">
 
       <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/newpwd2"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:fontFamily="@font/roboto"

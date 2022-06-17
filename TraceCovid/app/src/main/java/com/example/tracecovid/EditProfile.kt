@@ -285,7 +285,6 @@ class EditProfile : BaseFragment() {
         "Zambia",
         "Zimbabwe"
     )
-
     lateinit var database: FirebaseDatabase
     private lateinit var uid: String
     private lateinit var auth: FirebaseAuth
@@ -299,6 +298,9 @@ class EditProfile : BaseFragment() {
     ): View? {
         // Inflate the layout for this fragment
         auth = FirebaseAuth.getInstance()
+        uid = auth.currentUser?.uid.toString()
+        database =FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbreference = database.getReference("Users").child(uid)
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
         val btnBack: ImageView = view.findViewById(R.id.btn_back)
         val saveBtn: Button =view.findViewById(R.id.saveBtn)
@@ -307,18 +309,12 @@ class EditProfile : BaseFragment() {
         val arrayAdapter_country =
             view.let { ArrayAdapter(it.context, R.layout.dropdown_list, countries) }
         dropdown_country?.setAdapter(arrayAdapter_country)
-        uid = auth.currentUser?.uid.toString()
+
         dropdown_state = view.findViewById<AutoCompleteTextView>(R.id.dropdown_state)
         val states = resources.getStringArray(R.array.states)
         val arrayAdapter_state =
             view.let { ArrayAdapter(it.context, R.layout.dropdown_list, states) }
         dropdown_state?.setAdapter(arrayAdapter_state)
-        database =
-            FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        dbreference = database.getReference("Users").child(uid)
-        val currentuser= auth.currentUser
-
-
 
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
