@@ -285,9 +285,7 @@ class EditProfile : BaseFragment() {
         "Zambia",
         "Zimbabwe"
     )
-    lateinit var uname: String
-    lateinit var nationality: String
-    lateinit var newstate: String
+
     lateinit var database: FirebaseDatabase
     private lateinit var uid: String
     private lateinit var auth: FirebaseAuth
@@ -315,28 +313,34 @@ class EditProfile : BaseFragment() {
         val arrayAdapter_state =
             view.let { ArrayAdapter(it.context, R.layout.dropdown_list, states) }
         dropdown_state?.setAdapter(arrayAdapter_state)
+        database =
+            FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbreference = database.getReference("Users").child(uid)
+        val currentuser= auth.currentUser
 
-        uname = username.text.toString()
-        nationality = dropdown_country.text.toString()
-        newstate = dropdown_state.text.toString()
 
 
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
         saveBtn.setOnClickListener{
-            updatedata(uname, nationality, newstate)
+            var uname: String = username.text.toString()
+            var nationality: String = dropdown_country.text.toString()
+            var newstate :String= dropdown_state.text.toString()
+
+
+            val map= mapOf(
+                "country" to nationality,
+                "username" to uname,
+                "state" to newstate
+            )
+            dbreference.updateChildren(map)
+            parentFragmentManager.popBackStack()
         }
         return view
     }
     private fun updatedata(uname: String, nationality: String, newstate: String) {
-   //     database =
-     //       FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-       // dbreference = database.getReference("Users").child(uid)
-        //val currentuser= auth.currentUser
-        //val currentUserDB=dbreference.child(currentuser?.uid!!)
 
-//        currentUserDB.child("username").setValue(username.text.toString())
 
 
 
