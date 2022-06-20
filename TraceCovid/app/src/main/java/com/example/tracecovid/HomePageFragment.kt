@@ -11,7 +11,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.tracecovid.adapter.NationalStatisticsAdapter
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.AxisBase
@@ -73,6 +76,7 @@ class HomePageFragment : Fragment() {
                 else -> {throw Resources.NotFoundException("Position Not Found")}
             }
         }.attach()
+
 
         //        Statistics
         val gson = GsonBuilder().create()

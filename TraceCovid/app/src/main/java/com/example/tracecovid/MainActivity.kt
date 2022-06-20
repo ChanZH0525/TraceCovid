@@ -25,12 +25,12 @@ class MainActivity : AppCompatActivity() {
 
    // private lateinit var fragment: Fragment
     lateinit var navView: BottomNavigationView
-    lateinit var binding:ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
  //   private lateinit var actionBar: ActionBar
   //  private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val navController = this.findNavController(R.id.nav_host_fragment_activity_main)
         navView = findViewById(R.id.bottom_nav_view)
