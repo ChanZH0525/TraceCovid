@@ -60,7 +60,7 @@
         app:layout_constraintStart_toEndOf="@+id/home_upper"
         app:layout_constraintTop_toBottomOf="@+id/home_upper"
         app:layout_constraintVertical_bias="0.062"
-        app:queryHint="Search Here" />
+        app:queryHint="Type in the State you wish to find" />
 
     <TextView
         android:id="@+id/reportedcases_txt"
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:background="@color/red"
-        android:text="There are n number of Covid-19 postive cases within this area "
+        android:text="There are n number of Covid-19 postive cases within this State "
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textAlignment="center"
