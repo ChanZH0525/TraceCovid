@@ -35,6 +35,7 @@ class ProfileFragment : BaseFragment() {
     private lateinit var uid: String
     private lateinit var user:ProfileData
     private lateinit var btnSetting: ImageView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
