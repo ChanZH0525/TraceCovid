@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="deploymentTargetDropDown">
@@ -8,7 +7,7 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\User\.android\avd\Pixel_5_API_30_1.avd" />
+            <value value="C:\Users\maxim\.android\avd\Pixel_5_API_30.avd" />
           </Key>
         </deviceKey>
       </Target>

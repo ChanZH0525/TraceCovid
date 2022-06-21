@@ -44,7 +44,6 @@
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_national_data.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_update_phone_no.xml" value="0.5" />
-        <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/national_stats_card.xml" value="0.27291666666666664" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/riskassessmentquestions.xml" value="0.5" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/layout/selfreportquestions.xml" value="0.12552083333333333" />
         <entry key="..\:/Android_Practical/TraceCovid/TraceCovid/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
@@ -55,23 +54,29 @@
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/drawable/bottom_round_background.xml" value="0.1" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/drawable/btncolor.xml" value="0.1" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_checkinhistory.xml" value="0.17910447251321387" />
+        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_forgotpwd.xml" value="0.1" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_infopageone.xml" value="0.1" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_infopagetwo.xml" value="0.1" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_main.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_maps.xml" value="0.1" />
-        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_phone_number.xml" value="0.1" />
+        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_pwdupdatedpage.xml" value="0.1" />
+        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_register.xml" value="0.15044775691109966" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_risk_assessment.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/activity_selfreport.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/checkinhistoryitem.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_all_check_in_history.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_base.xml" value="0.17391304347826086" />
+        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_change_pwd.xml" value="0.17391304347826086" />
+        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_checkin.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_edit_profile.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_homepage.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_hotspot.xml" value="0.1" />
-        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/fragment_profile.xml" value="0.17910447251321387" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/riskassessmentquestions.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/layout/selfreportquestions.xml" value="0.17391304347826086" />
+        <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/TraceCovid/app/src/main/res/menu/profile_settings_menu.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/app/src/main/res/layout/activity_checkinhistory.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/app/src/main/res/layout/activity_faq.xml" value="0.17391304347826086" />
         <entry key="..\:/Users/maxim/OneDrive/Desktop/TraceCovid/app/src/main/res/layout/activity_hotspotracker.xml" value="0.17391304347826086" />

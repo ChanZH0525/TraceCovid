@@ -26,6 +26,10 @@ class Login : AppCompatActivity() {
             startActivity(Intent(this, ForgotPwd::class.java))
             finish()
         }
+        binding.signupBtn.setOnClickListener{
+            startActivity(Intent(this, PhoneNumberActivity::class.java))
+            finish()
+        }
         binding.loginBtn.setOnClickListener{
             val email=binding.loginEmail.text.toString()
             val pwd=binding.loginPwd.text.toString()
