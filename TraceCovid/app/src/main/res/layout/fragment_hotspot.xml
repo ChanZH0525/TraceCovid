@@ -46,21 +46,28 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/idSearchView"
-        android:layout_width="match_parent"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
         android:background="#BFBFBF"
         android:elevation="5dp"
         app:iconifiedByDefault="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/home_upper"
-        app:layout_constraintHorizontal_bias="0.534"
-        app:layout_constraintStart_toEndOf="@+id/home_upper"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_upper"
         app:layout_constraintVertical_bias="0.062"
         app:queryHint="Type in the State you wish to find" />
+
+    <ImageButton
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="548dp"
+        android:backgroundTint="@color/main_green"
+        android:src="@drawable/ic_baseline_location_on_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/reportedcases_txt"

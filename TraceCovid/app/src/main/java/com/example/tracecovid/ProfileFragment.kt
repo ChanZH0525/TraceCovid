@@ -62,7 +62,7 @@ class ProfileFragment : BaseFragment() {
                     user=snapshot.getValue(ProfileData::class.java)!!
                     tvUsername.setText(user.username)
                     tvIC.setText(user.ic)
-                    tvPhone.setText(user.phonenumber) //here missing
+                    tvPhone.setText(user.phonenumber)
                     tvState.setText(user.state)
                     tvNationality.setText(user.country)
                 }
