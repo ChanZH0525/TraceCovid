@@ -4,10 +4,6 @@
         android:icon="@drawable/ic_noun_edit_profile_3194834"
         android:iconTint="@color/dark_green"
         android:title="Edit Profile" />
-    <item android:id="@+id/update_phone_number"
-        android:icon="@drawable/ic_phone"
-        android:iconTint="@color/dark_green"
-        android:title="Update Phone Number" />
     <item android:id="@+id/change_password"
         android:icon="@drawable/ic_change_password_5"
         android:iconTint="@color/dark_green"

@@ -50,6 +50,10 @@ class PhoneNumberActivity : AppCompatActivity() {
             verifyCode(code)
 
         }
+        binding.btnBackRegister.setOnClickListener{
+            startActivity(Intent(this, StarterPage::class.java))
+            finish()
+        }
 
         val callBacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {

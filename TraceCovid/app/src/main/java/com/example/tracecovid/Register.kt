@@ -109,7 +109,7 @@ class Register : AppCompatActivity() {
 
             if(email.isNotEmpty()&&pwd.isNotEmpty()&&pwd2.isNotEmpty())
             {
-                if(pwd==pwd2){
+                if(pwd==pwd2 && pwd.length>=8){
                     firebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener{
                         if(it.isSuccessful)
                         {

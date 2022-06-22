@@ -23,6 +23,7 @@ import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.auth.User
 import com.squareup.okhttp.internal.DiskLruCache
 import de.hdodenhof.circleimageview.CircleImageView
+import org.w3c.dom.Text
 import java.lang.reflect.Field
 
 
@@ -34,6 +35,7 @@ class ProfileFragment : BaseFragment() {
     private lateinit var uid: String
     private lateinit var user:ProfileData
     private lateinit var btnSetting: ImageView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +53,7 @@ class ProfileFragment : BaseFragment() {
         val tvPhone: TextView = view.findViewById(R.id.tv_phone)
         val tvIC: TextView = view.findViewById(R.id.tv_ic_passport)
         val tvState: TextView = view.findViewById(R.id.tv_state)
+        val tvNationality: TextView=view.findViewById(R.id.tv_nationality)
 
         if( uid.isNotEmpty())
         {
@@ -59,8 +62,9 @@ class ProfileFragment : BaseFragment() {
                     user=snapshot.getValue(ProfileData::class.java)!!
                     tvUsername.setText(user.username)
                     tvIC.setText(user.ic)
-                    tvPhone.setText(user.phonenumber) //here missing
+                    tvPhone.setText(user.phonenumber)
                     tvState.setText(user.state)
+                    tvNationality.setText(user.country)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -75,10 +79,6 @@ class ProfileFragment : BaseFragment() {
             when(it.itemId){
                 R.id.edit_profile -> {
                     navigateFragment(EditProfile())
-                    true
-                }
-                R.id.update_phone_number -> {
-                    navigateFragment(UpdatePhoneNo())
                     true
                 }
                 R.id.change_password -> {
