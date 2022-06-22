@@ -42,8 +42,6 @@ import kotlin.collections.ArrayList
 
 class HomePageFragment : Fragment() {
 
-    private val TAG = "HomePageFragment"
-    private val URL = "https://api.apify.com/v2/datasets/7Fdb90FMDLZir2ROo/"
     private lateinit var activeCases: TextView
     private lateinit var timeActiveCases: TextView
     private lateinit var lineChart: LineChart
@@ -64,10 +62,6 @@ class HomePageFragment : Fragment() {
         val tabLayout: TabLayout = view.findViewById(R.id.tab_layout)
         val viewPager: ViewPager2 = view.findViewById(R.id.view_pager_statistics)
 
-        activeCases = view.findViewById(R.id.tv_active_cases)
-        timeActiveCases = view.findViewById(R.id.tv_update_time)
-        lineChart = view.findViewById(R.id.line_chart_active_cases)
-
         viewPager.adapter = ViewPagerAdapter(this)
         TabLayoutMediator(tabLayout, viewPager){ tab,index ->
             tab.text = when(index){
@@ -78,36 +72,36 @@ class HomePageFragment : Fragment() {
         }.attach()
 
 
-        //        Statistics
-        val gson = GsonBuilder().create()
-        val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
-            .readTimeout(60, TimeUnit.SECONDS)
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(okHttpClient)
-            .build()
-        val covidService = retrofit.create(CovidService::class.java)
-
-        covidService.getNationalData().enqueue(object: Callback<List<CovidData>>{
-            override fun onResponse(call: Call<List<CovidData>>, response: Response<List<CovidData>>) {
-                Log.i(TAG, "onResponse $response")
-                val nationalData = response.body()
-                if(nationalData == null){
-                    Log.w(TAG, "Did not receive a valid response body")
-                    return
-                }
-                var nationalDailyData = nationalData.reversed()
-                Log.i(TAG, "Update graph with national data")
-                displayLatestData(nationalDailyData)
-            }
-
-            override fun onFailure(call: Call<List<CovidData>>, t: Throwable) {
-                Log.e(TAG, "onFailure $t")
-            }
-        })
+//        //        Statistics
+//        val gson = GsonBuilder().create()
+//        val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
+//            .readTimeout(60, TimeUnit.SECONDS)
+//            .connectTimeout(60, TimeUnit.SECONDS)
+//            .build()
+//        val retrofit = Retrofit.Builder()
+//            .baseUrl(URL)
+//            .addConverterFactory(GsonConverterFactory.create(gson))
+//            .client(okHttpClient)
+//            .build()
+//        val covidService = retrofit.create(CovidService::class.java)
+//
+//        covidService.getNationalData().enqueue(object: Callback<List<CovidData>>{
+//            override fun onResponse(call: Call<List<CovidData>>, response: Response<List<CovidData>>) {
+//                Log.i(TAG, "onResponse $response")
+//                val nationalData = response.body()
+//                if(nationalData == null){
+//                    Log.w(TAG, "Did not receive a valid response body")
+//                    return
+//                }
+//                var nationalDailyData = nationalData.reversed()
+//                Log.i(TAG, "Update graph with national data")
+//                displayLatestData(nationalDailyData)
+//            }
+//
+//            override fun onFailure(call: Call<List<CovidData>>, t: Throwable) {
+//                Log.e(TAG, "onFailure $t")
+//            }
+//        })
 
 
 
@@ -143,94 +137,94 @@ class HomePageFragment : Fragment() {
         return view
     }
 
-    private fun setDataToLineChart() {
-        val entries: ArrayList<Entry> = ArrayList()
-
-        //you can replace this data object with  your custom object
-        for (i in dataList.indices) {
-            val data = dataList[i]
-            entries.add(Entry(i.toFloat(), data.activeCases.toFloat()))
-        }
-
-        var lineDataSet = LineDataSet(entries, "")
-        lineDataSet.lineWidth = 2f
-        lineDataSet.setCircleColor(ContextCompat.getColor(requireContext(), R.color.main_green))
-        lineDataSet.color = ContextCompat.getColor(requireContext(), R.color.main_green)
-        lineDataSet.fillColor = ContextCompat.getColor(requireContext(), R.color.main_green)
-        lineDataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.dark_green)
-        lineDataSet.valueTextSize = 10f
-
-        val data = LineData(lineDataSet)
-        lineChart.data = data
-
-        lineChart.invalidate()
-    }
-
-    private fun initLineChart() {
-        //        hide grid lines
-        lineChart.axisLeft.setDrawGridLines(false)
-        val xAxis: XAxis = lineChart.xAxis
-        xAxis.setDrawGridLines(false)
-        xAxis.setDrawAxisLine(false)
-        xAxis.textSize = 8f
-
-        //remove right y-axis
-        lineChart.axisRight.isEnabled = false
-
-        //remove legend
-        lineChart.legend.isEnabled = false
-
-
-        //remove description label
-        lineChart.description.isEnabled = false
-
-
-        //add animation
-        lineChart.animateX(1000, Easing.EaseInSine)
-
-        // to draw label on xAxis
-        xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
-        xAxis.valueFormatter = MyAxisFormatter()
-        xAxis.setDrawLabels(true)
-        xAxis.granularity = 1f
-    }
-
-    inner class MyAxisFormatter : IndexAxisValueFormatter() {
-
-        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-            val index = value.toInt()
-            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-            val outputDateFormatChart = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
-            val date = LocalDateTime.parse(dataList[index].lastUpdatedAtApify, inputFormatter)
-            return if (index < dataList.size) {
-                outputDateFormatChart.format(date).toString()
-            } else {
-                ""
-            }
-        }
-    }
-
-    private fun displayLatestData(dailyData: List<CovidData>) {
-        activeCases.text = NumberFormat.getInstance().format(dailyData.first().activeCases)
-
-
-        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-        val outputDateFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH)
-        val date = LocalDateTime.parse(dailyData.first().lastUpdatedAtApify, inputFormatter)
-        timeActiveCases.text = "Until " + outputDateFormat.format(date).toString()
-
-        val outputDateFormatChart = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
-
-
-//        get data of recent 7 days
-        for(i in 6 downTo 0)
-        {
-            dataList.add(dailyData[i])
-        }
-        initLineChart()
-        setDataToLineChart()
-
-    }
+//    private fun setDataToLineChart() {
+//        val entries: ArrayList<Entry> = ArrayList()
+//
+//        //you can replace this data object with  your custom object
+//        for (i in dataList.indices) {
+//            val data = dataList[i]
+//            entries.add(Entry(i.toFloat(), data.activeCases.toFloat()))
+//        }
+//
+//        var lineDataSet = LineDataSet(entries, "")
+//        lineDataSet.lineWidth = 2f
+//        lineDataSet.setCircleColor(ContextCompat.getColor(requireContext(), R.color.main_green))
+//        lineDataSet.color = ContextCompat.getColor(requireContext(), R.color.main_green)
+//        lineDataSet.fillColor = ContextCompat.getColor(requireContext(), R.color.main_green)
+//        lineDataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.dark_green)
+//        lineDataSet.valueTextSize = 10f
+//
+//        val data = LineData(lineDataSet)
+//        lineChart.data = data
+//
+//        lineChart.invalidate()
+//    }
+//
+//    private fun initLineChart() {
+//        //        hide grid lines
+//        lineChart.axisLeft.setDrawGridLines(false)
+//        val xAxis: XAxis = lineChart.xAxis
+//        xAxis.setDrawGridLines(false)
+//        xAxis.setDrawAxisLine(false)
+//        xAxis.textSize = 8f
+//
+//        //remove right y-axis
+//        lineChart.axisRight.isEnabled = false
+//
+//        //remove legend
+//        lineChart.legend.isEnabled = false
+//
+//
+//        //remove description label
+//        lineChart.description.isEnabled = false
+//
+//
+//        //add animation
+//        lineChart.animateX(1000, Easing.EaseInSine)
+//
+//        // to draw label on xAxis
+//        xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
+//        xAxis.valueFormatter = MyAxisFormatter()
+//        xAxis.setDrawLabels(true)
+//        xAxis.granularity = 1f
+//    }
+//
+//    inner class MyAxisFormatter : IndexAxisValueFormatter() {
+//
+//        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+//            val index = value.toInt()
+//            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+//            val outputDateFormatChart = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
+//            val date = LocalDateTime.parse(dataList[index].lastUpdatedAtApify, inputFormatter)
+//            return if (index < dataList.size) {
+//                outputDateFormatChart.format(date).toString()
+//            } else {
+//                ""
+//            }
+//        }
+//    }
+//
+//    private fun displayLatestData(dailyData: List<CovidData>) {
+//        activeCases.text = NumberFormat.getInstance().format(dailyData.first().activeCases)
+//
+//
+//        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+//        val outputDateFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH)
+//        val date = LocalDateTime.parse(dailyData.first().lastUpdatedAtApify, inputFormatter)
+//        timeActiveCases.text = "Until " + outputDateFormat.format(date).toString()
+//
+//        val outputDateFormatChart = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
+//
+//
+////        get data of recent 7 days
+//        for(i in 6 downTo 0)
+//        {
+//            dataList.add(dailyData[i])
+//        }
+//        initLineChart()
+//        setDataToLineChart()
+//
+//    }
 
 
 }
