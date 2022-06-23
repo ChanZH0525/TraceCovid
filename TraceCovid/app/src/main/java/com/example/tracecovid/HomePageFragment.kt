@@ -108,7 +108,7 @@ class HomePageFragment : Fragment() {
 
         btnRiskAssessment.setOnClickListener {
             requireActivity().run {
-                startActivity(Intent(view.context, RiskAssessment::class.java))
+                startActivity(Intent(view.context, RiskAssessmentActivity::class.java))
                 finish()
             }
         }

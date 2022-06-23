@@ -61,8 +61,6 @@ class CheckInFragment : Fragment() {
                     tvIC.setText(user.ic)
                     tvRiskStatus.setText(user.status)
 
-                    //var layoutDrawable: Drawable = riskColor.getBackground
-
                     if(user.status == "High Risk"){
                         riskColor.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
                     }
