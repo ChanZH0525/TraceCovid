@@ -29,10 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     <!--search view to search our location-->
-
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -44,32 +41,31 @@
         app:layout_constraintTop_toBottomOf="@+id/idSearchView"
         tools:context=".MapsActivity" />
 
-    <androidx.appcompat.widget.SearchView
+    <EditText
         android:id="@+id/idSearchView"
-        android:layout_width="340dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="#BFBFBF"
-        android:elevation="5dp"
-        app:iconifiedByDefault="false"
+        android:layout_marginTop="32dp"
+        android:hint="Type in the State you wish to find"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/search_btn"
         app:layout_constraintTop_toBottomOf="@+id/home_upper"
-        app:layout_constraintVertical_bias="0.062"
-        app:queryHint="Type in the State you wish to find" />
+        app:layout_constraintVertical_bias="0.067" />
 
-    <ImageButton
+    <Button
         android:id="@+id/search_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
         android:backgroundTint="@color/main_green"
-        android:src="@drawable/ic_baseline_location_on_24"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Search"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/idSearchView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.226" />
+        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintStart_toStartOf="@+id/map"
+        app:layout_constraintTop_toBottomOf="@+id/home_upper" />
 
     <TextView
         android:id="@+id/reportedcases_txt"

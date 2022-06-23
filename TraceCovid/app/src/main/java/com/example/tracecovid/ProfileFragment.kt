@@ -90,6 +90,7 @@ class ProfileFragment : BaseFragment() {
                     true
                 }
                 R.id.logout -> {
+                    auth.signOut()
                     activity?.startActivity(Intent(context, Login::class.java))
                     activity?.finish()
                     true
