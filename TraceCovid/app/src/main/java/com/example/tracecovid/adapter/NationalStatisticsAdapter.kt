@@ -4,12 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tracecovid.CovidData
 import com.example.tracecovid.R
 import com.example.tracecovid.data.ProcessedNationalData
 import com.github.mikephil.charting.animation.Easing
@@ -22,6 +19,9 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import java.text.NumberFormat
 import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,6 +29,7 @@ import kotlin.collections.ArrayList
 class NationalStatisticsAdapter (private var context: Context, private var nationalData: List<ProcessedNationalData>):
 RecyclerView.Adapter<NationalStatisticsAdapter.ViewHolder>() {
     private var metrics = arrayOf("Active Cases", "New Cases", "New Recovered", "Critical Cases", "Total Death", "Total Confirmed Cases", "Total Recovered Cases")
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -49,15 +50,17 @@ RecyclerView.Adapter<NationalStatisticsAdapter.ViewHolder>() {
                     4 -> { nationalData.last().totalDeath }
                     5 -> { nationalData.last().totalConfirmed }
                     6 -> { nationalData.last().totalRecovered }
-                    else -> {}
+                    else -> { "0" }
                 }
             )
 
-            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
+            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            val zone: ZoneId = ZoneId.of("Asia/Kuala_Lumpur")
             val outputDateFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH)
-            val date = LocalDateTime.parse(nationalData.last().lastUpdatedAtApify, inputFormatter)
-            val outputDateFormatChart = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
-            holder.viewUpdateTime.text = "Until " + outputDateFormat.format(date).toString()
+            val localDate = LocalDateTime.parse(nationalData.last().lastUpdatedAtApify, inputFormatter)
+            val date = localDate.atZone(ZoneId.of("UTC"))
+            val zonedTime = date.withZoneSameInstant(zone)
+            holder.viewUpdateTime.text = "Until " + outputDateFormat.format(zonedTime).toString()
 
 
 
@@ -143,9 +146,11 @@ RecyclerView.Adapter<NationalStatisticsAdapter.ViewHolder>() {
             val index = value.toInt()
             val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
             val outputDateFormatChart = DateTimeFormatter.ofPattern("dd-MM", Locale.ENGLISH)
-            val date = LocalDateTime.parse(nationalData[index].lastUpdatedAtApify, inputFormatter)
+            val localDate = LocalDateTime.parse(nationalData[index].lastUpdatedAtApify, inputFormatter)
+            val date = localDate.atZone(ZoneId.of("UTC"))
+            val zonedTime = date.withZoneSameInstant(ZoneId.of("Asia/Kuala_Lumpur"))
             return if (index < nationalData.size) {
-                outputDateFormatChart.format(date).toString()
+                outputDateFormatChart.format(zonedTime).toString()
             } else {
                 ""
             }

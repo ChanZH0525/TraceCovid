@@ -1,4 +1,4 @@
-package com.example.tracecovid
+package com.example.tracecovid.data
 
 data class CovidData(
     val testedPositive: Int,
