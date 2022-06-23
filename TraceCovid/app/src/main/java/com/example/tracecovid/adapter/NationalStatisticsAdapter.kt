@@ -50,7 +50,7 @@ RecyclerView.Adapter<NationalStatisticsAdapter.ViewHolder>() {
                     4 -> { nationalData.last().totalDeath }
                     5 -> { nationalData.last().totalConfirmed }
                     6 -> { nationalData.last().totalRecovered }
-                    else -> {}
+                    else -> { "0" }
                 }
             )
 

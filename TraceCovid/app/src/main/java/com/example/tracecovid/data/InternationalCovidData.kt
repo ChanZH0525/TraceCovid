@@ -1,7 +1,7 @@
 package com.example.tracecovid.data
 
 data class InternationalCovidData(
-    val updated: String,
+    val updated: Long,
     val cases: Int,
     val todayCases: Int,
     val deaths: Int,

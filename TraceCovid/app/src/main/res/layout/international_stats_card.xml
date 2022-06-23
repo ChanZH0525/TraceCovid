@@ -50,6 +50,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_metrics" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_stats_today"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -64,7 +65,7 @@
                 android:id="@+id/tv_today_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/roboto_bold"
                 android:gravity="center"
                 android:text="+ 0 (Today)"
                 android:textColor="@color/white"
