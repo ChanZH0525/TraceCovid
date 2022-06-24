@@ -22,8 +22,10 @@ class RiskAssessmentActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_risk_assessment)
 
-        val answerArr = IntArray(4)
-        for (i in 0..3) {
+        //Initialise all elements in answerArr to 0
+        //(0 = no selected radioButton in that radioGroup)
+        val answerArr = IntArray(6)
+        for (i in answerArr.indices) {
             answerArr[i] = 0
         }
 
@@ -31,14 +33,20 @@ class RiskAssessmentActivity : AppCompatActivity() {
         var rg2:RadioGroup = findViewById(R.id.rg2)
         var rg3:RadioGroup = findViewById(R.id.rg3)
         var rg4:RadioGroup = findViewById(R.id.rg4)
+        var rg5:RadioGroup = findViewById(R.id.rg5)
+        var rg6:RadioGroup = findViewById(R.id.rg6)
         var radio_yes1:RadioButton = findViewById(R.id.radio_yes1)
         var radio_yes2:RadioButton = findViewById(R.id.radio_yes2)
         var radio_yes3:RadioButton = findViewById(R.id.radio_yes3)
         var radio_yes4:RadioButton = findViewById(R.id.radio_yes4)
+        var radio_yes5:RadioButton = findViewById(R.id.radio_yes5)
+        var radio_yes6:RadioButton = findViewById(R.id.radio_yes6)
         var radio_no1:RadioButton = findViewById(R.id.radio_no1)
         var radio_no2:RadioButton = findViewById(R.id.radio_no2)
         var radio_no3:RadioButton = findViewById(R.id.radio_no3)
         var radio_no4:RadioButton = findViewById(R.id.radio_no4)
+        var radio_no5:RadioButton = findViewById(R.id.radio_no5)
+        var radio_no6:RadioButton = findViewById(R.id.radio_no6)
 
         auth = FirebaseAuth.getInstance()
         uid=auth.currentUser?.uid.toString()
@@ -64,7 +72,12 @@ class RiskAssessmentActivity : AppCompatActivity() {
             val selectedId2:Int = rg2.getCheckedRadioButtonId()
             val selectedId3:Int = rg3.getCheckedRadioButtonId()
             val selectedId4:Int = rg4.getCheckedRadioButtonId()
+            val selectedId5:Int = rg5.getCheckedRadioButtonId()
+            val selectedId6:Int = rg6.getCheckedRadioButtonId()
 
+            //check each radioGroup selectedId
+            //if select "yes" radioButton, = 1
+            //else if select "no" radioButton, = 2
             if (selectedId1 == radio_yes1.getId()) {
                 answerArr[0] = 1
             }
@@ -76,6 +89,12 @@ class RiskAssessmentActivity : AppCompatActivity() {
             }
             if (selectedId4 == radio_yes4.getId()) {
                 answerArr[3] = 1
+            }
+            if (selectedId5 == radio_yes5.getId()) {
+                answerArr[4] = 1
+            }
+            if (selectedId6 == radio_yes6.getId()) {
+                answerArr[5] = 1
             }
             if (selectedId1 == radio_no1.getId()) {
                 answerArr[0] = 2
@@ -89,6 +108,12 @@ class RiskAssessmentActivity : AppCompatActivity() {
             if (selectedId4 == radio_no4.getId()) {
                 answerArr[3] = 2
             }
+            if (selectedId5 == radio_no5.getId()) {
+                answerArr[4] = 2
+            }
+            if (selectedId6 == radio_no6.getId()) {
+                answerArr[5] = 2
+            }
 
             checkAnswer(answerArr, this.uid)
         }
@@ -98,7 +123,7 @@ class RiskAssessmentActivity : AppCompatActivity() {
     private fun checkAnswer(answerArr: IntArray, uid: String) {
         var noOfYes:Int = 0
         var noOfNo:Int = 0
-        for (i in 0..3) {
+        for (i in 0..5) {
             if (answerArr[i] == 0) {
                 Toast.makeText(this@RiskAssessmentActivity, "Please Answer All Questions!", Toast.LENGTH_SHORT).show()
             } else if (answerArr[i] == 1){
@@ -108,14 +133,27 @@ class RiskAssessmentActivity : AppCompatActivity() {
             }
         }
 
-        if(noOfYes + noOfNo == 4 ){
+        if(noOfYes + noOfNo == 6 ){
 
-            if (noOfYes == 4) {
-                submitRiskResult(3, uid)
-            }else if (noOfYes == 2 || noOfYes == 3){
-                submitRiskResult(2, uid)
-            }else{
+            //Q1 & Q2, any of them ="yes", will show "With Symptom"
+            if(answerArr[0] == 1 || answerArr[1] == 1){
                 submitRiskResult(1, uid)
+            }else{
+                submitRiskResult(2, uid)
+            }
+
+            //Both Q3 & Q4 ="yes" or Q5 ="yes", will show "High Risk"; any of them ="yes", will show "Medium"
+            if ( (answerArr[2] == 1 && answerArr[3] == 1) || answerArr[4] == 1 ){
+                submitRiskResult(3, uid)
+            }else if (answerArr[2] == 1 || answerArr[3] == 1){
+                submitRiskResult(4, uid)
+            }else {
+                submitRiskResult(5, uid)
+            }
+
+            //If all questions ="yes", will show "No Risk", "No Symptom"
+            if (noOfYes == 6) {
+                submitRiskResult(6, uid)
             }
         }
     }
@@ -129,11 +167,19 @@ class RiskAssessmentActivity : AppCompatActivity() {
                     user=snapshot.getValue(ProfileData::class.java)!!
 
                     when (result){
-                        1 -> dbreference.child(uid).child("status").setValue("Low Risk");
+                        1 -> dbreference.child(uid).child("symptom").setValue("With Symptom");
 
-                        2 -> dbreference.child(uid).child("status").setValue("Medium Risk");
+                        2 -> dbreference.child(uid).child("symptom").setValue("No Symptom");
 
-                        3 -> dbreference.child(uid).child("status").setValue("High Risk");
+                        3 -> dbreference.child(uid).child("risk").setValue("High Risk");
+
+                        4 -> dbreference.child(uid).child("risk").setValue("Medium Risk");
+
+                        5 -> dbreference.child(uid).child("risk").setValue("Low Risk");
+
+                        6 -> {dbreference.child(uid).child("risk").setValue("Low Risk")
+                              dbreference.child(uid).child("symptom").setValue("No Symptom")};
+
                     }
 
                 }

@@ -115,15 +115,32 @@
                         android:text="COVID-19 Risk Status"
                         android:textColor="@color/white" />
 
-                    <TextView
-                        android:id="@+id/tv_risk_status"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="Low Risk No Symptom"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_risk_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="Low Risk"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/tv_symptom_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginLeft="7dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="No Symptom"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    </LinearLayout>
 
                 </LinearLayout>
             </LinearLayout>

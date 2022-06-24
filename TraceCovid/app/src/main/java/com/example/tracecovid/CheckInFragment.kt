@@ -49,6 +49,7 @@ class CheckInFragment : Fragment() {
         val tvUsername: TextView = view.findViewById(R.id.tv_username_checkin)
         val tvIC: TextView = view.findViewById(R.id.tv_ic_checkin)
         val tvRiskStatus: TextView = view.findViewById(R.id.tv_risk_status)
+        val tvSymptomStatus: TextView = view.findViewById(R.id.tv_symptom_status)
         val riskColor:LinearLayout = view.findViewById(R.id.riskColor)
         val btnCheckIn: ExtendedFloatingActionButton = view.findViewById(R.id.extended_fab_check_in)
 
@@ -59,12 +60,13 @@ class CheckInFragment : Fragment() {
                     user=snapshot.getValue(ProfileData::class.java)!!
                     tvUsername.setText(user.username)
                     tvIC.setText(user.ic)
-                    tvRiskStatus.setText(user.status)
+                    tvRiskStatus.setText(user.risk)
+                    tvSymptomStatus.setText(user.symptom)
 
-                    if(user.status == "High Risk"){
+                    if(user.risk == "High Risk"){
                         riskColor.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
                     }
-                    else if(user.status == "Medium Risk"){
+                    else if(user.risk == "Medium Risk"){
                         riskColor.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.gold)))
                     }
                     else{
