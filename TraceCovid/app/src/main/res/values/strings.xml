@@ -36,5 +36,17 @@
         <item>Labuan</item>
         <item>Putrajaya</item>
     </string-array>
+
+    <string-array name="swabLocation">
+        <item>Private Lab</item>
+        <item>Private Hospital</item>
+        <item>Government Hospital / Clinic</item>
+    </string-array>
+
+    <string-array name="swabOutcome">
+        <item>Negative</item>
+        <item>Positive</item>
+    </string-array>
+
     <string name="title_activity_maps">MapsActivity</string>
 </resources>

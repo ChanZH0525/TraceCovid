@@ -12,19 +12,19 @@
     app:cardUseCompatPadding="true">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/faqQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
             android:justificationMode="inter_word"
             android:text="Questions"
             android:textColor="@color/black"
+            android:fontFamily="@font/roboto_bold"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -33,10 +33,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/faqQuestion"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:fontFamily="@font/roboto"
             android:justificationMode="inter_word"
             android:text="answer"
             android:textSize="16sp" />
