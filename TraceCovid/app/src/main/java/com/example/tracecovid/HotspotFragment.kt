@@ -9,6 +9,11 @@ import android.view.ViewGroup
 import android.widget.*
 //import android.widget.SearchView
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.findFragment
+import com.example.tracecovid.databinding.FragmentHotspotBinding
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -17,6 +22,7 @@ class HotspotFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var dbreference: DatabaseReference
     private  lateinit var firebaseDB: FirebaseDatabase
+    private lateinit var binding: FragmentHotspotBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,18 +32,16 @@ class HotspotFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         dbreference=firebaseDB.getReference("Hotspot")
-        val view = inflater.inflate(R.layout.fragment_hotspot, container, false)
-        val search: EditText= view.findViewById(R.id.idSearchView)
-        val searchbtn: Button =view.findViewById(R.id.search_btn)
-        var reportedcases:TextView=view.findViewById(R.id.reportedcases_txt)
+        binding = FragmentHotspotBinding.inflate(inflater, container, false)
         var cases:HotpotData
 
-        searchbtn.setOnClickListener{
-            dbreference.child(search.text.toString()).addValueEventListener(object :ValueEventListener{
+
+        binding.searchBtn.setOnClickListener{
+            dbreference.child(binding.idSearchView.text.toString()).addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     cases= snapshot.getValue(HotpotData::class.java)!!
-                    reportedcases.setText("There are "+cases.Cases +" reported cases of Covid-19  in "+search.text.toString())
+                    binding.reportedcasesTxt.setText("There are "+cases.Cases +" reported cases of Covid-19  in "+binding.idSearchView.text.toString())
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -50,7 +54,7 @@ class HotspotFragment : Fragment() {
 
 
 
-        return view
+        return binding.root
 
     }
 }
