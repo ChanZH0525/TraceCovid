@@ -18,7 +18,9 @@ import androidx.core.content.ContextCompat
 import com.example.tracecovid.databinding.ActivityCheckInBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.common.util.concurrent.ListenableFuture
-import java.lang.Exception
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 import java.util.concurrent.ExecutionException
 
 
@@ -28,6 +30,25 @@ class CheckInActivity : AppCompatActivity() {
     private lateinit var previewView: PreviewView
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
 
+    private val barcodeLauncher = registerForActivityResult(
+        ScanContract()
+    ) { result: ScanIntentResult ->
+        if (result.contents == null) {
+            Toast.makeText(applicationContext, "Cancelled", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(
+                applicationContext,
+                "Scanned: " + result.contents,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    // Launch
+    fun onButtonClick(view: View?) {
+
+    }
+
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -35,7 +56,7 @@ class CheckInActivity : AppCompatActivity() {
             if (isGranted) {
                 // Permission has been granted. Start camera preview Activity.
                 Snackbar.make(layout, "Camera Permission Granted", Snackbar.LENGTH_INDEFINITE).show()
-                startCamera()
+                scanQR()
             }
             else {
                 Snackbar.make(layout, "Camera Permission Denied", Snackbar.LENGTH_SHORT).show()
@@ -74,7 +95,7 @@ class CheckInActivity : AppCompatActivity() {
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            startCamera()
+            scanQR()
         }
         else {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))
@@ -87,6 +108,18 @@ class CheckInActivity : AppCompatActivity() {
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
+    }
+
+    private fun scanQR() {
+        var options = ScanOptions()
+        options.setDesiredBarcodeFormats(ScanOptions.QR_CODE);
+        options.setPrompt("Scan a QR code");
+        options.setCameraId(0);  // Use a specific camera of the device
+        options.setBeepEnabled(true);
+        options.setBarcodeImageEnabled(true);
+        options.setOrientationLocked(false); //set to false to allow orientation change
+        options.captureActivity = CaptureAct::class.java
+        barcodeLauncher.launch(options);
     }
 
 //    override fun onRequestPermissionsResult(

@@ -40,9 +40,9 @@ class CheckInFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_checkin, container, false)
 
         auth = FirebaseAuth.getInstance()
-        uid=auth.currentUser?.uid.toString()
-        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        dbreference=firebaseDB.getReference("Users")
+        uid = auth.currentUser?.uid.toString()
+        firebaseDB = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbreference = firebaseDB.getReference("Users")
         // handle for profile information
         val btnCheckInHistory: ImageView = view.findViewById(R.id.btn_check_in_history)
         val profileImage: CircleImageView = view.findViewById(R.id.iv_profile_image_checkin)
@@ -58,24 +58,24 @@ class CheckInFragment : Fragment() {
             dbreference.child(uid).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     user=snapshot.getValue(ProfileData::class.java)!!
-                    tvUsername.setText(user.username)
-                    tvIC.setText(user.ic)
-                    tvRiskStatus.setText(user.risk)
-                    tvSymptomStatus.setText(user.symptom)
+                    tvUsername.text = user.username
+                    tvIC.text = user.ic
+                    tvRiskStatus.text = user.risk
+                    tvSymptomStatus.text = user.symptom
 
                     if(user.risk == "High Risk"){
-                        riskColor.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
+                        riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                     }
                     else if(user.risk == "Medium Risk"){
-                        riskColor.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.gold)))
+                        riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gold))
                     }
                     else{
-                        riskColor.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.apple_green)))
+                        riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.apple_green))
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) =
-                    Toast.makeText(getActivity(), "User Data Cannot Be Load!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "User Data Cannot Be Load!", Toast.LENGTH_SHORT).show()
             })
         }
 
