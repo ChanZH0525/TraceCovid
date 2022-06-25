@@ -4,17 +4,34 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.text.TextWatcher
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class SelfReport : AppCompatActivity() {
+
+    private lateinit var auth:FirebaseAuth
+    private lateinit var firebaseDB:FirebaseDatabase
+    private lateinit var dbreference: DatabaseReference
+    private lateinit var uid: String
+    private lateinit var user:ProfileData
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selfreport)
+
+        auth = FirebaseAuth.getInstance()
+        uid=auth.currentUser?.uid.toString()
+        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbreference=firebaseDB.getReference("Users")
 
         val back_btn: ImageView = findViewById(R.id.btn_back_self_report)
         back_btn.setOnClickListener{
@@ -28,9 +45,64 @@ class SelfReport : AppCompatActivity() {
             finish()
         }
 
-        var date = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.self_report_ans2)
-        DatePickerUniversal(date, "dd-MMM-yyyy")
+        val answerSR1 = findViewById<AutoCompleteTextView>(R.id.dropdown_swabLocation)
+        val answerSR3 = findViewById<AutoCompleteTextView>(R.id.dropdown_swabOutcome)
+        val answerSR4 = findViewById<AutoCompleteTextView>(R.id.dropdown_states)
 
+        val date = findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.self_report_ans2)
+        //Put "validate" to detect whether user has clicked to Q2 edittext, 0 = never ; 1 = yes
+        var validate:Int = 0
+        date.setOnClickListener {
+            validate = 1
+            DatePickerUniversal(date, "dd-MMM-yyyy")
+        }
+
+        val submitBtn: Button = findViewById(R.id.submit_btn)
+        submitBtn.setOnClickListener {
+
+            val swabLocation:String = answerSR1.getText().toString()
+            val swabDate:String = date.getText().toString()
+            val swabOutcome:String = answerSR3.getText().toString()
+            val swabState:String = answerSR4.getText().toString()
+
+            //Get the Date of Today
+            val c:Calendar = Calendar.getInstance()
+            val sdf = SimpleDateFormat("dd-MMM-yyyy",Locale.getDefault())
+            val dateToday:String = sdf.format(c.getTime())
+
+            if(validate == 1){
+
+                val dateOfToday:Date = SimpleDateFormat("dd-MMM-yyyy",Locale.ENGLISH).parse(dateToday)
+                val selectedDate:Date = SimpleDateFormat("dd-MMM-yyyy",Locale.ENGLISH).parse(swabDate)
+
+                //To check if any of the Q1 & Q3 & Q4 has no selected answer
+                if (swabLocation == "" || swabState == "" || swabOutcome == ""){
+                    Toast.makeText(this@SelfReport, "Please Answer All Questions!", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    //To check if date selected by user is on or before date of today
+                    checkDate(dateOfToday, selectedDate, this.uid, swabLocation, swabDate, swabOutcome,swabState)
+                }
+
+            }else{
+                Toast.makeText(this@SelfReport, "Please Select A Date!", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+
+    }
+
+    private fun delayFunction(function: ()-> Unit, delay:Long){
+        Handler().postDelayed(function,delay)
+    }
+
+    private fun checkDate(dateOfToday:Date, selectedDate:Date, uid: String, swabLocation:String, swabDate:String, swabOutcome:String, swabState:String,) {
+        if(dateOfToday.compareTo(selectedDate) < 0 ){
+            Toast.makeText(this@SelfReport, "Please Select A Valid Date!", Toast.LENGTH_SHORT).show()
+        }else{
+            submitSRResult(swabLocation, swabDate, swabOutcome,swabState, this.uid)
+        }
     }
 
     override fun onResume(){
@@ -59,6 +131,8 @@ class SelfReport : AppCompatActivity() {
         override fun onFocusChange(view: View, hasFocus: Boolean) {
             if (hasFocus) {
                 showPicker(view)
+            }else{
+                mEditText.setText("")
             }
         }
 
@@ -75,10 +149,12 @@ class SelfReport : AppCompatActivity() {
         }
 
         override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
+
             mCalendar!!.set(Calendar.YEAR, year)
             mCalendar!!.set(Calendar.MONTH, month)
             mCalendar!!.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            mEditText!!.setText(mFormat.format(mCalendar!!.getTime()))
+            mEditText.setText(mFormat.format(mCalendar!!.getTime()))
+
         }
 
         init {
@@ -88,4 +164,34 @@ class SelfReport : AppCompatActivity() {
         }
     }
 
+    private fun submitSRResult(swabLocation:String, swabDate:String, swabOutcome:String, swabState:String, uid:String) {
+
+        if( uid.isNotEmpty())
+        {
+            dbreference.child(uid).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    user = snapshot.getValue(ProfileData::class.java)!!
+
+                    if(swabOutcome == "Positive"){
+                        dbreference.child(uid).child("risk").setValue("High Risk");
+                        dbreference.child(uid).child("symptom").setValue("(Positive)");
+                    }
+
+                    dbreference.child(uid).child("state").setValue(swabState);
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@SelfReport, "User Data Cannot Be Load!", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
+        Toast.makeText(this, "Submit Successfully", Toast.LENGTH_LONG).show()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+
 }
+}
+
+

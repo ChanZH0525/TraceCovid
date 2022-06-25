@@ -29,24 +29,24 @@ class RiskAssessmentActivity : AppCompatActivity() {
             answerArr[i] = 0
         }
 
-        var rg1:RadioGroup = findViewById(R.id.rg1)
-        var rg2:RadioGroup = findViewById(R.id.rg2)
-        var rg3:RadioGroup = findViewById(R.id.rg3)
-        var rg4:RadioGroup = findViewById(R.id.rg4)
-        var rg5:RadioGroup = findViewById(R.id.rg5)
-        var rg6:RadioGroup = findViewById(R.id.rg6)
-        var radio_yes1:RadioButton = findViewById(R.id.radio_yes1)
-        var radio_yes2:RadioButton = findViewById(R.id.radio_yes2)
-        var radio_yes3:RadioButton = findViewById(R.id.radio_yes3)
-        var radio_yes4:RadioButton = findViewById(R.id.radio_yes4)
-        var radio_yes5:RadioButton = findViewById(R.id.radio_yes5)
-        var radio_yes6:RadioButton = findViewById(R.id.radio_yes6)
-        var radio_no1:RadioButton = findViewById(R.id.radio_no1)
-        var radio_no2:RadioButton = findViewById(R.id.radio_no2)
-        var radio_no3:RadioButton = findViewById(R.id.radio_no3)
-        var radio_no4:RadioButton = findViewById(R.id.radio_no4)
-        var radio_no5:RadioButton = findViewById(R.id.radio_no5)
-        var radio_no6:RadioButton = findViewById(R.id.radio_no6)
+        val rg1:RadioGroup = findViewById(R.id.rg1)
+        val rg2:RadioGroup = findViewById(R.id.rg2)
+        val rg3:RadioGroup = findViewById(R.id.rg3)
+        val rg4:RadioGroup = findViewById(R.id.rg4)
+        val rg5:RadioGroup = findViewById(R.id.rg5)
+        val rg6:RadioGroup = findViewById(R.id.rg6)
+        val radio_yes1:RadioButton = findViewById(R.id.radio_yes1)
+        val radio_yes2:RadioButton = findViewById(R.id.radio_yes2)
+        val radio_yes3:RadioButton = findViewById(R.id.radio_yes3)
+        val radio_yes4:RadioButton = findViewById(R.id.radio_yes4)
+        val radio_yes5:RadioButton = findViewById(R.id.radio_yes5)
+        val radio_yes6:RadioButton = findViewById(R.id.radio_yes6)
+        val radio_no1:RadioButton = findViewById(R.id.radio_no1)
+        val radio_no2:RadioButton = findViewById(R.id.radio_no2)
+        val radio_no3:RadioButton = findViewById(R.id.radio_no3)
+        val radio_no4:RadioButton = findViewById(R.id.radio_no4)
+        val radio_no5:RadioButton = findViewById(R.id.radio_no5)
+        val radio_no6:RadioButton = findViewById(R.id.radio_no6)
 
         auth = FirebaseAuth.getInstance()
         uid=auth.currentUser?.uid.toString()
@@ -185,12 +185,12 @@ class RiskAssessmentActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    //Toast.makeText(this, "User Data Cannot Be Load!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@RiskAssessmentActivity, "User Data Cannot Be Load!", Toast.LENGTH_SHORT).show()
                 }
             })
         }
 
-        Toast.makeText(this, "Submit Successfully", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Submit Successfully", Toast.LENGTH_LONG).show()
         startActivity(Intent(this, MainActivity::class.java))
         finish()
 
