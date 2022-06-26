@@ -55,6 +55,7 @@ class ProfileFragment : BaseFragment() {
         val tvState: TextView = view.findViewById(R.id.tv_state)
         val tvNationality: TextView=view.findViewById(R.id.tv_nationality)
 
+
         if( uid.isNotEmpty())
         {
             dbreference.child(uid).addValueEventListener(object :ValueEventListener{
@@ -68,9 +69,10 @@ class ProfileFragment : BaseFragment() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+
                 }
             })
+
         }
 
         val popupMenu = PopupMenu(context, btnSetting)

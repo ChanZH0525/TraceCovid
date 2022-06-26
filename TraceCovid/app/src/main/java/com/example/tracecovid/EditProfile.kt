@@ -1,5 +1,6 @@
 package com.example.tracecovid
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -304,16 +305,15 @@ class EditProfile : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
         val btnBack: ImageView = view.findViewById(R.id.btn_back)
         val saveBtn: Button =view.findViewById(R.id.saveBtn)
+        val selectBtn: Button= view.findViewById(R.id.selectBtn)
         username = view.findViewById(R.id.change_username)
         dropdown_country = view.findViewById<AutoCompleteTextView>(R.id.dropdown_country)
-        val arrayAdapter_country =
-            view.let { ArrayAdapter(it.context, R.layout.dropdown_list, countries) }
+        val arrayAdapter_country = view.let { ArrayAdapter(it.context, R.layout.dropdown_list, countries) }
         dropdown_country?.setAdapter(arrayAdapter_country)
 
         dropdown_state = view.findViewById<AutoCompleteTextView>(R.id.dropdown_state)
         val states = resources.getStringArray(R.array.states)
-        val arrayAdapter_state =
-            view.let { ArrayAdapter(it.context, R.layout.dropdown_list, states) }
+        val arrayAdapter_state = view.let { ArrayAdapter(it.context, R.layout.dropdown_list, states) }
         dropdown_state?.setAdapter(arrayAdapter_state)
 
         btnBack.setOnClickListener {
@@ -333,13 +333,11 @@ class EditProfile : BaseFragment() {
             dbreference.updateChildren(map)
             parentFragmentManager.popBackStack()
         }
+        selectBtn.setOnClickListener{
+            startActivity(Intent(activity, UploadProfilePic::class.java))
+        }
         return view
     }
-    private fun updatedata(uname: String, nationality: String, newstate: String) {
 
-
-
-
-    }
 
 }
