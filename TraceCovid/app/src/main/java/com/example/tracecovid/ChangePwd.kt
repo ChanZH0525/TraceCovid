@@ -39,7 +39,7 @@ class ChangePwd : BaseFragment() {
         btnUpdate.setOnClickListener {
            if(currentPassword.text?.isNotEmpty()==true && newPassword.text?.isNotEmpty()==true
                && confirmPassword.text?.isNotEmpty()==true){
-                if (newPassword.text.toString().equals(confirmPassword.text.toString()))
+                if (newPassword.text.toString().equals(confirmPassword.text.toString())&& newPassword.length()>=8)
                 {
                     val user=auth.currentUser
                     if(user !=null && user.email!=null)
@@ -77,7 +77,7 @@ class ChangePwd : BaseFragment() {
                 }
                else
                 {
-                    Toast.makeText(activity,"New password does not match",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity,"New password does not match, password must have a minimum of 8 characters",Toast.LENGTH_SHORT).show()
                 }
            }
             else{

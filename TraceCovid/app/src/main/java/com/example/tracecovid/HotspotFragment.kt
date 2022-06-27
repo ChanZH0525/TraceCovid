@@ -39,13 +39,31 @@ class HotspotFragment : Fragment() {
         binding.searchBtn.setOnClickListener{
             dbreference.child(binding.idSearchView.text.toString()).addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-
-                    cases= snapshot.getValue(HotpotData::class.java)!!
-                    binding.reportedcasesTxt.setText("There are "+cases.Cases +" reported cases of Covid-19  in "+binding.idSearchView.text.toString())
+                    if (binding.idSearchView.text.toString()!="Selangor" &&
+                        binding.idSearchView.text.toString()!="Johor" &&
+                        binding.idSearchView.text.toString()!="Kuala Lumpur"&&
+                        binding.idSearchView.text.toString()!="Terrenganu" &&
+                        binding.idSearchView.text.toString()!="Malacca" &&
+                        binding.idSearchView.text.toString()!="Negeri Sembilan" &&
+                        binding.idSearchView.text.toString()!="Kedah" &&
+                        binding.idSearchView.text.toString()!="Kelantan" &&
+                        binding.idSearchView.text.toString()!="Labuan" &&
+                        binding.idSearchView.text.toString()!="Pahang" &&
+                        binding.idSearchView.text.toString()!="Perlis" &&
+                        binding.idSearchView.text.toString()!="Sabah" &&
+                        binding.idSearchView.text.toString()!="Sarawak" &&
+                        binding.idSearchView.text.toString()!="Putrajaya")
+                    {
+                        Toast.makeText(activity,"Please find a valid state in Malaysia", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        cases = snapshot.getValue(HotpotData::class.java)!! //crashes if entered search does not exist
+                        binding.reportedcasesTxt.setText("There are " + cases.Cases + " reported cases of Covid-19  in " + binding.idSearchView.text.toString())
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(activity,"Please find a valid state in Malaysia", Toast.LENGTH_SHORT).show()
+
                 }
 
             })
