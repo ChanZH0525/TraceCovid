@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.drawable.InsetDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
@@ -15,15 +17,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.appcompat.view.menu.MenuBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.firestore.auth.User
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.squareup.okhttp.internal.DiskLruCache
 import de.hdodenhof.circleimageview.CircleImageView
 import org.w3c.dom.Text
+import java.io.File
 import java.lang.reflect.Field
 
 
@@ -32,6 +38,7 @@ class ProfileFragment : BaseFragment() {
     private lateinit var auth:FirebaseAuth
     private lateinit var firebaseDB:FirebaseDatabase
     private lateinit var dbreference:DatabaseReference
+    private lateinit var storageReference: StorageReference
     private lateinit var uid: String
     private lateinit var user:ProfileData
     private lateinit var btnSetting: ImageView
@@ -43,9 +50,13 @@ class ProfileFragment : BaseFragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         auth = FirebaseAuth.getInstance()
+
         uid=auth.currentUser?.uid.toString()
         firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         dbreference=firebaseDB.getReference("Users")
+        storageReference=FirebaseStorage.getInstance().reference.child("$uid.jpg")
+
+        val localfile= File.createTempFile("tempImage","jpg")
        // handle for profile information
         val profileImage: CircleImageView = view.findViewById(R.id.iv_profile)
         btnSetting = view.findViewById(R.id.btn_setting_profile)
@@ -54,13 +65,11 @@ class ProfileFragment : BaseFragment() {
         val tvIC: TextView = view.findViewById(R.id.tv_ic_passport)
         val tvState: TextView = view.findViewById(R.id.tv_state)
         val tvNationality: TextView=view.findViewById(R.id.tv_nationality)
-
-
         if( uid.isNotEmpty())
         {
             dbreference.child(uid).addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    user=snapshot.getValue(ProfileData::class.java)!!
+                    user = snapshot.getValue(ProfileData::class.java)!!
                     tvUsername.setText(user.username)
                     tvIC.setText(user.ic)
                     tvPhone.setText(user.phonenumber)
@@ -68,10 +77,17 @@ class ProfileFragment : BaseFragment() {
                     tvNationality.setText(user.country)
                 }
 
+
                 override fun onCancelled(error: DatabaseError) {
 
                 }
             })
+            storageReference.getFile(localfile).addOnSuccessListener {
+                val bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
+                profileImage.setImageBitmap(bitmap)
+            }.addOnFailureListener{
+                Toast.makeText(activity,"Failed",Toast.LENGTH_SHORT).show()
+            }
 
         }
 

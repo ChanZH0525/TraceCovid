@@ -1,6 +1,7 @@
 package com.example.tracecovid
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,10 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import de.hdodenhof.circleimageview.CircleImageView
+import java.io.File
 
 
 class EditProfile : BaseFragment() {
@@ -290,6 +295,7 @@ class EditProfile : BaseFragment() {
     private lateinit var uid: String
     private lateinit var auth: FirebaseAuth
     private lateinit var dbreference: DatabaseReference
+    private lateinit var storageReference: StorageReference
     lateinit var username: TextInputEditText
     lateinit var dropdown_country: AutoCompleteTextView
     lateinit var dropdown_state: AutoCompleteTextView
@@ -302,8 +308,12 @@ class EditProfile : BaseFragment() {
         uid = auth.currentUser?.uid.toString()
         database =FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         dbreference = database.getReference("Users").child(uid)
+        storageReference= FirebaseStorage.getInstance().reference.child("$uid.jpg")
+        val localfile= File.createTempFile("tempImage","jpg")
+
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
         val btnBack: ImageView = view.findViewById(R.id.btn_back)
+        val ivprofile:CircleImageView=view.findViewById(R.id.iv_profile)
         val saveBtn: Button =view.findViewById(R.id.saveBtn)
         val selectBtn: Button= view.findViewById(R.id.selectBtn)
         username = view.findViewById(R.id.change_username)
@@ -315,6 +325,13 @@ class EditProfile : BaseFragment() {
         val states = resources.getStringArray(R.array.states)
         val arrayAdapter_state = view.let { ArrayAdapter(it.context, R.layout.dropdown_list, states) }
         dropdown_state?.setAdapter(arrayAdapter_state)
+
+        storageReference.getFile(localfile).addOnSuccessListener {
+            val bitmap= BitmapFactory.decodeFile(localfile.absolutePath)
+            ivprofile.setImageBitmap(bitmap)
+        }.addOnFailureListener{
+            Toast.makeText(activity,"Failed",Toast.LENGTH_SHORT).show()
+        }
 
         btnBack.setOnClickListener {
             parentFragmentManager.popBackStack()

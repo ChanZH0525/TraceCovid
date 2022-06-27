@@ -49,7 +49,10 @@ class UploadProfilePic : AppCompatActivity() {
     }
 
     private fun uploadPic() {
-        val ref:StorageReference = storageReference.child(auth.currentUser!!.uid)
+        val ref:StorageReference = storageReference.child(auth.currentUser!!.uid+".jpg")
+        ref.downloadUrl.addOnSuccessListener {
+            var url:String=ref.toString()
+        }
         ref.putFile(imageUri).addOnSuccessListener {
             Toast.makeText(this, "Success",Toast.LENGTH_SHORT).show()
         }
