@@ -23,8 +23,8 @@ class UploadProfilePic : AppCompatActivity() {
         binding= ActivityUploadProfilePicBinding.inflate(layoutInflater)
         setContentView(binding.root)
         storage= FirebaseStorage.getInstance()
-        storageReference=storage.getReference()
-        auth= FirebaseAuth.getInstance()
+        storageReference = storage.reference
+        auth = FirebaseAuth.getInstance()
 
         binding.btnBack.setOnClickListener{
             startActivity(Intent(this, EditProfile::class.java ))
@@ -32,8 +32,8 @@ class UploadProfilePic : AppCompatActivity() {
         }
         binding.uploadBtn.setOnClickListener{
             val intent=Intent()
-            intent.setType("image/*")
-            intent.setAction(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent,1)
         }
     }
@@ -42,7 +42,7 @@ class UploadProfilePic : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==1 && resultCode== RESULT_OK && data!=null && data.data!=null)
         {
-            imageUri= data.getData()!!
+            imageUri= data.data!!
             binding.imgProfile.setImageURI(imageUri)
             uploadPic()
         }
