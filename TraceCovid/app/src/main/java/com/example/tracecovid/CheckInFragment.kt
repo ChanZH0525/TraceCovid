@@ -28,8 +28,9 @@ class CheckInFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseDB: FirebaseDatabase
     private lateinit var dbreference: DatabaseReference
+    private val DATABASEURL = "https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/"
     private lateinit var uid: String
-    private lateinit var user:ProfileData
+    private lateinit var user: ProfileData
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +42,8 @@ class CheckInFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
-        firebaseDB = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+
+        firebaseDB = FirebaseDatabase.getInstance(DATABASEURL)
         dbreference = firebaseDB.getReference("Users")
         // handle for profile information
         val btnCheckInHistory: ImageView = view.findViewById(R.id.btn_check_in_history)
@@ -57,7 +59,7 @@ class CheckInFragment : Fragment() {
         {
             dbreference.child(uid).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    user=snapshot.getValue(ProfileData::class.java)!!
+                    user = snapshot.getValue(ProfileData::class.java)!!
                     tvUsername.text = user.username
                     tvIC.text = user.ic
                     tvRiskStatus.text = user.risk
@@ -108,7 +110,10 @@ class CheckInFragment : Fragment() {
         }
 
         btnCheckIn.setOnClickListener{
-            activity?.startActivity(Intent(context, CheckInActivity::class.java))
+            var checkInIntent = Intent(context, CheckInActivity::class.java)
+            checkInIntent.putExtra("userId", uid)
+            checkInIntent.putExtra("database", DATABASEURL)
+            activity?.startActivity(checkInIntent)
             activity?.finish()
         }
         return view

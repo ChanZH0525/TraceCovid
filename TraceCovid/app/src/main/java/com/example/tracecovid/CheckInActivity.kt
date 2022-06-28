@@ -18,6 +18,8 @@ import androidx.core.content.ContextCompat
 import com.example.tracecovid.databinding.ActivityCheckInBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.common.util.concurrent.ListenableFuture
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
@@ -29,6 +31,10 @@ class CheckInActivity : AppCompatActivity() {
     private lateinit var layout: View
     private lateinit var previewView: PreviewView
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
+    private val userId = intent.getStringExtra("userId").toString()
+    private val DATABASEURL = intent.getStringExtra("database").toString()
+    private lateinit var firebaseDB: FirebaseDatabase
+    private lateinit var dbReference: DatabaseReference
 
     private val barcodeLauncher = registerForActivityResult(
         ScanContract()
@@ -36,6 +42,9 @@ class CheckInActivity : AppCompatActivity() {
         if (result.contents == null) {
             Snackbar.make(layout, "Cancelled", Snackbar.LENGTH_LONG).show()
         } else {
+            if(userId.isNotEmpty()){
+                val currentDatabaseReference = dbReference.child(userId).child("checkInHistory")
+            }
 
         }
     }
@@ -68,6 +77,9 @@ class CheckInActivity : AppCompatActivity() {
         layout = binding.root
 
         setContentView(layout)
+
+        firebaseDB = FirebaseDatabase.getInstance(DATABASEURL)
+        dbReference = firebaseDB.getReference("Users")
 
         previewView = findViewById(R.id.previewView)
         val btnBack: ImageView = findViewById(R.id.btn_back_camera)

@@ -51,12 +51,12 @@ class ProfileFragment : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         auth = FirebaseAuth.getInstance()
 
-        uid=auth.currentUser?.uid.toString()
-        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        dbreference=firebaseDB.getReference("Users")
-        storageReference=FirebaseStorage.getInstance().reference.child("$uid.jpg")
+        uid = auth.currentUser?.uid.toString()
+        firebaseDB = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbreference = firebaseDB.getReference("Users")
+        storageReference = FirebaseStorage.getInstance().reference.child("$uid.jpg")
 
-        val localfile= File.createTempFile("tempImage","jpg")
+        val localfile = File.createTempFile("tempImage","jpg")
        // handle for profile information
         val profileImage: CircleImageView = view.findViewById(R.id.iv_profile)
         btnSetting = view.findViewById(R.id.btn_setting_profile)
@@ -64,17 +64,17 @@ class ProfileFragment : BaseFragment() {
         val tvPhone: TextView = view.findViewById(R.id.tv_phone)
         val tvIC: TextView = view.findViewById(R.id.tv_ic_passport)
         val tvState: TextView = view.findViewById(R.id.tv_state)
-        val tvNationality: TextView=view.findViewById(R.id.tv_nationality)
+        val tvNationality: TextView = view.findViewById(R.id.tv_nationality)
         if( uid.isNotEmpty())
         {
             dbreference.child(uid).addValueEventListener(object :ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     user = snapshot.getValue(ProfileData::class.java)!!
-                    tvUsername.setText(user.username)
-                    tvIC.setText(user.ic)
-                    tvPhone.setText(user.phonenumber)
-                    tvState.setText(user.state)
-                    tvNationality.setText(user.country)
+                    tvUsername.text = user.username
+                    tvIC.text = user.ic
+                    tvPhone.text = user.phonenumber
+                    tvState.text = user.state
+                    tvNationality.text = user.country
                 }
 
 
@@ -83,7 +83,7 @@ class ProfileFragment : BaseFragment() {
                 }
             })
             storageReference.getFile(localfile).addOnSuccessListener {
-                val bitmap=BitmapFactory.decodeFile(localfile.absolutePath)
+                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                 profileImage.setImageBitmap(bitmap)
             }.addOnFailureListener{
                 Toast.makeText(activity,"Failed",Toast.LENGTH_SHORT).show()

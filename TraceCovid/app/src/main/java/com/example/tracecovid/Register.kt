@@ -95,26 +95,26 @@ class Register : AppCompatActivity() {
         setContentView(binding.root)
         firebaseAuth = FirebaseAuth.getInstance()
         firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        var phone=intent.getStringExtra("PhoneNumber").toString()
-        dbreference=firebaseDB.reference!!.child("Users")
+        var phone = intent.getStringExtra("PhoneNumber").toString()
+        dbreference = firebaseDB.reference!!.child("Users")
 
         binding.signupBtn.setOnClickListener{
-            val email=binding.regemail.text.toString()
-            val pwd=binding.regpwd.text.toString()
-            val pwd2=binding.regpwd2.text.toString()
-            val username=binding.regusername.text.toString()
-            val ic=binding.regic.text.toString()
-            val country=binding.dropdownCountry.text.toString()
-            val state=binding.dropdownState.text.toString()
+            val email = binding.regemail.text.toString()
+            val pwd = binding.regpwd.text.toString()
+            val pwd2 = binding.regpwd2.text.toString()
+            val username = binding.regusername.text.toString()
+            val ic = binding.regic.text.toString()
+            val country = binding.dropdownCountry.text.toString()
+            val state = binding.dropdownState.text.toString()
 
-            if(email.isNotEmpty()&&pwd.isNotEmpty()&&pwd2.isNotEmpty())
+            if(email.isNotEmpty() && pwd.isNotEmpty() && pwd2.isNotEmpty())
             {
-                if(pwd==pwd2 && pwd.length>=8){
+                if(pwd == pwd2 && pwd.length >= 8){
                     firebaseAuth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener{
                         if(it.isSuccessful)
                         {
-                            val currentuser= firebaseAuth.currentUser
-                            val currentUserDB=dbreference.child(currentuser?.uid!!)
+                            val currentuser = firebaseAuth.currentUser
+                            val currentUserDB = dbreference.child(currentuser?.uid!!)
                             currentUserDB.child("phonenumber").setValue(phone)
                             currentUserDB.child("email").setValue(email)
                             currentUserDB.child("password").setValue(pwd)
