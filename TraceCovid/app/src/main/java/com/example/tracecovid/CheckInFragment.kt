@@ -3,6 +3,7 @@ package com.example.tracecovid
 import android.app.Application
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,7 +20,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import de.hdodenhof.circleimageview.CircleImageView
+import java.io.File
 
 
 class CheckInFragment : Fragment() {
@@ -30,6 +34,7 @@ class CheckInFragment : Fragment() {
     private lateinit var dbreference: DatabaseReference
     private val DATABASEURL = "https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/"
     private lateinit var userId: String
+    private lateinit var storageReference: StorageReference
     private lateinit var user: ProfileData
 
     override fun onCreateView(
@@ -45,7 +50,8 @@ class CheckInFragment : Fragment() {
 
         firebaseDB = FirebaseDatabase.getInstance(DATABASEURL)
         dbreference = firebaseDB.getReference("Users")
-
+        storageReference = FirebaseStorage.getInstance().reference.child("$userId.jpg")
+        val localfile = File.createTempFile("tempImage","jpg")
         // handle for profile information
         val btnCheckInHistory: ImageView = view.findViewById(R.id.btn_check_in_history)
         val profileImage: CircleImageView = view.findViewById(R.id.iv_profile_image_checkin)
@@ -55,6 +61,12 @@ class CheckInFragment : Fragment() {
         val tvSymptomStatus: TextView = view.findViewById(R.id.tv_symptom_status)
         val riskColor:LinearLayout = view.findViewById(R.id.riskColor)
         val btnCheckIn: ExtendedFloatingActionButton = view.findViewById(R.id.extended_fab_check_in)
+        storageReference.getFile(localfile).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+            profileImage.setImageBitmap(bitmap)
+        }.addOnFailureListener{
+            Toast.makeText(activity,"Failed",Toast.LENGTH_SHORT).show()
+        }
 
         if( userId.isNotEmpty())
         {

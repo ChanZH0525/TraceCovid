@@ -30,11 +30,15 @@ class UploadProfilePic : AppCompatActivity() {
             startActivity(Intent(this, EditProfile::class.java ))
             finish()
         }
-        binding.uploadBtn.setOnClickListener{
+        binding.imgProfile.setOnClickListener{
             val intent=Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
             startActivityForResult(intent,1)
+        }
+        binding.uploadBtn.setOnClickListener{
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
         }
     }
 
