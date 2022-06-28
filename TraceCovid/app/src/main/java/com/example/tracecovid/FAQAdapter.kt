@@ -13,8 +13,8 @@ class FAQAdapter (var faq: ArrayList<FAQClass>):RecyclerView.Adapter<FAQAdapter.
         val faq_ans = itemView.findViewById<TextView>(R.id.faqans)
         fun bind(f:FAQClass)
         {
-            faq_question.text=f.question
-            faq_ans.text=f.answer
+            faq_question.text = f.question
+            faq_ans.text = f.answer
         }
 
 

@@ -1,3 +1,3 @@
 package com.example.tracecovid
 
-data class HotpotData(var Cases: String="")
+data class HotpotData(var Cases: String = "")

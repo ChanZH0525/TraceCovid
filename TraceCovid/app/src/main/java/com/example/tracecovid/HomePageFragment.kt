@@ -17,8 +17,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlin.collections.ArrayList
 
 
-class HomePageFragment : Fragment() {
-
+class HomePageFragment : BaseFragment() {
+    override var bottomNavigationViewVisibility = View.VISIBLE
     private lateinit var activeCases: TextView
     private lateinit var timeActiveCases: TextView
     private lateinit var lineChart: LineChart

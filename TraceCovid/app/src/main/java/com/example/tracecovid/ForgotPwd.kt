@@ -13,8 +13,7 @@ class ForgotPwd : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgotpwd)
-        var auth: FirebaseAuth
-        auth= FirebaseAuth.getInstance()
+        var auth: FirebaseAuth = FirebaseAuth.getInstance()
         val backBtn: ImageView = findViewById(R.id.btn_back_forgot_pwd)
         backBtn.setOnClickListener {
             startActivity(Intent(this, Login::class.java))

@@ -18,7 +18,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
-class HotspotFragment : Fragment() {
+class HotspotFragment : BaseFragment() {
+    override var bottomNavigationViewVisibility = View.VISIBLE
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var dbreference: DatabaseReference
     private  lateinit var firebaseDB: FirebaseDatabase
