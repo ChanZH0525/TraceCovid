@@ -9,8 +9,8 @@ import org.w3c.dom.Text
 
 class FAQAdapter (var faq: ArrayList<FAQClass>):RecyclerView.Adapter<FAQAdapter.FAQViewHolder>() {
     class FAQViewHolder( itemView: View):RecyclerView.ViewHolder(itemView) {
-        val faq_question=itemView.findViewById<TextView>(R.id.faqQuestion)
-        val faq_ans=itemView.findViewById<TextView>(R.id.faqans)
+        val faq_question = itemView.findViewById<TextView>(R.id.faqQuestion)
+        val faq_ans = itemView.findViewById<TextView>(R.id.faqans)
         fun bind(f:FAQClass)
         {
             faq_question.text=f.question

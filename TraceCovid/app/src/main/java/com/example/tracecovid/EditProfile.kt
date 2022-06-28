@@ -313,9 +313,9 @@ class EditProfile : BaseFragment() {
 
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
         val btnBack: ImageView = view.findViewById(R.id.btn_back)
-        val ivprofile:CircleImageView=view.findViewById(R.id.iv_profile)
-        val saveBtn: Button =view.findViewById(R.id.saveBtn)
-        val selectBtn: Button= view.findViewById(R.id.selectBtn)
+        val ivprofile: CircleImageView = view.findViewById(R.id.iv_profile)
+        val saveBtn: Button = view.findViewById(R.id.saveBtn)
+        val selectBtn: Button = view.findViewById(R.id.selectBtn)
         username = view.findViewById(R.id.change_username)
         dropdown_country = view.findViewById<AutoCompleteTextView>(R.id.dropdown_country)
         val arrayAdapter_country = view.let { ArrayAdapter(it.context, R.layout.dropdown_list, countries) }
@@ -339,7 +339,7 @@ class EditProfile : BaseFragment() {
         saveBtn.setOnClickListener{
             var uname: String = username.text.toString()
             var nationality: String = dropdown_country.text.toString()
-            var newstate :String= dropdown_state.text.toString()
+            var newstate :String = dropdown_state.text.toString()
 
 
             val map= mapOf(

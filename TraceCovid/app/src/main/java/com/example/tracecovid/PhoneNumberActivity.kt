@@ -34,15 +34,15 @@ class PhoneNumberActivity : AppCompatActivity() {
         binding = ActivityPhoneNumberBinding.inflate(layoutInflater)
         layout = binding.root
         setContentView(layout)
-        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        firebaseDB = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         phoneNumber = findViewById(R.id.phoneNumber)
 
-        dbreference=firebaseDB.getReference()
+        dbreference = firebaseDB.getReference()
         auth = FirebaseAuth.getInstance()
 
         var otpNumber: EditText = findViewById(R.id.otpnumber)
         var otpRequest: TextView = findViewById(R.id.requestotp)
-        var nextBtn:Button=findViewById(R.id.nextbtn)
+        var nextBtn: Button = findViewById(R.id.nextbtn)
 
 
         nextBtn.setOnClickListener{

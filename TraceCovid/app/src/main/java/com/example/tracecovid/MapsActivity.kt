@@ -104,7 +104,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarke
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMap.getUiSettings().setZoomControlsEnabled(true)
+        mMap.uiSettings.isZoomControlsEnabled = true
         mMap.setOnMarkerClickListener(this)
         setUpMap()
     }

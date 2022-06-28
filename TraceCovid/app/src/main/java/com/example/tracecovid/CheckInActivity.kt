@@ -34,13 +34,9 @@ class CheckInActivity : AppCompatActivity() {
         ScanContract()
     ) { result: ScanIntentResult ->
         if (result.contents == null) {
-            Toast.makeText(applicationContext, "Cancelled", Toast.LENGTH_LONG).show()
+            Snackbar.make(layout, "Cancelled", Snackbar.LENGTH_LONG).show()
         } else {
-            Toast.makeText(
-                applicationContext,
-                "Scanned: " + result.contents,
-                Toast.LENGTH_LONG
-            ).show()
+
         }
     }
 

@@ -35,8 +35,8 @@ class AllCheckInHistory : Fragment() {
         val view = inflater.inflate(R.layout.fragment_all_check_in_history, container, false)
 
         val backbtn: ImageView = view.findViewById(R.id.btn_back_check_in)
-        val weekhistbtn: Button =view.findViewById(R.id.lastweekbtn)
-        val allhistbtn: Button=view.findViewById(R.id.allhistbtn)
+        val weekhistbtn: Button = view.findViewById(R.id.lastweekbtn)
+        val allhistbtn: Button = view.findViewById(R.id.allhistbtn)
 
         val recyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.recyler_view_check_in_hist)
         backbtn.setOnClickListener{
@@ -44,8 +44,8 @@ class AllCheckInHistory : Fragment() {
         }
 
         weekhistbtn.setOnClickListener {
-            weekhistbtn.isSelected=true
-            allhistbtn.isSelected=false
+            weekhistbtn.isSelected = true
+            allhistbtn.isSelected = false
             var locations: ArrayList<CheckInHistory> = arrayListOf(
                 CheckInHistory(
                     "XMUM Malaysia campus",
@@ -69,8 +69,8 @@ class AllCheckInHistory : Fragment() {
 
 
         allhistbtn.setOnClickListener {
-            allhistbtn.isSelected=true
-            weekhistbtn.isSelected=false
+            allhistbtn.isSelected = true
+            weekhistbtn.isSelected = false
             var locations2: ArrayList<CheckInHistory> = arrayListOf(
                 CheckInHistory(
                     "XMUM Malaysia campus",

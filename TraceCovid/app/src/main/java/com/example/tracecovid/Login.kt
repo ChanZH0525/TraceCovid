@@ -18,9 +18,9 @@ class Login : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding= ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        firebaseAuth= FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
 
         binding.forgotPwd.setOnClickListener{
             startActivity(Intent(this, ForgotPwd::class.java))
@@ -31,9 +31,9 @@ class Login : AppCompatActivity() {
             finish()
         }
         binding.loginBtn.setOnClickListener{
-            val email=binding.loginEmail.text.toString()
-            val pwd=binding.loginPwd.text.toString()
-            if(email.isNotEmpty()&&pwd.isNotEmpty())
+            val email = binding.loginEmail.text.toString()
+            val pwd = binding.loginPwd.text.toString()
+            if(email.isNotEmpty() && pwd.isNotEmpty())
             {
                     firebaseAuth.signInWithEmailAndPassword(email,pwd).addOnCompleteListener{
                         if(it.isSuccessful)
