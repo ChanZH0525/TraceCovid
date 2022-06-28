@@ -29,7 +29,7 @@ class CheckInFragment : Fragment() {
     private lateinit var firebaseDB: FirebaseDatabase
     private lateinit var dbreference: DatabaseReference
     private val DATABASEURL = "https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/"
-    private lateinit var uid: String
+    private lateinit var userId: String
     private lateinit var user: ProfileData
 
     override fun onCreateView(
@@ -41,10 +41,11 @@ class CheckInFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_checkin, container, false)
 
         auth = FirebaseAuth.getInstance()
-        uid = auth.currentUser?.uid.toString()
+        userId = auth.currentUser?.uid.toString()
 
         firebaseDB = FirebaseDatabase.getInstance(DATABASEURL)
         dbreference = firebaseDB.getReference("Users")
+
         // handle for profile information
         val btnCheckInHistory: ImageView = view.findViewById(R.id.btn_check_in_history)
         val profileImage: CircleImageView = view.findViewById(R.id.iv_profile_image_checkin)
@@ -55,9 +56,9 @@ class CheckInFragment : Fragment() {
         val riskColor:LinearLayout = view.findViewById(R.id.riskColor)
         val btnCheckIn: ExtendedFloatingActionButton = view.findViewById(R.id.extended_fab_check_in)
 
-        if( uid.isNotEmpty())
+        if( userId.isNotEmpty())
         {
-            dbreference.child(uid).addValueEventListener(object : ValueEventListener {
+            dbreference.child(userId).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     user = snapshot.getValue(ProfileData::class.java)!!
                     tvUsername.text = user.username
@@ -65,14 +66,16 @@ class CheckInFragment : Fragment() {
                     tvRiskStatus.text = user.risk
                     tvSymptomStatus.text = user.symptom
 
-                    if(user.risk == "High Risk"){
-                        riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
-                    }
-                    else if(user.risk == "Medium Risk"){
-                        riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gold))
-                    }
-                    else{
-                        riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.apple_green))
+                    when (user.risk) {
+                        "High Risk" -> {
+                            riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                        }
+                        "Medium Risk" -> {
+                            riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gold))
+                        }
+                        else -> {
+                            riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.apple_green))
+                        }
                     }
                 }
 
@@ -111,7 +114,8 @@ class CheckInFragment : Fragment() {
 
         btnCheckIn.setOnClickListener{
             var checkInIntent = Intent(context, CheckInActivity::class.java)
-            checkInIntent.putExtra("userId", uid)
+
+            checkInIntent.putExtra("userId", userId)
             checkInIntent.putExtra("database", DATABASEURL)
             activity?.startActivity(checkInIntent)
             activity?.finish()

@@ -31,8 +31,8 @@ class CheckInActivity : AppCompatActivity() {
     private lateinit var layout: View
     private lateinit var previewView: PreviewView
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
-    private val userId = intent.getStringExtra("userId").toString()
-    private val DATABASEURL = intent.getStringExtra("database").toString()
+    private lateinit var userId: String
+    private lateinit var DATABASEURL: String
     private lateinit var firebaseDB: FirebaseDatabase
     private lateinit var dbReference: DatabaseReference
 
@@ -44,6 +44,11 @@ class CheckInActivity : AppCompatActivity() {
         } else {
             if(userId.isNotEmpty()){
                 val currentDatabaseReference = dbReference.child(userId).child("checkInHistory")
+                Toast.makeText(
+                    applicationContext, userId +
+                    " Scanned: " + result.contents,
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
         }
@@ -78,6 +83,8 @@ class CheckInActivity : AppCompatActivity() {
 
         setContentView(layout)
 
+        userId = intent.getStringExtra("userId").toString()
+        DATABASEURL = intent.getStringExtra("database").toString()
         firebaseDB = FirebaseDatabase.getInstance(DATABASEURL)
         dbReference = firebaseDB.getReference("Users")
 
