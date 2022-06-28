@@ -30,30 +30,57 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <!--search view to search our location-->
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginBottom="112dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idSearchView"
         tools:context=".MapsActivity" />
 
-    <EditText
-        android:id="@+id/idSearchView"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/self_report_ans4"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="32dp"
-        android:hint="Type in the State you wish to find"
-        android:inputType="textPersonName"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:fontFamily="@font/roboto"
+        android:textColorHint="@color/main_green"
+        android:textSize="16sp"
+        app:boxBackgroundColor="@color/light_turqoise"
+        app:boxStrokeColor="@color/main_green"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+        app:endIconTint="@color/main_green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/search_btn"
+        app:layout_constraintHorizontal_bias="0.307"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_upper"
-        app:layout_constraintVertical_bias="0.067" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.223">
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_states"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto"
+            android:hint="Select State"
+            android:inputType="none"
+            android:padding="10dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/search_btn"
@@ -62,12 +89,12 @@
         android:backgroundTint="@color/main_green"
         android:text="Search"
 
-        app:layout_constraintBottom_toTopOf="@+id/map"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/map"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775" />
+        app:layout_constraintVertical_bias="0.237" />
 
     <TextView
         android:id="@+id/reportedcases_txt"
@@ -85,5 +112,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map"
         app:layout_constraintVertical_bias="0.0" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
