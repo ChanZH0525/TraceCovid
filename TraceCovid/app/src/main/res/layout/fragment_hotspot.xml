@@ -36,20 +36,21 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="176dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:context=".MapsActivity" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/self_report_ans4"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="3dp"
+        android:layout_marginHorizontal="30dp"
         android:fontFamily="@font/roboto"
         android:textColorHint="@color/main_green"
         android:textSize="16sp"
@@ -82,28 +83,36 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <Button
         android:id="@+id/search_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="110dp"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginVertical="1dp"
         android:backgroundTint="@color/main_green"
+        android:fontFamily="@font/roboto"
         android:text="Search"
-
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.946"
         app:layout_constraintStart_toStartOf="@+id/map"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.237" />
+        app:layout_constraintVertical_bias="0.221" />
 
     <TextView
         android:id="@+id/reportedcases_txt"
-        android:layout_width="360dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:background="@color/red"
+        android:background="#FF6863"
         android:text=""
         android:textAlignment="center"
+        android:fontFamily="@font/roboto_bold"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"

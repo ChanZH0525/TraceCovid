@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".PhoneNumberActivity"
     android:orientation="vertical">
+
     <FrameLayout
         android:id="@+id/headerFrame"
         android:layout_width="match_parent"
@@ -23,13 +24,14 @@
             app:tint="@color/main_green" />
 
     </FrameLayout>
+
     <ImageView
         android:id="@+id/icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/round_icon" />
@@ -41,16 +43,18 @@
         android:layout_marginBottom="25dp"
         android:layout_gravity="center"
         android:fontFamily="@font/roboto_bold"
-        android:text="Registration"
+        android:text="Phone Number Authentication"
         android:textColor="@color/black"
-        android:textSize="24dp"
+        android:textSize="20dp"
         android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="50dp"
         android:orientation="vertical">
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -63,7 +67,7 @@
             app:boxStrokeWidthFocused="2dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/main_green"
-            app:helperText="Must Use Malaysia Phone Number"
+            app:helperText="Must Use A Malaysia Phone Number"
             app:helperTextEnabled="true"
             app:prefixText="601"
             app:startIconDrawable="@drawable/ic_baseline_phone_24"
@@ -78,6 +82,7 @@
                 android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,12 +94,18 @@
             app:boxStrokeWidthFocused="2dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/main_green"
-            app:helperTextEnabled="true">
+            app:helperTextEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_numbers_24"
+            app:startIconTint="@color/main_green">
             <TextView
                 android:id="@+id/requestotp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Request OTP code"/>
+                android:fontFamily="@font/roboto"
+                android:textColor="#FF616161"
+                android:textSize="13dp"
+                android:text="     Request OTP Code"
+                android:layout_marginTop="3dp"/>
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/otpnumber"
                 android:layout_width="match_parent"
@@ -120,7 +131,11 @@
         android:background="@drawable/bg_button"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="32dp"
-        android:text="Next" />
+        android:text="Next"
+        android:fontFamily="@font/roboto"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
     </LinearLayout>
 
 
