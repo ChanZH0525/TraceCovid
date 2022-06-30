@@ -110,7 +110,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarke
     }
 
     override fun onMarkerClick(p0: Marker): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(this,
