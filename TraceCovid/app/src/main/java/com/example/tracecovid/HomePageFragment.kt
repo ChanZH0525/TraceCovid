@@ -99,8 +99,10 @@ class HomePageFragment : BaseFragment() {
 
         btnInfo.setOnClickListener{
             requireActivity().run{
-                startActivity(Intent(view.context, InfoPageOne::class.java))
-                finish()
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.nav_host_fragment_activity_main, InfoPage())
+                    .addToBackStack(null)
+                    .commit()
             }
         }
 

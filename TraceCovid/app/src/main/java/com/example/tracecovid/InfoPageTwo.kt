@@ -1,26 +1,29 @@
 package com.example.tracecovid
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 
-class InfoPageTwo : AppCompatActivity() {
+class InfoPageTwo : BaseFragment() {
+
+    override var bottomNavigationViewVisibility = View.GONE
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_infopagetwo)
+    }
 
-        val backBtn: ImageView = findViewById(R.id.btn_back_info_page_2)
-        backBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
 
-        val toDoBtn: Button = findViewById(R.id.toDoBtn)
-        toDoBtn.setOnClickListener {
-            startActivity(Intent(this, InfoPageOne::class.java))
-            finish()
-        }
+
+        return inflater.inflate(R.layout.activity_infopagetwo, container, false)
     }
 }

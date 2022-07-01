@@ -16,3 +16,15 @@ class ViewPagerAdapter(fragmentActivity: HomePageFragment): FragmentStateAdapter
         }
     }
 }
+
+class ViewPagerAdapter2(fragmentActivity: InfoPage): FragmentStateAdapter(fragmentActivity) {
+    override fun getItemCount() = 2
+
+    override fun createFragment(position: Int): Fragment {
+        return when(position){
+            1 -> { InfoPageOne() }
+            0 -> { InfoPageTwo() }
+            else -> { throw Resources.NotFoundException("Position Not Found") }
+        }
+    }
+}

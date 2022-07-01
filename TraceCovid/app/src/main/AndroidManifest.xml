@@ -57,12 +57,6 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".InfoPageTwo"
-            android:exported="false" />
-        <activity
-            android:name=".InfoPageOne"
-            android:exported="false" />
-        <activity
             android:name=".PwdUpdatedPage"
             android:exported="false" />
         <activity
