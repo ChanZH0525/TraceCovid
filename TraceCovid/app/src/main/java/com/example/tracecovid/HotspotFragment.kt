@@ -1,6 +1,7 @@
 package com.example.tracecovid
 
 //import android.widget.SearchView
+import android.Manifest
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Context
@@ -10,6 +11,8 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
+import android.location.LocationListener
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,9 +20,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.tracecovid.databinding.FragmentHotspotBinding
+import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException
 import com.google.android.gms.common.GooglePlayServicesRepairableException
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.common.api.internal.BackgroundDetector.initialize
 import com.google.android.gms.location.*
@@ -27,6 +33,7 @@ import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.Places
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -36,24 +43,26 @@ import org.w3c.dom.Text
 import java.io.IOException
 
 
-@Suppress("DEPRECATION")
-class HotspotFragment : BaseFragment(), OnMapReadyCallback,    GoogleMap.OnMarkerClickListener {
+
+class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
+    GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+    GoogleMap.OnMarkerClickListener {
     override var bottomNavigationViewVisibility = View.VISIBLE
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var dbreference: DatabaseReference
     private  lateinit var firebaseDB: FirebaseDatabase
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var mMap: GoogleMap? = null
+    internal lateinit var mLastLocation: Location
     private lateinit var lastLocation: Location
-    private lateinit var locationCallback: LocationCallback
-    private lateinit var locationRequest: LocationRequest
+    internal var mCurrLocationMarker: Marker? = null
+    internal var mGoogleApiClient: GoogleApiClient? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    internal lateinit var mLocationRequest: LocationRequest
     private lateinit var dropdown_states:AutoCompleteTextView
-    private var locationUpdateState = false
-    private lateinit var map: GoogleMap
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        private const val REQUEST_CHECK_SETTINGS = 2
-        private const val PLACE_PICKER_REQUEST = 3
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,51 +84,44 @@ class HotspotFragment : BaseFragment(), OnMapReadyCallback,    GoogleMap.OnMarke
         dropdown_states.setAdapter(arrayAdapter_states)
         //show cases in searched state
         searchBtn.setOnClickListener{
-         //   startActivity(Intent(activity,MapsActivity::class.java))
-
-            loadPlacePicker()
+            searchLocation(view)
          dbreference.child(dropdown_states.text.toString())
-                .addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
+               .addValueEventListener(object : ValueEventListener {
+                   override fun onDataChange(snapshot: DataSnapshot) {
                         cases = snapshot.getValue(HotpotData::class.java)!! //crashes if entered search does not exist
-                        reportedCases.setText("There are " + cases.Cases + " reported cases of Covid-19  in " + dropdown_states.text.toString())
+                      reportedCases.setText("There are " + cases.Cases + " reported cases of Covid-19  in " + dropdown_states.text.toString())
 
-                    }
+                   }
                     override fun onCancelled(error: DatabaseError) {
 
-                    }
+                   }
                })
         }
-
         //Google Map
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity().applicationContext)
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(p0: LocationResult) {
-                super.onLocationResult(p0)
-
-                lastLocation = p0.lastLocation!!
-                placeMarkerOnMap(LatLng(lastLocation.latitude, lastLocation.longitude))
-            }
-        }
-        createLocationRequest()
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return view
-
     }
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
 
-    override fun onMapReady( googleMap:GoogleMap) {
-        map = googleMap
-
-        map = googleMap
-
-        map.uiSettings.isZoomControlsEnabled = true
-        map.setOnMarkerClickListener(this)
+        mMap!!.uiSettings.isZoomControlsEnabled = true
+        mMap!!.setOnMarkerClickListener(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (ContextCompat.checkSelfPermission(
+                    requireActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ){
+                buildGoogleApiClient()
+                mMap!!.isMyLocationEnabled = true
+            }
+        }else{
+            buildGoogleApiClient()
+            mMap!!.isMyLocationEnabled = true
+        }
         setUpMap()
-    }
-
-    override fun onMarkerClick(p0: Marker): Boolean {
-        return false
     }
     private fun setUpMap() {
         if (ActivityCompat.checkSelfPermission(requireContext(),
@@ -129,147 +131,103 @@ class HotspotFragment : BaseFragment(), OnMapReadyCallback,    GoogleMap.OnMarke
             return
         }
 
-        map.isMyLocationEnabled = true
+        mMap!!.isMyLocationEnabled = true
 
         fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
-            // Got last known location
+            // Got last known location. In some rare situations this can be null.
             if (location != null) {
                 lastLocation = location
                 val currentLatLng = LatLng(location.latitude, location.longitude)
                 placeMarkerOnMap(currentLatLng)
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
             }
         }
     }
 
+    protected fun buildGoogleApiClient(){
+        mGoogleApiClient = GoogleApiClient.Builder(requireActivity())
+            .addConnectionCallbacks(this)
+            .addOnConnectionFailedListener(this)
+            .addApi(LocationServices.API).build()
+        mGoogleApiClient!!.connect()
+    }
+
+    override fun onLocationChanged(location: Location) {
+        mLastLocation = location
+        if (mCurrLocationMarker != null){
+            mCurrLocationMarker!!.remove()
+        }
+
+        val latLng = LatLng(location.latitude, location.longitude)
+        val markerOptions = MarkerOptions()
+        markerOptions.position(latLng)
+        markerOptions.title("Current Position")
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        mCurrLocationMarker = mMap!!.addMarker(markerOptions)
+
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(12f))
+
+        if (mGoogleApiClient != null){
+            LocationServices.getFusedLocationProviderClient(requireActivity())
+        }
+    }
     private fun placeMarkerOnMap(location: LatLng) {
+        // 1
         val markerOptions = MarkerOptions().position(location)
-
-        val titleStr = getAddress(location)
-        markerOptions.title(titleStr)
-        map.addMarker(markerOptions)
-    }
-
-    private fun getAddress(latLng: LatLng): String {
-        // 1
-        val geocoder = Geocoder(activity)
-        val addresses: List<Address>?
-        val address: Address?
-        var addressText = ""
-
-        try {
-            // 2
-            addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
-            // 3
-            if (null != addresses && !addresses.isEmpty()) {
-                address = addresses[0]
-                for (i in 0 until address.maxAddressLineIndex) {
-                    addressText += if (i == 0) address.getAddressLine(i) else "\n" + address.getAddressLine(i)
-                }
-            }
-        } catch (e: IOException) {
-            Log.e("HotspotFragment", e.localizedMessage)
-        }
-
-        return addressText
-    }
-    private fun startLocationUpdates() {
-        //1
-        if (ActivityCompat.checkSelfPermission(requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE)
-            return
-        }
-        //2
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null /* Looper */)
-    }
-    private fun createLocationRequest() {
-        // 1
-        locationRequest = LocationRequest()
         // 2
-        locationRequest.interval = 10000
-        // 3
-        locationRequest.fastestInterval = 5000
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mMap!!.addMarker(markerOptions)
+    }
 
-        val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(locationRequest)
+    override fun onConnected(p0: Bundle?) {
 
-        // 4
-        val client = LocationServices.getSettingsClient(requireActivity())
-        val task = client.checkLocationSettings(builder.build())
-
-        // 5
-        task.addOnSuccessListener {
-            locationUpdateState = true
-            startLocationUpdates()
+        mLocationRequest = LocationRequest()
+        mLocationRequest.interval = 1000
+        mLocationRequest.fastestInterval = 1000
+        mLocationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ){
+            LocationServices.getFusedLocationProviderClient(requireActivity())
         }
-        task.addOnFailureListener { e ->
-            // 6
-            if (e is ResolvableApiException) {
-                // Location settings are not satisfied, but this can be fixed
-                // by showing the user a dialog.
-                try {
-                    // Show the dialog by calling startResolutionForResult(),
-                    // and check the result in onActivityResult().
-                    e.startResolutionForResult(requireActivity(),
-                        REQUEST_CHECK_SETTINGS)
-                } catch (sendEx: IntentSender.SendIntentException) {
-                    // Ignore the error.
-                }
+    }
+
+    override fun onConnectionSuspended(p0: Int) {
+
+    }
+
+    override fun onConnectionFailed(p0: ConnectionResult) {
+
+    }
+    fun searchLocation(view: View){
+
+        var location: String
+        location = dropdown_states.text.toString()
+        var addressList: List<Address>? = null
+
+        if (location == null || location == ""){
+            Toast.makeText(activity, "provide location", Toast.LENGTH_SHORT).show()
+        }else{
+            val geoCoder = Geocoder(requireActivity())
+            try {
+                addressList = geoCoder.getFromLocationName(location, 1)
+            }catch (e: IOException){
+                e.printStackTrace()
             }
+
+            val address = addressList!![0]
+            val latLng = LatLng(address.latitude, address.longitude)
+            mMap!!.addMarker(MarkerOptions().position(latLng).title(location))
+            mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CHECK_SETTINGS) {
-            if (resultCode == Activity.RESULT_OK) {
-                locationUpdateState = true
-                startLocationUpdates()
-            }
-        }
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                val place = PlacePicker.getPlace(requireActivity(), data)
-                var addressText = place.name.toString()
-                addressText += "\n" + place.address.toString()
 
-                placeMarkerOnMap(place.latLng)
-            }
-            else
-            {
-                Toast.makeText(activity,"Error",Toast.LENGTH_SHORT).show()
-            }
-        }
-
+    override fun onMarkerClick(p0: Marker): Boolean {
+        return false
     }
 
-    // 2
-    override fun onPause() {
-        super.onPause()
-        fusedLocationClient.removeLocationUpdates(locationCallback)
-    }
-
-    // 3
-    public override fun onResume() {
-        super.onResume()
-        if (!locationUpdateState) {
-            startLocationUpdates()
-        }
-    }
-    private fun loadPlacePicker() {
-        val builder = PlacePicker.IntentBuilder()
-
-        try {
-            startActivityForResult(builder.build(requireActivity()), PLACE_PICKER_REQUEST)
-        } catch (e: GooglePlayServicesRepairableException) {
-            e.printStackTrace()
-        } catch (e: GooglePlayServicesNotAvailableException) {
-            e.printStackTrace()
-        }
-    }
 
 }
 
