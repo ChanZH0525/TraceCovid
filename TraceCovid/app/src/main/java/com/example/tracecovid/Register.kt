@@ -117,7 +117,6 @@ class Register : AppCompatActivity() {
                             val currentUserDB = dbreference.child(currentuser?.uid!!)
                             currentUserDB.child("phonenumber").setValue(phone)
                             currentUserDB.child("email").setValue(email)
-                            currentUserDB.child("password").setValue(pwd)
                             currentUserDB.child("username").setValue(username)
                             currentUserDB.child("ic").setValue(ic)
                             currentUserDB.child("country").setValue(country)
@@ -142,14 +141,6 @@ class Register : AppCompatActivity() {
 
         }
 
-        val username:TextInputLayout=findViewById(R.id.name)
-        val nationality: TextInputLayout=findViewById(R.id.nationality)
-        val ic: TextInputLayout=findViewById(R.id.ic)
-        val state: TextInputLayout=findViewById(R.id.state)
-        val password: TextInputLayout=findViewById(R.id.password)
-        val confirmpass:TextInputLayout=findViewById(R.id.confirmpassword)
-
-
 
 
         val backBtn: ImageView = findViewById(R.id.btn_back_register)
@@ -157,19 +148,12 @@ class Register : AppCompatActivity() {
             startActivity(Intent(this, Login::class.java))
             finish()
         }
-
-     //   val signUpBtn: Button = findViewById(R.id.signupBtn)
-       // signUpBtn.setOnClickListener
-
-      //  }
-
     }
 
     override fun onResume(){
         super.onResume()
 
         val dropdown_country = findViewById<AutoCompleteTextView>(R.id.dropdown_country)
-        //val countries = resources.getStringArray(R.array.countries)
         val arrayAdapter_country = ArrayAdapter(this, R.layout.dropdown_list, countries)
         dropdown_country.setAdapter(arrayAdapter_country)
 

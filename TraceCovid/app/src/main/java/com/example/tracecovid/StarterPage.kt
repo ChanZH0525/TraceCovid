@@ -32,7 +32,7 @@ class StarterPage : AppCompatActivity() {
         if (currentUser!=null)
         {
             startActivity(Intent(this,MainActivity::class.java))
-            Toast.makeText(this, "Welcome back, ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Welcome back ", Toast.LENGTH_SHORT).show()
             finish()
 
         }

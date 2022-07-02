@@ -64,6 +64,7 @@
           android:layout_height="wrap_content"
           android:fontFamily="@font/roboto"
           android:inputType="textPassword"
+
           android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -74,6 +75,9 @@
         android:layout_marginBottom="12dp"
         android:hint="New Password"
         app:endIconMode="password_toggle"
+        app:counterEnabled="true"
+        app:helperText="Minimum 8 digits"
+        app:helperTextEnabled="true"
         android:textColorHint="@color/main_green"
         app:boxBackgroundColor="@color/light_turqoise"
         app:boxStrokeColor="@color/main_green"
