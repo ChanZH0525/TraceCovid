@@ -65,11 +65,11 @@ class CheckInActivity : AppCompatActivity() {
         ) { isGranted: Boolean ->
             if (isGranted) {
                 // Permission has been granted. Start camera preview Activity.
-                Snackbar.make(layout, "Camera Permission Granted", Snackbar.LENGTH_INDEFINITE).show()
+                Toast.makeText(applicationContext, "Camera Permission Granted", Toast.LENGTH_SHORT).show()
                 scanQR()
             }
             else {
-                Snackbar.make(layout, "Camera Permission Denied", Snackbar.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Camera Permission Denied", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
@@ -153,40 +153,39 @@ class CheckInActivity : AppCompatActivity() {
 //        }
 //    }
 
-    private fun startCamera() {
-        cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-        cameraProviderFuture.addListener({
-            try {
-                val cameraProvider = cameraProviderFuture.get()
-                bindCameraPreview(cameraProvider)
-            } catch (e: ExecutionException) {
-                Toast.makeText(this, "Error starting camera " + e.message, Toast.LENGTH_SHORT)
-                    .show()
-            } catch (e: InterruptedException) {
-                Toast.makeText(this, "Error starting camera " + e.message, Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }, ContextCompat.getMainExecutor(this))
-    }
+//    private fun startCamera() {
+//        cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+//        cameraProviderFuture.addListener({
+//            try {
+//                val cameraProvider = cameraProviderFuture.get()
+//                bindCameraPreview(cameraProvider)
+//            } catch (e: ExecutionException) {
+//                Toast.makeText(this, "Error starting camera " + e.message, Toast.LENGTH_SHORT)
+//                    .show()
+//            } catch (e: InterruptedException) {
+//                Toast.makeText(this, "Error starting camera " + e.message, Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//        }, ContextCompat.getMainExecutor(this))
+//    }
 
-    private fun bindCameraPreview(cameraProvider: ProcessCameraProvider?) {
-        val preview = Preview.Builder()
-            .build()
-            .also {
-                it.setSurfaceProvider(binding.previewView.surfaceProvider)
-            }
-//        select back camera as a default
-        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-        try {
-            cameraProvider?.unbindAll()
-
-            cameraProvider?.bindToLifecycle(
-                this, cameraSelector, preview
-            )
-        }catch (exc: Exception)
-        {
-            exc.printStackTrace()
-        }
-
-    }
+//    private fun bindCameraPreview(cameraProvider: ProcessCameraProvider?) {
+//        val preview = Preview.Builder()
+//            .build()
+//            .also {
+//                it.setSurfaceProvider(binding.previewView.surfaceProvider)
+//            }
+////        select back camera as a default
+//        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+//        try {
+//            cameraProvider?.unbindAll()
+//
+//            cameraProvider?.bindToLifecycle(
+//                this, cameraSelector, preview
+//            )
+//        }catch (exc: Exception)
+//        {
+//            exc.printStackTrace()
+//        }
+//      }
 }

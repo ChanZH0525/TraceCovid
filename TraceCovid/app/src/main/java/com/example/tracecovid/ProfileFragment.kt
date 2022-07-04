@@ -35,12 +35,12 @@ import java.lang.reflect.Field
 
 class ProfileFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.VISIBLE
-    private lateinit var auth:FirebaseAuth
-    private lateinit var firebaseDB:FirebaseDatabase
-    private lateinit var dbreference:DatabaseReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firebaseDB: FirebaseDatabase
+    private lateinit var dbreference: DatabaseReference
     private lateinit var storageReference: StorageReference
     private lateinit var uid: String
-    private lateinit var user:ProfileData
+    private lateinit var user: ProfileData
     private lateinit var btnSetting: ImageView
 
     override fun onCreateView(
