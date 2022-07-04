@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tracecovid.data.CheckInHistory
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //private const val ARG_PARAM1 = "param1"
@@ -49,13 +50,11 @@ class AllCheckInHistory : Fragment() {
             var locations: ArrayList<CheckInHistory> = arrayListOf(
                 CheckInHistory(
                     "XMUM Malaysia campus",
-                    "09/05/2022",
-                    "12:00:00"
+                    "09/05/2022"
                 ),
                 CheckInHistory(
                     "McDonalds",
-                    "10/05/2022",
-                    "14:14:20"
+                    "10/05/2022"
                 )
             )
             recyclerView.layoutManager = LinearLayoutManager(
@@ -74,18 +73,15 @@ class AllCheckInHistory : Fragment() {
             var locations2: ArrayList<CheckInHistory> = arrayListOf(
                 CheckInHistory(
                     "XMUM Malaysia campus",
-                    "09/05/2022",
-                    "12:00:00"
+                    "09/05/2022"
                 ),
                 CheckInHistory(
                     "McDonalds",
-                    "10/05/2022",
-                    "14:14:20"
+                    "10/05/2022"
                 ),
                 CheckInHistory(
                     "McDonalds",
-                    "1/05/2022",
-                    "10:14:20"
+                    "1/05/2022"
                 )
             )
             recyclerView.layoutManager = LinearLayoutManager(

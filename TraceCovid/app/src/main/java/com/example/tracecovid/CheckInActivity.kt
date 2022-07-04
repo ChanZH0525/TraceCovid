@@ -15,6 +15,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.tracecovid.data.CheckInHistory
 import com.example.tracecovid.databinding.ActivityCheckInBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.common.util.concurrent.ListenableFuture
@@ -23,6 +24,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.ExecutionException
 
 
@@ -43,7 +48,15 @@ class CheckInActivity : AppCompatActivity() {
             Snackbar.make(layout, "Cancelled", Snackbar.LENGTH_LONG).show()
         } else {
             if(userId.isNotEmpty()){
-                val currentDatabaseReference = dbReference.child(userId).child("checkInHistory")
+                val currentDatabaseReference = dbReference.child(userId).child("checkInHistory").push()
+//                get current time in timezone GMT+08 Asia/Kuala Lumpur
+                val checkInDateTime = DateTimeFormatter
+                    .ofPattern("dd/MM/yyyy HH:mm:ss")
+                    .withZone(ZoneId.of("Asia/Kuala_Lumpur"))
+                    .format(Instant.now())
+
+                currentDatabaseReference.child("locationName").setValue(result.contents)
+                currentDatabaseReference.child("checkInDataTime").setValue(checkInDateTime)
                 Toast.makeText(
                     applicationContext, userId +
                     " Scanned: " + result.contents,

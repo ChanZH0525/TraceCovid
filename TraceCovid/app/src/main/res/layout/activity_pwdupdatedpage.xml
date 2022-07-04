@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto"
-        android:text="Your a link haas been sent to your email to reset your password."
+        android:text="A link has been sent to your email to reset your password."
         android:textAlignment="center"
         android:textColor="@color/dark_green"
         android:textSize="16dp"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_turqoise"
+
     android:orientation="vertical"
     tools:context=".SelfReport">
 
@@ -45,23 +45,25 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="620dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="80dp"
+        android:background="@color/light_turqoise"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="590dp"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_marginHorizontal="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="8dp"
@@ -69,6 +71,7 @@
                 app:cardMaxElevation="10dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,13 +81,13 @@
                         android:id="@+id/self_report_question1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="7dp"
                         android:layout_marginHorizontal="5dp"
-                        android:text="Q1 Where was the swab test done?"
+                        android:layout_marginVertical="7dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="1. Where was the swab test done?"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto_bold" />
+                        android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/self_report_ans1"
@@ -92,29 +95,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/self_report_question1"
-                        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
-                        app:endIconTint="@color/main_green"
-                        android:textSize="16sp"
                         android:fontFamily="@font/roboto"
                         android:textColorHint="@color/main_green"
+                        android:textSize="16sp"
                         app:boxBackgroundColor="@color/light_turqoise"
                         app:boxStrokeColor="@color/main_green"
-                        app:boxStrokeWidthFocused="2dp">
+                        app:boxStrokeWidthFocused="2dp"
+                        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+                        app:endIconTint="@color/main_green">
 
 
                         <AutoCompleteTextView
                             android:id="@+id/dropdown_swabLocation"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:layout_weight="1"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:fontFamily="@font/roboto"
                             android:hint="Location of Test"
-                            android:text=""
-                            android:textSize="16sp"
-                            android:padding="10dp"
                             android:inputType="none"
-                            android:textColor="@color/black" />
+                            android:padding="10dp"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -123,9 +126,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_marginHorizontal="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="8dp"
@@ -133,6 +136,7 @@
                 app:cardMaxElevation="10dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -142,23 +146,23 @@
                         android:id="@+id/self_report_question2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="7dp"
                         android:layout_marginHorizontal="5dp"
-                        android:text="Q2 When was the test taken?"
+                        android:layout_marginVertical="7dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="2. When was the test taken?"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto_bold" />
+                        android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/self_report_question2"
-                        android:textSize="16sp"
-                        android:text=""
                         android:fontFamily="@font/roboto"
+                        android:text=""
                         android:textColorHint="@color/main_green"
+                        android:textSize="16sp"
                         app:boxBackgroundColor="@color/light_turqoise"
                         app:boxStrokeColor="@color/main_green"
                         app:boxStrokeWidthFocused="2dp">
@@ -167,14 +171,14 @@
                             android:id="@+id/self_report_ans2"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:textSize="16sp"
+                            android:layout_margin="5dp"
+                            android:cursorVisible="false"
+                            android:focusable="false"
                             android:fontFamily="@font/roboto"
                             android:hint="Select Date"
                             android:inputType="none"
-                            android:focusable="false"
-                            android:cursorVisible="false"
                             android:padding="10dp"
-                            android:layout_margin="5dp"/>
+                            android:textSize="16sp" />
 
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -183,9 +187,9 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_marginHorizontal="10dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="8dp"
@@ -193,6 +197,7 @@
                 app:cardMaxElevation="10dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -202,13 +207,13 @@
                         android:id="@+id/self_report_question3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="7dp"
                         android:layout_marginHorizontal="5dp"
-                        android:text="Q3 What is the outcome of your test?"
+                        android:layout_marginVertical="7dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="3. What is the outcome of your test?"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto_bold" />
+                        android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/self_report_ans3"
@@ -216,29 +221,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/self_report_question3"
-                        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
-                        app:endIconTint="@color/main_green"
-                        android:textSize="16sp"
                         android:fontFamily="@font/roboto"
                         android:textColorHint="@color/main_green"
+                        android:textSize="16sp"
                         app:boxBackgroundColor="@color/light_turqoise"
                         app:boxStrokeColor="@color/main_green"
-                        app:boxStrokeWidthFocused="2dp">
+                        app:boxStrokeWidthFocused="2dp"
+                        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+                        app:endIconTint="@color/main_green">
 
 
                         <AutoCompleteTextView
                             android:id="@+id/dropdown_swabOutcome"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:layout_weight="1"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:fontFamily="@font/roboto"
                             android:hint="Test Result"
-                            android:text=""
-                            android:textSize="16sp"
-                            android:padding="10dp"
                             android:inputType="none"
-                            android:textColor="@color/black" />
+                            android:padding="10dp"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -247,17 +252,18 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="30dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
                 app:cardMaxElevation="10dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -267,13 +273,13 @@
                         android:id="@+id/self_report_question4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="7dp"
                         android:layout_marginHorizontal="5dp"
-                        android:text="Q4 Where are you currently staying? \n     *Please select your current state"
+                        android:layout_marginVertical="7dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="4. Where are you currently staying? \n     *Please select your current state"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/roboto_bold" />
+                        android:textStyle="bold" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/self_report_ans4"
@@ -281,29 +287,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/self_report_question4"
-                        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
-                        app:endIconTint="@color/main_green"
-                        android:textSize="16sp"
                         android:fontFamily="@font/roboto"
                         android:textColorHint="@color/main_green"
+                        android:textSize="16sp"
                         app:boxBackgroundColor="@color/light_turqoise"
                         app:boxStrokeColor="@color/main_green"
-                        app:boxStrokeWidthFocused="2dp">
+                        app:boxStrokeWidthFocused="2dp"
+                        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+                        app:endIconTint="@color/main_green">
 
 
                         <AutoCompleteTextView
                             android:id="@+id/dropdown_states"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
-                            android:layout_weight="1"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:fontFamily="@font/roboto"
                             android:hint="Current State"
-                            android:text=""
-                            android:textSize="16sp"
-                            android:padding="10dp"
                             android:inputType="none"
-                            android:textColor="@color/black" />
+                            android:padding="10dp"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
 
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -319,12 +325,12 @@
         android:id="@+id/submit_btn"
         android:layout_width="110dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="30dp"
-        android:text="Submit"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/roboto"
+        android:text="Submit"
         android:textAlignment="center"
         android:textAllCaps="false"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -332,16 +338,16 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/cancel_btn"
         android:layout_width="110dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/cancel_btn"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/grey"
-        android:text="Cancel"
-        android:textColor="@color/black"
         android:fontFamily="@font/roboto"
+        android:text="Cancel"
         android:textAlignment="center"
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

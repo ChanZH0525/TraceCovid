@@ -1,10 +1,8 @@
 package com.example.tracecovid
 
-import android.app.Application
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,9 +12,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tracecovid.data.CheckInHistory
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -50,8 +48,11 @@ class CheckInFragment : Fragment() {
 
         firebaseDB = FirebaseDatabase.getInstance(DATABASEURL)
         dbreference = firebaseDB.getReference("Users")
+
+//        TODO: handle profile image not found exception
         storageReference = FirebaseStorage.getInstance().reference.child("$userId.jpg")
         val localfile = File.createTempFile("tempImage","jpg")
+
         // handle for profile information
         val btnCheckInHistory: ImageView = view.findViewById(R.id.btn_check_in_history)
         val profileImage: CircleImageView = view.findViewById(R.id.iv_profile_image_checkin)
@@ -61,6 +62,8 @@ class CheckInFragment : Fragment() {
         val tvSymptomStatus: TextView = view.findViewById(R.id.tv_symptom_status)
         val riskColor:LinearLayout = view.findViewById(R.id.riskColor)
         val btnCheckIn: ExtendedFloatingActionButton = view.findViewById(R.id.extended_fab_check_in)
+
+
         storageReference.getFile(localfile).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
             profileImage.setImageBitmap(bitmap)
@@ -75,20 +78,28 @@ class CheckInFragment : Fragment() {
                     user = snapshot.getValue(ProfileData::class.java)!!
                     tvUsername.text = user.username
                     tvIC.text = user.ic
-                    tvRiskStatus.text = user.risk
-                    tvSymptomStatus.text = user.symptom
+                    if (user.risk.isNotEmpty()){
+                        tvRiskStatus.text = user.risk
+                        tvSymptomStatus.text = user.symptom
 
-                    when (user.risk) {
-                        "High Risk" -> {
-                            riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
-                        }
-                        "Medium Risk" -> {
-                            riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gold))
-                        }
-                        else -> {
-                            riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.apple_green))
+                        when (user.risk) {
+                            "High Risk" -> {
+                                riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                            }
+                            "Medium Risk" -> {
+                                riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gold))
+                            }
+                            else -> {
+                                riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.apple_green))
+                            }
                         }
                     }
+                    else{
+//                        TODO: Initialise Status and symptom
+                        tvRiskStatus.text = "No Status"
+                        riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.black))
+                    }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) =
@@ -99,13 +110,11 @@ class CheckInFragment : Fragment() {
         var locations: ArrayList<CheckInHistory> = arrayListOf(
             CheckInHistory(
                 "XMUM Malaysia campus",
-                "09/05/2022",
-                "12:00:00"
+                "09/05/2022"
             ),
             CheckInHistory(
                 "McDonalds",
-                "10/05/2022",
-                "14:14:20")
+                "10/05/2022")
         )
 
         val recyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.rv_recent)

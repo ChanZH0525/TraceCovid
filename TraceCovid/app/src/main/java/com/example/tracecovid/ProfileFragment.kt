@@ -82,12 +82,12 @@ class ProfileFragment : BaseFragment() {
 
                 }
             })
-            storageReference.getFile(localfile).addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
-                profileImage.setImageBitmap(bitmap)
-            }.addOnFailureListener{
-
-            }
+//            storageReference.getFile(localfile).addOnSuccessListener {
+//                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+//                profileImage.setImageBitmap(bitmap)
+//            }.addOnFailureListener{
+//
+//            }
 
         }
 
