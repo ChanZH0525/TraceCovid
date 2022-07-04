@@ -65,7 +65,7 @@ class CheckInFragment : Fragment() {
             val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
             profileImage.setImageBitmap(bitmap)
         }.addOnFailureListener{
-            Toast.makeText(activity,"Failed",Toast.LENGTH_SHORT).show()
+
         }
 
         if( userId.isNotEmpty())

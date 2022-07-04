@@ -330,7 +330,7 @@ class EditProfile : BaseFragment() {
             val bitmap= BitmapFactory.decodeFile(localfile.absolutePath)
             ivprofile.setImageBitmap(bitmap)
         }.addOnFailureListener{
-            Toast.makeText(activity,"Failed",Toast.LENGTH_SHORT).show()
+
         }
 
         btnBack.setOnClickListener {
