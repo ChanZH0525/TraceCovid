@@ -177,7 +177,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarke
 
 
     private fun createLocationRequest() {
-        locationRequest= com.google.android.gms.location.LocationRequest()
+        locationRequest = com.google.android.gms.location.LocationRequest()
         locationRequest.interval = 10000
         locationRequest.fastestInterval = 5000
         locationRequest.priority = com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY

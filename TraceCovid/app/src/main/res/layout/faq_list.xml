@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
+    android:layout_margin="0dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
@@ -13,18 +13,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="16dp">
 
         <TextView
             android:id="@+id/faqQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
+            android:fontFamily="@font/roboto_bold"
             android:justificationMode="inter_word"
             android:text="Questions"
             android:textColor="@color/black"
-            android:fontFamily="@font/roboto_bold"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -33,7 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/faqQuestion"
-            android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="5dp"
             android:fontFamily="@font/roboto"
             android:justificationMode="inter_word"

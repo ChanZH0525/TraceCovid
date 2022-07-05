@@ -1,5 +1,6 @@
 package com.example.tracecovid
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
@@ -79,7 +80,6 @@ class CheckInFragment : Fragment() {
 
         recentLocations = arrayListOf<CheckInHistory>()
 
-
         storageReference.getFile(localfile).addOnSuccessListener {
             val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
             profileImage.setImageBitmap(bitmap)
@@ -126,27 +126,16 @@ class CheckInFragment : Fragment() {
 
         }
 
-//        var locations: ArrayList<CheckInHistory> = arrayListOf(
-//            CheckInHistory(
-//                "XMUM Malaysia campus",
-//                "09/05/2022"
-//            ),
-//            CheckInHistory(
-//                "McDonalds",
-//                "10/05/2022")
-//        )
-
-
-
-
-
-        dbreference.child("checkInHistory").addValueEventListener(object : ValueEventListener{
+//        Firebase arrange the checkInHistory in chronological order, thus get the last five(5 most recent)
+        dbreference.child("checkInHistory").limitToLast(5).addValueEventListener(object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (dataSnapshot in snapshot.children){
                     val history: CheckInHistory = dataSnapshot.getValue(CheckInHistory::class.java)!!
                     recentLocations.add(history)
-                    recyclerViewAdapter.notifyDataSetChanged()
                 }
+                recentLocations.reverse()
+                recyclerViewAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -165,7 +154,8 @@ class CheckInFragment : Fragment() {
 
         btnCheckInHistory.setOnClickListener{
             parentFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment_activity_main, AllCheckInHistory())
+                .replace(R.id.nav_host_fragment_activity_main, AllCheckInHistory.newInstance(userId, DATABASEURL))
+                .setReorderingAllowed(true)
                 .addToBackStack(null)
                 .commit()
         }

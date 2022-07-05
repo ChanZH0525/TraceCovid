@@ -45,17 +45,16 @@
         android:id="@+id/lastweekbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:text="Last Week"
+        android:backgroundTint="@color/btncolorchange"
         android:fontFamily="@font/roboto"
+        android:text="Last Week"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/btn_text_change"
         android:textSize="16dp"
         android:textStyle="bold"
-        android:backgroundTint="@color/btncolorchange"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.171"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -63,31 +62,37 @@
         android:id="@+id/allhistbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:text="All History"
+        android:backgroundTint="@color/btncolorchange"
         android:fontFamily="@font/roboto"
+        android:text="All History"
         android:textAlignment="center"
         android:textAllCaps="false"
+        android:textColor="@color/btn_text_change"
         android:textSize="16dp"
         android:textStyle="bold"
-        android:backgroundTint="@color/btncolorchange"
-        android:textColor="@color/btn_text_change"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.797"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lastweekbtn"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyler_view_check_in_hist"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.216" />
+        app:layout_constraintTop_toBottomOf="@+id/allhistbtn">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyler_view_check_in_hist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="15dp"/>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
