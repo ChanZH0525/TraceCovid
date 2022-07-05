@@ -49,9 +49,9 @@ class RiskAssessmentActivity : AppCompatActivity() {
         val radio_no6:RadioButton = findViewById(R.id.radio_no6)
 
         auth = FirebaseAuth.getInstance()
-        uid=auth.currentUser?.uid.toString()
-        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        dbreference=firebaseDB.getReference("Users")
+        uid = auth.currentUser?.uid.toString()
+        firebaseDB = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbreference = firebaseDB.getReference("Users")
 
         val backBtn: ImageView = findViewById(R.id.btn_back_risk_assessment)
         backBtn.setOnClickListener {

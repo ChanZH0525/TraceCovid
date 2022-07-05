@@ -34,6 +34,7 @@ class CheckInFragment : Fragment() {
     private lateinit var userId: String
     private lateinit var storageReference: StorageReference
     private lateinit var user: ProfileData
+    private lateinit var recentLocations: ArrayList<CheckInHistory>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,7 +72,7 @@ class CheckInFragment : Fragment() {
 
         }
 
-        if( userId.isNotEmpty())
+        if(userId.isNotEmpty())
         {
             dbreference.child(userId).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -104,6 +105,16 @@ class CheckInFragment : Fragment() {
 
                 override fun onCancelled(error: DatabaseError) =
                     Toast.makeText(activity, "User Data Cannot Be Load!", Toast.LENGTH_SHORT).show()
+            })
+            dbreference.child(userId).child("checkInHistory").addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
             })
         }
 

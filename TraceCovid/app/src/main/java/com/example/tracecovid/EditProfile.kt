@@ -306,10 +306,10 @@ class EditProfile : BaseFragment() {
         // Inflate the layout for this fragment
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
-        database =FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        database = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         dbreference = database.getReference("Users").child(uid)
-        storageReference= FirebaseStorage.getInstance().reference.child("$uid.jpg")
-        val localfile= File.createTempFile("tempImage","jpg")
+        storageReference = FirebaseStorage.getInstance().reference.child("$uid.jpg")
+        val localfile = File.createTempFile("tempImage","jpg")
 
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
         val btnBack: ImageView = view.findViewById(R.id.btn_back)
