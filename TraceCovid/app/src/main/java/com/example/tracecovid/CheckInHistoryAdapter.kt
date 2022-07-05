@@ -12,13 +12,12 @@ class CheckInHistoryAdapter (var locations: ArrayList<CheckInHistory>):
 {
     class CheckinViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         private val textLocationName = itemView.findViewById<TextView>(R.id.tv_location_name)
-        private val textCheckInDateTime = itemView.findViewById<TextView>(R.id.checkin_time)
+        private val textCheckInDateTime = itemView.findViewById<TextView>(R.id.checkin_date)
 
         fun bind(location: CheckInHistory) {
             textLocationName.text = location.locationName
             textCheckInDateTime.text = location.checkInDateTime
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckinViewHolder {

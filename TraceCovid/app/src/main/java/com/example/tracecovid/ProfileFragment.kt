@@ -77,11 +77,11 @@ class ProfileFragment : BaseFragment() {
                     tvNationality.text = user.country
                 }
 
-
                 override fun onCancelled(error: DatabaseError) {
 
                 }
             })
+
             storageReference.getFile(localfile).addOnSuccessListener {
                 val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
                 profileImage.setImageBitmap(bitmap)
@@ -126,7 +126,7 @@ class ProfileFragment : BaseFragment() {
                 menu.javaClass
                     .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
                     .invoke(menu, true)
-            }catch(e: Exception){
+            } catch(e: Exception){
                 e.printStackTrace()
             } finally {
                 popupMenu.show()
@@ -135,8 +135,6 @@ class ProfileFragment : BaseFragment() {
 
         return view
     }
-
-
 
     private fun navigateFragment(nextFragment: Fragment) {
         parentFragmentManager.beginTransaction()

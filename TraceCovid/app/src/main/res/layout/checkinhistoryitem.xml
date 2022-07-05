@@ -28,18 +28,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/checkin_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_location_name"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:text="12:00:00 PM"
-            android:textColor="@color/secondary_text"
-            app:layout_constraintStart_toEndOf="@+id/checkin_date"
-            app:layout_constraintTop_toBottomOf="@+id/tv_location_name" />
-
-        <TextView
             android:id="@+id/checkin_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

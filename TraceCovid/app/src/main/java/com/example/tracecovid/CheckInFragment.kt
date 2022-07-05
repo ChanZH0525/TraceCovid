@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,20 +13,28 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintHelper
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tracecovid.data.CheckInHistory
+import com.example.tracecovid.databinding.FragmentCheckinBinding
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import de.hdodenhof.circleimageview.CircleImageView
+import okhttp3.internal.notify
 import java.io.File
 
 
 class CheckInFragment : Fragment() {
 
+    private val TAG: String = "CheckInFragment"
+    private var binding: FragmentCheckinBinding? = null
+    private lateinit var view: ConstraintLayout
     var bottomNavigationViewVisibility = View.VISIBLE
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseDB: FirebaseDatabase
@@ -33,7 +42,9 @@ class CheckInFragment : Fragment() {
     private val DATABASEURL = "https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/"
     private lateinit var userId: String
     private lateinit var storageReference: StorageReference
+    private lateinit var listener: ValueEventListener
     private lateinit var user: ProfileData
+    private lateinit var recyclerViewAdapter: CheckInHistoryAdapter
     private lateinit var recentLocations: ArrayList<CheckInHistory>
 
     override fun onCreateView(
@@ -42,7 +53,8 @@ class CheckInFragment : Fragment() {
 
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_checkin, container, false)
+        binding =  FragmentCheckinBinding.inflate(inflater, container, false)
+        view = binding!!.root
 
         auth = FirebaseAuth.getInstance()
         userId = auth.currentUser?.uid.toString()
@@ -63,6 +75,9 @@ class CheckInFragment : Fragment() {
         val tvSymptomStatus: TextView = view.findViewById(R.id.tv_symptom_status)
         val riskColor:LinearLayout = view.findViewById(R.id.riskColor)
         val btnCheckIn: ExtendedFloatingActionButton = view.findViewById(R.id.extended_fab_check_in)
+        val recyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.rv_recent)
+
+        recentLocations = arrayListOf<CheckInHistory>()
 
 
         storageReference.getFile(localfile).addOnSuccessListener {
@@ -74,9 +89,11 @@ class CheckInFragment : Fragment() {
 
         if(userId.isNotEmpty())
         {
-            dbreference.child(userId).addValueEventListener(object : ValueEventListener {
+            dbreference = dbreference.child(userId)
+            listener = dbreference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     user = snapshot.getValue(ProfileData::class.java)!!
+
                     tvUsername.text = user.username
                     tvIC.text = user.ic
                     if (user.risk.isNotEmpty()){
@@ -106,36 +123,45 @@ class CheckInFragment : Fragment() {
                 override fun onCancelled(error: DatabaseError) =
                     Toast.makeText(activity, "User Data Cannot Be Load!", Toast.LENGTH_SHORT).show()
             })
-            dbreference.child(userId).child("checkInHistory").addValueEventListener(object : ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    TODO("Not yet implemented")
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
-            })
         }
 
-        var locations: ArrayList<CheckInHistory> = arrayListOf(
-            CheckInHistory(
-                "XMUM Malaysia campus",
-                "09/05/2022"
-            ),
-            CheckInHistory(
-                "McDonalds",
-                "10/05/2022")
-        )
+//        var locations: ArrayList<CheckInHistory> = arrayListOf(
+//            CheckInHistory(
+//                "XMUM Malaysia campus",
+//                "09/05/2022"
+//            ),
+//            CheckInHistory(
+//                "McDonalds",
+//                "10/05/2022")
+//        )
 
-        val recyclerView: RecyclerView = view.findViewById<RecyclerView>(R.id.rv_recent)
+
+
+
+
+        dbreference.child("checkInHistory").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (dataSnapshot in snapshot.children){
+                    val history: CheckInHistory = dataSnapshot.getValue(CheckInHistory::class.java)!!
+                    recentLocations.add(history)
+                    recyclerViewAdapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "check in history database reference onCancelled")
+            }
+
+        })
 
         recyclerView.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL,
             false
         )
-        recyclerView.adapter = CheckInHistoryAdapter(locations)
+        recyclerViewAdapter = CheckInHistoryAdapter(recentLocations)
+        recyclerView.adapter = recyclerViewAdapter
 
         btnCheckInHistory.setOnClickListener{
             parentFragmentManager.beginTransaction()
@@ -145,15 +171,29 @@ class CheckInFragment : Fragment() {
         }
 
         btnCheckIn.setOnClickListener{
-            var checkInIntent = Intent(context, CheckInActivity::class.java)
+//            if you are POSITIVE or (HIGH RISK and WITH SYMPTOM), you are not allowed to check-in
+            if ((user.risk == "High Risk" && user.symptom == "With Symptom") || user.symptom == "(Positive)")
+            {
+                Snackbar.make(view, "You are not allowed to check-in", Snackbar.LENGTH_LONG).show()
+            }
+            else if(user.risk.isEmpty() || user.symptom.isEmpty()){
+                Snackbar.make(view, "Please go to Home to do Risk Assessment", Snackbar.LENGTH_LONG).show()
+            }
+            else{ //navigate to QR code scan
+                var checkInIntent = Intent(context, CheckInActivity::class.java)
 
-            checkInIntent.putExtra("userId", userId)
-            checkInIntent.putExtra("database", DATABASEURL)
-            activity?.startActivity(checkInIntent)
-            activity?.finish()
+                checkInIntent.putExtra("userId", userId) //pass userId
+                checkInIntent.putExtra("database", DATABASEURL) //pass database reference
+                activity?.startActivity(checkInIntent)
+                activity?.finish()
+            }
+
         }
         return view
     }
 
-
+    override fun onStop() {
+        super.onStop()
+        dbreference.removeEventListener(listener)
+    }
 }

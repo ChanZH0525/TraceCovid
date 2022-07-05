@@ -56,12 +56,12 @@ class CheckInActivity : AppCompatActivity() {
                     .format(Instant.now())
 
                 currentDatabaseReference.child("locationName").setValue(result.contents)
-                currentDatabaseReference.child("checkInDataTime").setValue(checkInDateTime)
-                Toast.makeText(
-                    applicationContext, userId +
-                    " Scanned: " + result.contents,
-                    Toast.LENGTH_LONG
-                ).show()
+                currentDatabaseReference.child("checkInDateTime").setValue(checkInDateTime)
+                Toast.makeText(applicationContext, "Checked in " + result.contents, Toast.LENGTH_LONG).show()
+                val checkInIntent = Intent(this, MainActivity::class.java)
+                checkInIntent.putExtra("Source", "CheckInActivity")
+                this.startActivity(checkInIntent)
+                this.finish()
             }
 
         }
@@ -101,7 +101,7 @@ class CheckInActivity : AppCompatActivity() {
         firebaseDB = FirebaseDatabase.getInstance(DATABASEURL)
         dbReference = firebaseDB.getReference("Users")
 
-        previewView = findViewById(R.id.previewView)
+//        previewView = findViewById(R.id.previewView)
         val btnBack: ImageView = findViewById(R.id.btn_back_camera)
         btnBack.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
