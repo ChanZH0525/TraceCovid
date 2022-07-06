@@ -18,7 +18,7 @@
         android:theme="@style/Theme.TraceCovid"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".UploadProfilePic"
+            android:name=".profile.UploadProfilePic"
             android:exported="false" />
         <activity
             android:name=".PhoneNumberActivity"
@@ -39,12 +39,12 @@
             android:value="AIzaSyBZZHNX04zo5xaTyuDQHQNWmmOC5iopV7Q" />
 
         <activity
-            android:name=".CaptureAct"
+            android:name=".checkin.CaptureAct"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme" />
         <activity
-            android:name=".MapsActivity"
+            android:name=".hotspot.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
@@ -57,7 +57,7 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".PwdUpdatedPage"
+            android:name=".profile.PwdUpdatedPage"
             android:exported="false" />
         <activity
             android:name=".StarterPage"
@@ -69,16 +69,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FAQ"
+            android:name=".home.faq.FAQ"
             android:exported="false" />
         <activity
-            android:name=".SelfReport"
+            android:name=".home.selfreport.SelfReport"
             android:exported="false" />
         <activity
-            android:name=".RiskAssessmentActivity"
+            android:name=".home.riskassessment.RiskAssessmentActivity"
             android:exported="false" />
         <activity
-            android:name=".CheckInActivity"
+            android:name=".checkin.CheckInActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

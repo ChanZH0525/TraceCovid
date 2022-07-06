@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tracecovid.checkin.CheckInHistoryAdapter
 import com.example.tracecovid.data.CheckInHistory
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat

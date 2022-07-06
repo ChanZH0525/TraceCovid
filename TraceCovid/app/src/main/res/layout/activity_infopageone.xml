@@ -9,7 +9,7 @@
     android:padding="10dp"
     android:background="@drawable/bg_info"
     android:backgroundTint="@color/light_turqoise"
-    tools:context=".InfoPageOne">
+    tools:context=".home.info.InfoPageOne">
 
 
         <ImageButton

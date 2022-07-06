@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="2dp"
     android:background="@color/light_turqoise"
-    tools:context=".InfoPageTwo">
+    tools:context=".home.info.InfoPageTwo">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.example.tracecovid.HomePageFragment"
+        android:name="com.example.tracecovid.home.HomePageFragment"
         android:label="fragment_homepage"
         tools:layout="@layout/fragment_homepage" />
     <fragment
         android:id="@+id/checkIn"
-        android:name="com.example.tracecovid.CheckInFragment"
+        android:name="com.example.tracecovid.checkin.CheckInFragment"
         android:label="fragment_checkin"
         tools:layout="@layout/fragment_checkin" />
     <fragment
         android:id="@+id/hotspot"
-        android:name="com.example.tracecovid.HotspotFragment"
+        android:name="com.example.tracecovid.hotspot.HotspotFragment"
         android:label="fragment_hotspot"
         tools:layout="@layout/fragment_hotspot" />
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.tracecovid.ProfileFragment"
+        android:name="com.example.tracecovid.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

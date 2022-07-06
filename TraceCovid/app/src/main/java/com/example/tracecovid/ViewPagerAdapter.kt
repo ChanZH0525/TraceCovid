@@ -2,8 +2,13 @@ package com.example.tracecovid
 
 import android.content.res.Resources
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.tracecovid.home.HomePageFragment
+import com.example.tracecovid.home.info.InfoPage
+import com.example.tracecovid.home.info.InfoPageOne
+import com.example.tracecovid.home.info.InfoPageTwo
+import com.example.tracecovid.home.coviddata.InternationDataFragment
+import com.example.tracecovid.home.coviddata.NationalDataFragment
 
 class ViewPagerAdapter(fragmentActivity: HomePageFragment): FragmentStateAdapter(fragmentActivity) {
     override fun getItemCount() = 2

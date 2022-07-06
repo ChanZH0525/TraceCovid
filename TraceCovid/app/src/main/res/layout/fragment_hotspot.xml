@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HotspotFragment">
+    tools:context=".hotspot.HotspotFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home_upper"
@@ -41,7 +41,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/self_report_ans4"
-        tools:context=".MapsActivity" />
+        tools:context=".hotspot.MapsActivity" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/self_report_ans4"
