@@ -7,6 +7,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,10 +23,8 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.io.IOException
@@ -65,7 +64,7 @@ class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
         var cases: HotspotData
         dropdown_states = view.findViewById(R.id.dropdown_states)
         val reportedCases:TextView= view.findViewById(R.id.reportedcases_txt)
-        val searchBtn:Button=view.findViewById(R.id.search_btn)
+        val searchBtn: FloatingActionButton = view.findViewById(R.id.search_btn)
 
         val state = resources.getStringArray(R.array.states)
         val arrayAdapter_states = view?.let { ArrayAdapter(it.context, R.layout.dropdown_list, state) }
@@ -77,7 +76,8 @@ class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
                .addValueEventListener(object : ValueEventListener {
                    override fun onDataChange(snapshot: DataSnapshot) {
                         cases = snapshot.getValue(HotspotData::class.java)!! //crashes if entered search does not exist
-                      reportedCases.setText("There are " + cases.Cases + " reported cases of Covid-19  in " + dropdown_states.text.toString())
+                        reportedCases.visibility = View.VISIBLE
+                        reportedCases.text = "There are " + cases.Cases + " reported cases of Covid-19 in " + dropdown_states.text.toString()
 
                    }
                     override fun onCancelled(error: DatabaseError) {
