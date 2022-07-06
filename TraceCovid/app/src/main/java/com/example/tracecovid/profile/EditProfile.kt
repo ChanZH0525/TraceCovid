@@ -20,6 +20,7 @@ import java.io.File
 
 
 class EditProfile : BaseFragment() {
+    //    hide Bottom Navigation Bar
     override var bottomNavigationViewVisibility = View.GONE
     private val countries = arrayOf(
         "Afghanistan",
@@ -353,7 +354,10 @@ class EditProfile : BaseFragment() {
             parentFragmentManager.popBackStack()
         }
         selectBtn.setOnClickListener{
-            startActivity(Intent(activity, UploadProfilePic::class.java))
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, UploadProfilePicture())
+                .addToBackStack("edit_profile")
+                .commit()
         }
         return view
     }

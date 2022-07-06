@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class ChangePwd : BaseFragment() {
+    //    hide Bottom Navigation Bar
     override var bottomNavigationViewVisibility = View.GONE
 
     private lateinit var auth: FirebaseAuth
