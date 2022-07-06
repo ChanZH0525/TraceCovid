@@ -299,8 +299,8 @@ class EditProfile : BaseFragment() {
     private lateinit var dbreference: DatabaseReference
     private lateinit var storageReference: StorageReference
     lateinit var username: TextInputEditText
-    lateinit var dropdown_country: AutoCompleteTextView
-    lateinit var dropdown_state: AutoCompleteTextView
+    lateinit var dropdownCountry: AutoCompleteTextView
+    lateinit var dropdownState: AutoCompleteTextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -311,7 +311,7 @@ class EditProfile : BaseFragment() {
         database = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         dbreference = database.getReference("Users").child(uid)
         storageReference = FirebaseStorage.getInstance().reference.child("$uid.jpg")
-        val localfile = File.createTempFile("tempImage","jpg")
+        val localFile = File.createTempFile("tempImage","jpg")
 
         val view = inflater.inflate(R.layout.fragment_edit_profile, container, false)
         val btnBack: ImageView = view.findViewById(R.id.btn_back)
@@ -319,18 +319,18 @@ class EditProfile : BaseFragment() {
         val saveBtn: Button = view.findViewById(R.id.saveBtn)
         val selectBtn: Button = view.findViewById(R.id.selectBtn)
         username = view.findViewById(R.id.change_username)
-        dropdown_country = view.findViewById<AutoCompleteTextView>(R.id.dropdown_country)
-        val arrayAdapter_country = view.let { ArrayAdapter(it.context,
-            R.layout.dropdown_list, countries) }
-        dropdown_country?.setAdapter(arrayAdapter_country)
 
-        dropdown_state = view.findViewById<AutoCompleteTextView>(R.id.dropdown_state)
+        dropdownCountry = view.findViewById<AutoCompleteTextView>(R.id.dropdown_country)
+        val arrayAdapterCountry = ArrayAdapter(view.context, R.layout.dropdown_list, countries)
+        dropdownCountry.setAdapter(arrayAdapterCountry)
+
+        dropdownState = view.findViewById<AutoCompleteTextView>(R.id.dropdown_state)
         val states = resources.getStringArray(R.array.states)
-        val arrayAdapter_state = view.let { ArrayAdapter(it.context, R.layout.dropdown_list, states) }
-        dropdown_state?.setAdapter(arrayAdapter_state)
+        val arrayAdapterState = ArrayAdapter(view.context, R.layout.dropdown_list, states)
+        dropdownState.setAdapter(arrayAdapterState)
 
-        storageReference.getFile(localfile).addOnSuccessListener {
-            val bitmap= BitmapFactory.decodeFile(localfile.absolutePath)
+        storageReference.getFile(localFile).addOnSuccessListener {
+            val bitmap= BitmapFactory.decodeFile(localFile.absolutePath)
             ivprofile.setImageBitmap(bitmap)
         }.addOnFailureListener{
 
@@ -341,14 +341,14 @@ class EditProfile : BaseFragment() {
         }
         saveBtn.setOnClickListener{
             var uname: String = username.text.toString()
-            var nationality: String = dropdown_country.text.toString()
-            var newstate :String = dropdown_state.text.toString()
+            var nationality: String = dropdownCountry.text.toString()
+            var newState :String = dropdownState.text.toString()
 
 
             val map= mapOf(
                 "country" to nationality,
                 "username" to uname,
-                "state" to newstate
+                "state" to newState
             )
             dbreference.updateChildren(map)
             parentFragmentManager.popBackStack()

@@ -45,7 +45,7 @@ class ProfileFragment : BaseFragment() {
         dbreference = firebaseDB.getReference("Users")
         storageReference = FirebaseStorage.getInstance().reference.child("$uid.jpg")
 
-        val localfile = File.createTempFile("tempImage","jpg")
+        val localFile = File.createTempFile("tempImage","jpg")
        // handle for profile information
         val profileImage: CircleImageView = view.findViewById(R.id.iv_profile)
         btnSetting = view.findViewById(R.id.btn_setting_profile)
@@ -71,8 +71,8 @@ class ProfileFragment : BaseFragment() {
                 }
             })
 
-            storageReference.getFile(localfile).addOnSuccessListener {
-                val bitmap = BitmapFactory.decodeFile(localfile.absolutePath)
+            storageReference.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                 profileImage.setImageBitmap(bitmap)
             }.addOnFailureListener{
 

@@ -11,6 +11,8 @@ import android.widget.Toast
 import com.example.tracecovid.BaseFragment
 import com.example.tracecovid.Login
 import com.example.tracecovid.R
+import com.example.tracecovid.databinding.FragmentChangePwdBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -29,7 +31,8 @@ class ChangePwd : BaseFragment() {
     ): View? {
         auth = FirebaseAuth.getInstance()
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_change_pwd, container, false)
+        var binding = FragmentChangePwdBinding.inflate(inflater, container, false)
+        val view = binding.root
         val currentPassword:TextInputEditText= view.findViewById(R.id.curpassword)
         val newPassword:TextInputEditText=view.findViewById(R.id.newpassword)
         val confirmPassword: TextInputEditText=view.findViewById(R.id.confirmpassword)
@@ -37,12 +40,11 @@ class ChangePwd : BaseFragment() {
 
         val btnUpdate: Button = view.findViewById(R.id.updateBtn)
         btnUpdate.setOnClickListener {
-           if(currentPassword.text?.isNotEmpty()==true && newPassword.text?.isNotEmpty()==true
-               && confirmPassword.text?.isNotEmpty()==true){
-                if (newPassword.text.toString().equals(confirmPassword.text.toString())&& newPassword.length()>=8)
+           if(currentPassword.text!!.isNotEmpty() && newPassword.text!!.isNotEmpty() && confirmPassword.text!!.isNotEmpty()){
+                if (newPassword.text.toString() == confirmPassword.text.toString() && newPassword.length() >= 8)
                 {
-                    val user=auth.currentUser
-                    if(user !=null && user.email!=null)
+                    val user = auth.currentUser
+                    if(user != null && user.email != null)
                     {
                         val credential = EmailAuthProvider
                             .getCredential(user.email!!, currentPassword.text.toString())
@@ -51,7 +53,7 @@ class ChangePwd : BaseFragment() {
                             .addOnCompleteListener {
                                 if (it.isSuccessful)
                                 {
-                                    Toast.makeText(activity,"Reauthentication Succesful",Toast.LENGTH_SHORT).show()
+                                    Snackbar.make(view, "Reauthentication Successful", Snackbar.LENGTH_SHORT).show()
 
                                     user!!.updatePassword(newPassword.text.toString())
                                         .addOnCompleteListener { task ->
@@ -59,29 +61,28 @@ class ChangePwd : BaseFragment() {
                                                 Toast.makeText(activity,"Password Changed Successfully",Toast.LENGTH_SHORT).show()
                                                 auth.signOut()
                                                 startActivity(Intent(view.context, Login::class.java))
-
+                                                activity?.finish()
                                             }
                                         }
                                 }
                                 else
                                 {
-                                    Toast.makeText(activity,"Reauthentication failed",Toast.LENGTH_SHORT).show()
+                                    Snackbar.make(view, "Reauthentication Failed", Snackbar.LENGTH_SHORT).show()
                                 }
                             }
                     }
                     else
                     {
                         startActivity(Intent(view.context, Login::class.java))
-
                     }
                 }
                else
                 {
-                    Toast.makeText(activity,"New password does not match, password must have a minimum of 8 characters",Toast.LENGTH_SHORT).show()
+                    Snackbar.make(view,"New password does not match, password must have a minimum of 8 characters",Snackbar.LENGTH_INDEFINITE).show()
                 }
            }
             else{
-                Toast.makeText(activity,"Fill in all fields",Toast.LENGTH_SHORT).show()
+                Snackbar.make(view,"Fill in all fields",Snackbar.LENGTH_SHORT).show()
             }
 
         }
@@ -92,6 +93,5 @@ class ChangePwd : BaseFragment() {
             }
 
             return view
-
         }
     }
