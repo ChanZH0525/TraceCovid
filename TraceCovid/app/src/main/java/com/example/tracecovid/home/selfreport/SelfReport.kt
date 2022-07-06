@@ -8,9 +8,12 @@ import android.os.Handler
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.tracecovid.MainActivity
 import com.example.tracecovid.R
 import com.example.tracecovid.data.ProfileData
+import com.example.tracecovid.databinding.ActivitySelfreportBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
@@ -19,20 +22,27 @@ import java.util.*
 
 class SelfReport : AppCompatActivity() {
 
-    private lateinit var auth:FirebaseAuth
-    private lateinit var firebaseDB:FirebaseDatabase
+    private lateinit var binding: ActivitySelfreportBinding
+    private lateinit var layout: ConstraintLayout
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firebaseDB: FirebaseDatabase
     private lateinit var dbreference: DatabaseReference
     private lateinit var uid: String
     private lateinit var user: ProfileData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_selfreport)
+
+        binding = ActivitySelfreportBinding.inflate(layoutInflater)
+        layout = binding.root
+        setContentView(layout)
+
+
 
         auth = FirebaseAuth.getInstance()
-        uid=auth.currentUser?.uid.toString()
-        firebaseDB= FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
-        dbreference=firebaseDB.getReference("Users")
+        uid = auth.currentUser?.uid.toString()
+        firebaseDB = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        dbreference = firebaseDB.getReference("Users")
 
         val back_btn: ImageView = findViewById(R.id.btn_back_self_report)
         back_btn.setOnClickListener{
@@ -61,15 +71,15 @@ class SelfReport : AppCompatActivity() {
         val submitBtn: Button = findViewById(R.id.submit_btn)
         submitBtn.setOnClickListener {
 
-            val swabLocation:String = answerSR1.getText().toString()
-            val swabDate:String = date.getText().toString()
-            val swabOutcome:String = answerSR3.getText().toString()
-            val swabState:String = answerSR4.getText().toString()
+            val swabLocation:String = answerSR1.text.toString()
+            val swabDate:String = date.text.toString()
+            val swabOutcome:String = answerSR3.text.toString()
+            val swabState:String = answerSR4.text.toString()
 
             //Get the Date of Today
             val c:Calendar = Calendar.getInstance()
             val sdf = SimpleDateFormat("dd-MMM-yyyy",Locale.getDefault())
-            val dateToday:String = sdf.format(c.getTime())
+            val dateToday:String = sdf.format(c.time)
 
             if(validate == 1){
 
@@ -78,7 +88,7 @@ class SelfReport : AppCompatActivity() {
 
                 //To check if any of the Q1 & Q3 & Q4 has no selected answer
                 if (swabLocation == "" || swabState == "" || swabOutcome == ""){
-                    Toast.makeText(this@SelfReport, "Please Answer All Questions!", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(layout, "Please Answer All Questions!", Snackbar.LENGTH_SHORT).show()
                 }
                 else{
                     //To check if date selected by user is on or before date of today
@@ -86,7 +96,7 @@ class SelfReport : AppCompatActivity() {
                 }
 
             }else{
-                Toast.makeText(this@SelfReport, "Please Select A Date!", Toast.LENGTH_SHORT).show()
+                Snackbar.make(layout, "Please Select A Date!", Snackbar.LENGTH_SHORT).show()
             }
 
         }
@@ -99,8 +109,8 @@ class SelfReport : AppCompatActivity() {
     }
 
     private fun checkDate(dateOfToday:Date, selectedDate:Date, uid: String, swabLocation:String, swabDate:String, swabOutcome:String, swabState:String,) {
-        if(dateOfToday.compareTo(selectedDate) < 0 ){
-            Toast.makeText(this@SelfReport, "Please Select A Valid Date!", Toast.LENGTH_SHORT).show()
+        if(dateOfToday.compareTo(selectedDate) <= 0 ){
+            Snackbar.make(layout, "Please Select A Valid Date!", Snackbar.LENGTH_SHORT).show()
         }else{
             submitSRResult(swabLocation, swabDate, swabOutcome,swabState, this.uid)
         }
@@ -146,7 +156,7 @@ class SelfReport : AppCompatActivity() {
             val day: Int = mCalendar!!.get(Calendar.DAY_OF_MONTH)
             val month: Int = mCalendar!!.get(Calendar.MONTH)
             val year: Int = mCalendar!!.get(Calendar.YEAR)
-            DatePickerDialog(view.getContext(), this, year, month, day).show()
+            DatePickerDialog(view.context, this, year, month, day).show()
         }
 
         override fun onDateSet(view: DatePicker, year: Int, month: Int, dayOfMonth: Int) {
@@ -154,12 +164,12 @@ class SelfReport : AppCompatActivity() {
             mCalendar!!.set(Calendar.YEAR, year)
             mCalendar!!.set(Calendar.MONTH, month)
             mCalendar!!.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            mEditText.setText(mFormat.format(mCalendar!!.getTime()))
+            mEditText.setText(mFormat.format(mCalendar!!.time))
 
         }
 
         init {
-            mEditText.setOnFocusChangeListener(this)
+            mEditText.onFocusChangeListener = this
             mEditText.setOnClickListener(this)
             mFormat = SimpleDateFormat(format, Locale.getDefault())
         }
@@ -169,24 +179,17 @@ class SelfReport : AppCompatActivity() {
 
         if( uid.isNotEmpty())
         {
-            dbreference.child(uid).addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    user = snapshot.getValue(ProfileData::class.java)!!
-
-                    if(swabOutcome == "Positive"){
-                        dbreference.child(uid).child("risk").setValue("High Risk");
-                        dbreference.child(uid).child("symptom").setValue("(Positive)");
-                    }
-
-                    dbreference.child(uid).child("state").setValue(swabState);
-
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@SelfReport, "User Data Cannot Be Load!", Toast.LENGTH_SHORT).show()
-                }
-            })
+            if(swabOutcome == "Positive"){
+                dbreference.child(uid).child("risk").setValue("High Risk");
+                dbreference.child(uid).child("symptom").setValue("(Positive)");
+            }
+//            else{
+//                dbreference.child(uid).child("risk").setValue("High Risk");
+//                dbreference.child(uid).child("symptom").setValue("No Symptom");
+//            }
+            dbreference.child(uid).child("state").setValue(swabState);
         }
+
 
         Toast.makeText(this, "Submit Successfully", Toast.LENGTH_LONG).show()
         startActivity(Intent(this, MainActivity::class.java))
