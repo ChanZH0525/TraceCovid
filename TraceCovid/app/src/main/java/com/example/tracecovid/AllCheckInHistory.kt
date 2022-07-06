@@ -12,9 +12,12 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tracecovid.data.CheckInHistory
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
+import kotlin.math.abs
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "userId"
@@ -27,6 +30,7 @@ class AllCheckInHistory : Fragment() {
     private lateinit var dbReference: DatabaseReference
     private lateinit var firebaseDB: FirebaseDatabase
     private lateinit var recyclerViewAdapter: CheckInHistoryAdapter
+    private lateinit var recentRecyclerViewAdapter: CheckInHistoryAdapter
     private lateinit var listener: ValueEventListener
     var recentLocations: ArrayList<CheckInHistory> = arrayListOf()
     var allLocations: ArrayList<CheckInHistory> = arrayListOf()
@@ -40,6 +44,7 @@ class AllCheckInHistory : Fragment() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,19 +64,34 @@ class AllCheckInHistory : Fragment() {
             parentFragmentManager.popBackStack()
         }
 
+        val currentDate = Date()
+        val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
         if(userId!!.isNotEmpty()){
+//            get all the children under checkInHistory
             listener = dbReference.child(userId.toString()).child("checkInHistory").addValueEventListener(object :
                 ValueEventListener {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for (dataSnapshot in snapshot.children){
                         val history: CheckInHistory = dataSnapshot.getValue(CheckInHistory::class.java)!!
-
                         allLocations.add(history)
+//                        DateTime Formet in database = "dd/MM/yyyy HH:mm:ss"
+//                        get date only which is before " "
+                        val recordDate = history.checkInDateTime!!.substringBefore(" ")
+                        val historyDate = dateFormatter.parse(recordDate)
+                        val diffInMS = abs(currentDate.time - historyDate.time)
+                        val diff = TimeUnit.DAYS.convert(diffInMS, TimeUnit.MILLISECONDS)
+
+//                       If the difference between the current date and history date is within 7 days
+                        if (diff <= 6){
+                            recentLocations.add(history)
+                        }
                     }
 //                    In reverse chronological order
                     allLocations.reverse()
-                    recyclerViewAdapter.notifyDataSetChanged()
+                    recentLocations.reverse()
+                    recentRecyclerViewAdapter.notifyDataSetChanged()
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -84,15 +104,13 @@ class AllCheckInHistory : Fragment() {
             weekhistbtn.isSelected = true
             allhistbtn.isSelected = false
 
-
-
             recyclerView.layoutManager = LinearLayoutManager(
                 context,
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            recyclerViewAdapter = CheckInHistoryAdapter(recentLocations)
-            recyclerView.adapter = recyclerViewAdapter
+            recentRecyclerViewAdapter = CheckInHistoryAdapter(recentLocations)
+            recyclerView.adapter = recentRecyclerViewAdapter
         }
         weekhistbtn.performClick()
 
@@ -106,7 +124,9 @@ class AllCheckInHistory : Fragment() {
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            recyclerView.adapter = CheckInHistoryAdapter(allLocations)
+            recyclerViewAdapter = CheckInHistoryAdapter(allLocations)
+            recyclerView.adapter = recyclerViewAdapter
+            recyclerViewAdapter.notifyDataSetChanged()
         }
         return view
     }
