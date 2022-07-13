@@ -7,28 +7,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tracecovid.*
 import com.example.tracecovid.data.CovidData
+import com.example.tracecovid.data.ProfileData
+import com.example.tracecovid.databinding.FragmentCheckinBinding
+import com.example.tracecovid.databinding.FragmentHomepageBinding
 import com.example.tracecovid.home.faq.FAQ
 import com.example.tracecovid.home.info.InfoPage
 import com.example.tracecovid.home.riskassessment.RiskAssessmentActivity
 import com.example.tracecovid.home.selfreport.SelfReport
 import com.github.mikephil.charting.charts.LineChart
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlin.collections.ArrayList
 
 
 class HomePageFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.VISIBLE
+    lateinit var binding: FragmentHomepageBinding
+    lateinit var view: ScrollView
+
+    lateinit var user: ProfileData
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_homepage, container, false)
+
+        binding =  FragmentHomepageBinding.inflate(inflater, container, false)
+        view = binding!!.root
+
 
 //      Home Fab handle
         val btnRiskAssessment: LinearLayout = view.findViewById(R.id.btn_risk_asess)
@@ -49,45 +68,34 @@ class HomePageFragment : BaseFragment() {
             }
         }.attach()
 
-
-//        //        Statistics
-//        val gson = GsonBuilder().create()
-//        val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
-//            .readTimeout(60, TimeUnit.SECONDS)
-//            .connectTimeout(60, TimeUnit.SECONDS)
-//            .build()
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl(URL)
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-//            .client(okHttpClient)
-//            .build()
-//        val covidService = retrofit.create(CovidService::class.java)
-//
-//        covidService.getNationalData().enqueue(object: Callback<List<CovidData>>{
-//            override fun onResponse(call: Call<List<CovidData>>, response: Response<List<CovidData>>) {
-//                Log.i(TAG, "onResponse $response")
-//                val nationalData = response.body()
-//                if(nationalData == null){
-//                    Log.w(TAG, "Did not receive a valid response body")
-//                    return
-//                }
-//                var nationalDailyData = nationalData.reversed()
-//                Log.i(TAG, "Update graph with national data")
-//                displayLatestData(nationalDailyData)
-//            }
-//
-//            override fun onFailure(call: Call<List<CovidData>>, t: Throwable) {
-//                Log.e(TAG, "onFailure $t")
-//            }
-//        })
+        val auth = FirebaseAuth.getInstance()
+        val userId = auth.currentUser?.uid.toString()
+        val firebaseDB = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        val dbReference = firebaseDB.getReference("Users")
 
 
+//        get user profile to retrieve symptom to determine whether user is positive
+        if( userId.isNotEmpty()) {
+            dbReference.child(userId).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    user = snapshot.getValue(ProfileData::class.java)!!
+                }
 
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
+        }
 
         btnRiskAssessment.setOnClickListener {
             requireActivity().run {
-                startActivity(Intent(view.context, RiskAssessmentActivity::class.java))
-                finish()
+                if (user.symptom == "(Positive)"){
+                    Snackbar.make(view, "Risk Assessment NOT applicable to positive user ", Snackbar.LENGTH_INDEFINITE).show()
+                }
+                else{
+                    startActivity(Intent(view.context, RiskAssessmentActivity::class.java))
+                    finish()
+                }
             }
         }
 
@@ -113,34 +121,9 @@ class HomePageFragment : BaseFragment() {
                 finish()
             }
         }
-
         return view
     }
-
-
-//    private fun displayLatestData(dailyData: List<CovidData>) {
-//        activeCases.text = NumberFormat.getInstance().format(dailyData.first().activeCases)
-//
-//
-//        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-//        val outputDateFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss", Locale.ENGLISH)
-//        val date = LocalDateTime.parse(dailyData.first().lastUpdatedAtApify, inputFormatter)
-//        timeActiveCases.text = "Until " + outputDateFormat.format(date).toString()
-//
-//        val outputDateFormatChart = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
-//
-//
-////        get data of recent 7 days
-//        for(i in 6 downTo 0)
-//        {
-//            dataList.add(dailyData[i])
-//        }
-//        initLineChart()
-//        setDataToLineChart()
-//
-//    }
-
-
 }
+
 
 

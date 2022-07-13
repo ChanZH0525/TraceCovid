@@ -69,7 +69,7 @@ class UploadProfilePicture : BaseFragment() {
     private fun uploadPic() {
         val ref:StorageReference = storageReference.child(auth.currentUser!!.uid+".jpg")
         ref.downloadUrl.addOnSuccessListener {
-            var url: String=ref.toString()
+            var url: String = ref.toString()
         }
         ref.putFile(imageUri).addOnSuccessListener {
             Toast.makeText(context, "Upload Success", Toast.LENGTH_SHORT).show()
@@ -78,6 +78,5 @@ class UploadProfilePicture : BaseFragment() {
             .addOnFailureListener{
                 Toast.makeText(context, "Upload Fail", Toast.LENGTH_SHORT).show()
             }
-
     }
 }

@@ -120,8 +120,7 @@ class CheckInFragment : Fragment() {
                         }
                     }
                     else{
-//                        TODO: Initialise Status and symptom
-                        tvRiskStatus.text = "No Status"
+                        tvRiskStatus.text = "No Status No Symptom"
                         riskColor.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.black))
                     }
 

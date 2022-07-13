@@ -183,10 +183,10 @@ class SelfReport : AppCompatActivity() {
                 dbreference.child(uid).child("risk").setValue("High Risk");
                 dbreference.child(uid).child("symptom").setValue("(Positive)");
             }
-//            else{
-//                dbreference.child(uid).child("risk").setValue("High Risk");
-//                dbreference.child(uid).child("symptom").setValue("No Symptom");
-//            }
+            else{
+                dbreference.child(uid).child("risk").setValue("Low Risk");
+                dbreference.child(uid).child("symptom").setValue("No Symptom");
+            }
             dbreference.child(uid).child("state").setValue(swabState);
         }
 
