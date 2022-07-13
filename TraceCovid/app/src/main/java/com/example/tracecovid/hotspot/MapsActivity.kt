@@ -35,7 +35,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,  GoogleMap.OnMarke
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
     private lateinit var locationCallback: LocationCallback
-    private lateinit var locationRequest: com.google.android.gms.location.LocationRequest
+    private lateinit var locationRequest: LocationRequest
     private var locationUpdateState = false
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1

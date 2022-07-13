@@ -23,10 +23,7 @@ import kotlin.collections.ArrayList
 
 class HomePageFragment : BaseFragment() {
     override var bottomNavigationViewVisibility = View.VISIBLE
-    private lateinit var activeCases: TextView
-    private lateinit var timeActiveCases: TextView
-    private lateinit var lineChart: LineChart
-    private var dataList = ArrayList<CovidData>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -120,73 +117,7 @@ class HomePageFragment : BaseFragment() {
         return view
     }
 
-//    private fun setDataToLineChart() {
-//        val entries: ArrayList<Entry> = ArrayList()
-//
-//        //you can replace this data object with  your custom object
-//        for (i in dataList.indices) {
-//            val data = dataList[i]
-//            entries.add(Entry(i.toFloat(), data.activeCases.toFloat()))
-//        }
-//
-//        var lineDataSet = LineDataSet(entries, "")
-//        lineDataSet.lineWidth = 2f
-//        lineDataSet.setCircleColor(ContextCompat.getColor(requireContext(), R.color.main_green))
-//        lineDataSet.color = ContextCompat.getColor(requireContext(), R.color.main_green)
-//        lineDataSet.fillColor = ContextCompat.getColor(requireContext(), R.color.main_green)
-//        lineDataSet.valueTextColor = ContextCompat.getColor(requireContext(), R.color.dark_green)
-//        lineDataSet.valueTextSize = 10f
-//
-//        val data = LineData(lineDataSet)
-//        lineChart.data = data
-//
-//        lineChart.invalidate()
-//    }
-//
-//    private fun initLineChart() {
-//        //        hide grid lines
-//        lineChart.axisLeft.setDrawGridLines(false)
-//        val xAxis: XAxis = lineChart.xAxis
-//        xAxis.setDrawGridLines(false)
-//        xAxis.setDrawAxisLine(false)
-//        xAxis.textSize = 8f
-//
-//        //remove right y-axis
-//        lineChart.axisRight.isEnabled = false
-//
-//        //remove legend
-//        lineChart.legend.isEnabled = false
-//
-//
-//        //remove description label
-//        lineChart.description.isEnabled = false
-//
-//
-//        //add animation
-//        lineChart.animateX(1000, Easing.EaseInSine)
-//
-//        // to draw label on xAxis
-//        xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
-//        xAxis.valueFormatter = MyAxisFormatter()
-//        xAxis.setDrawLabels(true)
-//        xAxis.granularity = 1f
-//    }
-//
-//    inner class MyAxisFormatter : IndexAxisValueFormatter() {
-//
-//        override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-//            val index = value.toInt()
-//            val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ENGLISH)
-//            val outputDateFormatChart = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH)
-//            val date = LocalDateTime.parse(dataList[index].lastUpdatedAtApify, inputFormatter)
-//            return if (index < dataList.size) {
-//                outputDateFormatChart.format(date).toString()
-//            } else {
-//                ""
-//            }
-//        }
-//    }
-//
+
 //    private fun displayLatestData(dailyData: List<CovidData>) {
 //        activeCases.text = NumberFormat.getInstance().format(dailyData.first().activeCases)
 //

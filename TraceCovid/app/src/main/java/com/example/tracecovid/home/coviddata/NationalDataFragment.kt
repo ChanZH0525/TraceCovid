@@ -7,11 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tracecovid.R
 import com.example.tracecovid.data.CovidData
 import com.example.tracecovid.data.ProcessedNationalData
+import com.example.tracecovid.global.GlobalClass
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -34,6 +37,7 @@ class NationalDataFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,12 +45,23 @@ class NationalDataFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_national_data, container, false)
 
+        dataList = GlobalClass.response //using Global Class variable to make sure the national data is only retrieved once
+
         //        National statistics Recycler View
         nationalRecyclerView = view.findViewById(R.id.rv_national_stats)
         nationalRecyclerView.layoutManager = LinearLayoutManager(context)
+        val progressBar: ProgressBar = view.findViewById(R.id.pb_national)
         var adapter = context?.let { NationalStatisticsAdapter(it, dataList) }
         nationalRecyclerView.adapter = adapter
+        progressBar.visibility = View.VISIBLE
 
+//        if it is not empty, it means the national data has been retrieved from the api
+        if (dataList.isNotEmpty()) {
+            progressBar.visibility = View.GONE
+            adapter?.notifyDataSetChanged()
+
+        } else { //retrieve using Retrofit
+            nationalRecyclerView.visibility = View.GONE
             //        Statistics
             val gson = GsonBuilder().create()
             val okHttpClient: OkHttpClient = OkHttpClient().newBuilder()
@@ -93,6 +108,9 @@ class NationalDataFragment : Fragment() {
                         dataList.add(processedData)
                     }
                     adapter?.notifyDataSetChanged()
+//                    after loading data, hide progress bar and display recycler view
+                    progressBar.visibility = View.GONE
+                    nationalRecyclerView.visibility = View.VISIBLE
 
                 }
 
@@ -100,7 +118,8 @@ class NationalDataFragment : Fragment() {
                     Log.e(TAG, "onFailure $t")
                 }
             })
-            return view
         }
+        return view
 
+    }
 }

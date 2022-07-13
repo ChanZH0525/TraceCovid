@@ -31,7 +31,7 @@ import java.io.IOException
 
 
 
-class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
+open class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
     GoogleMap.OnMarkerClickListener {
     override var bottomNavigationViewVisibility = View.VISIBLE
@@ -45,7 +45,7 @@ class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
     internal var mGoogleApiClient: GoogleApiClient? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     internal lateinit var mLocationRequest: LocationRequest
-    private lateinit var dropdown_states:AutoCompleteTextView
+    private lateinit var dropdownStates:AutoCompleteTextView
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -62,22 +62,22 @@ class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
         dbreference = firebaseDB.getReference("Hotspot")
 
         var cases: HotspotData
-        dropdown_states = view.findViewById(R.id.dropdown_states)
+        dropdownStates = view.findViewById(R.id.dropdown_states)
         val reportedCases:TextView= view.findViewById(R.id.reportedcases_txt)
         val searchBtn: FloatingActionButton = view.findViewById(R.id.search_btn)
 
         val state = resources.getStringArray(R.array.states)
-        val arrayAdapter_states = view?.let { ArrayAdapter(it.context, R.layout.dropdown_list, state) }
-        dropdown_states.setAdapter(arrayAdapter_states)
+        val arrayAdapterStates = view?.let { ArrayAdapter(it.context, R.layout.dropdown_list, state) }
+        dropdownStates.setAdapter(arrayAdapterStates)
         //show cases in searched state
         searchBtn.setOnClickListener{
             searchLocation(view)
-         dbreference.child(dropdown_states.text.toString())
+         dbreference.child(dropdownStates.text.toString())
                .addValueEventListener(object : ValueEventListener {
                    override fun onDataChange(snapshot: DataSnapshot) {
                         cases = snapshot.getValue(HotspotData::class.java)!! //crashes if entered search does not exist
                         reportedCases.visibility = View.VISIBLE
-                        reportedCases.text = "There are " + cases.Cases + " reported cases of Covid-19 in " + dropdown_states.text.toString()
+                        reportedCases.text = "There are " + cases.Cases + " reported cases of Covid-19 in " + dropdownStates.text.toString()
 
                    }
                     override fun onCancelled(error: DatabaseError) {
@@ -133,7 +133,7 @@ class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
         }
     }
 
-    protected fun buildGoogleApiClient(){
+    private fun buildGoogleApiClient(){
         mGoogleApiClient = GoogleApiClient.Builder(requireActivity())
             .addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
@@ -192,7 +192,7 @@ class HotspotFragment : BaseFragment(), OnMapReadyCallback, LocationListener,
     }
     private fun searchLocation(view: View){
 
-        var location: String = dropdown_states.text.toString()
+        var location: String = dropdownStates.text.toString()
         var addressList: List<Address>? = null
 
         if (location == null || location == ""){

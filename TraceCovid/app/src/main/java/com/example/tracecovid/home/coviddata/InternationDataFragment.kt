@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tracecovid.R
@@ -40,6 +41,10 @@ class InternationDataFragment : Fragment() {
 //      International Data RecyclerView
         internationalRecyclerView = view.findViewById(R.id.rv_international_stats)
         internationalRecyclerView.layoutManager = LinearLayoutManager(context)
+        val progressBar: ProgressBar = view.findViewById(R.id.progressBar)
+
+        progressBar.visibility = View.VISIBLE
+        internationalRecyclerView.visibility = View.GONE
 
 //      Retrieve World Covid-19 Data from https://disease.sh/v3/covid-19/all using Retrofit
         val gson = GsonBuilder().create()
@@ -63,6 +68,8 @@ class InternationDataFragment : Fragment() {
                 internationalData = internationalDailyData
                 var adapter = context?.let { InternationStatisticsAdapter(it, internationalData) }
                 internationalRecyclerView.adapter = adapter
+                progressBar.visibility = View.GONE
+                internationalRecyclerView.visibility = View.VISIBLE
             }
 
             override fun onFailure(call: Call<InternationalCovidData>, t: Throwable) {

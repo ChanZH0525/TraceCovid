@@ -44,8 +44,8 @@ class SelfReport : AppCompatActivity() {
         firebaseDB = FirebaseDatabase.getInstance("https://tracecovid-e507a-default-rtdb.asia-southeast1.firebasedatabase.app/")
         dbreference = firebaseDB.getReference("Users")
 
-        val back_btn: ImageView = findViewById(R.id.btn_back_self_report)
-        back_btn.setOnClickListener{
+        val backBtn: ImageView = findViewById(R.id.btn_back_self_report)
+        backBtn.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -119,20 +119,20 @@ class SelfReport : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
 
-        val dropdown_swabLocation = findViewById<AutoCompleteTextView>(R.id.dropdown_swabLocation)
+        val dropdownSwabLocation = findViewById<AutoCompleteTextView>(R.id.dropdown_swabLocation)
         val swabLocation = resources.getStringArray(R.array.swabLocation)
-        val arrayAdapter_swabLocation = ArrayAdapter(this, R.layout.dropdown_list, swabLocation)
-        dropdown_swabLocation.setAdapter(arrayAdapter_swabLocation)
+        val arrayAdapterSwabLocation = ArrayAdapter(this, R.layout.dropdown_list, swabLocation)
+        dropdownSwabLocation.setAdapter(arrayAdapterSwabLocation)
 
-        val dropdown_swabOutcome = findViewById<AutoCompleteTextView>(R.id.dropdown_swabOutcome)
+        val dropdownSwabOutcome = findViewById<AutoCompleteTextView>(R.id.dropdown_swabOutcome)
         val swabOutcome = resources.getStringArray(R.array.swabOutcome)
-        val arrayAdapter_swapOutcome = ArrayAdapter(this, R.layout.dropdown_list, swabOutcome)
-        dropdown_swabOutcome.setAdapter(arrayAdapter_swapOutcome)
+        val arrayAdapterSwapOutcome = ArrayAdapter(this, R.layout.dropdown_list, swabOutcome)
+        dropdownSwabOutcome.setAdapter(arrayAdapterSwapOutcome)
 
-        val dropdown_states = findViewById<AutoCompleteTextView>(R.id.dropdown_states)
+        val dropdownStates = findViewById<AutoCompleteTextView>(R.id.dropdown_states)
         val state = resources.getStringArray(R.array.states)
-        val arrayAdapter_states = ArrayAdapter(this, R.layout.dropdown_list, state)
-        dropdown_states.setAdapter(arrayAdapter_states)
+        val arrayAdapterStates = ArrayAdapter(this, R.layout.dropdown_list, state)
+        dropdownStates.setAdapter(arrayAdapterStates)
     }
 
     class DatePickerUniversal(private val mEditText: EditText, format: String?) :
